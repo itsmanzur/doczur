@@ -1,0 +1,122 @@
+<?php
+/**
+ * Main plugin container.
+ *
+ * @package ItsDZ\Doczur\Core
+ */
+
+namespace ItsDZ\Doczur\Core;
+
+use ItsDZ\Doczur\Admin\Admin_Menu;
+use ItsDZ\Doczur\Admin\Assets as Admin_Assets;
+use ItsDZ\Doczur\Core\Migrations\Migrator;
+use ItsDZ\Doczur\Frontend\Assets as Frontend_Assets;
+use ItsDZ\Doczur\Frontend\Rewrite_Manager;
+use ItsDZ\Doczur\Frontend\Template_Loader;
+use ItsDZ\Doczur\PostTypes\Article_Post_Type;
+use ItsDZ\Doczur\PostTypes\KB_Post_Type;
+use ItsDZ\Doczur\PostTypes\Meta_Fields;
+use ItsDZ\Doczur\REST\Article_Controller;
+use ItsDZ\Doczur\REST\Feedback_Controller;
+use ItsDZ\Doczur\REST\KB_Controller;
+use ItsDZ\Doczur\REST\Search_Controller;
+use ItsDZ\Doczur\REST\Transfer_Controller;
+use ItsDZ\Doczur\Search\Indexer;
+use ItsDZ\Doczur\Security\Capabilities;
+use ItsDZ\Doczur\Taxonomies\Section_Taxonomy;
+use ItsDZ\Doczur\Taxonomies\Tag_Taxonomy;
+use ItsDZ\Doczur\Taxonomies\Version_Taxonomy;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Coordinates all Doczur services from one place.
+ */
+final class Plugin {
+	/**
+	 * Singleton instance.
+	 *
+	 * @var Plugin|null
+	 */
+	private static $instance = null;
+
+	/**
+	 * Registered services.
+	 *
+	 * @var Service[]
+	 */
+	private $services = array();
+
+	/**
+	 * Whether services have already been registered.
+	 *
+	 * @var bool
+	 */
+	private $registered = false;
+
+	/**
+	 * Prevent direct construction.
+	 */
+	private function __construct() {}
+
+	/**
+	 * Get the plugin instance.
+	 *
+	 * @return Plugin
+	 */
+	public static function instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Register every plugin service exactly once.
+	 *
+	 * @return void
+	 */
+	public function register() {
+		if ( $this->registered ) {
+			return;
+		}
+
+		$this->services = $this->get_services();
+
+		foreach ( $this->services as $service ) {
+			$service->register();
+		}
+
+		$this->registered = true;
+	}
+
+	/**
+	 * Build the service list.
+	 *
+	 * @return Service[]
+	 */
+	private function get_services() {
+		return array(
+			new Capabilities(),
+			new KB_Post_Type(),
+			new Article_Post_Type(),
+			new Section_Taxonomy(),
+			new Tag_Taxonomy(),
+			new Version_Taxonomy(),
+			new Meta_Fields(),
+			new Migrator(),
+			new Indexer(),
+			new KB_Controller(),
+			new Article_Controller(),
+			new Search_Controller(),
+			new Feedback_Controller(),
+			new Transfer_Controller(),
+			new Admin_Menu(),
+			new Admin_Assets(),
+			new Template_Loader(),
+			new Frontend_Assets(),
+			new Rewrite_Manager(),
+		);
+	}
+}
