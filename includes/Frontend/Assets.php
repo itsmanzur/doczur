@@ -69,7 +69,10 @@ final class Assets implements Service {
 		$color = sanitize_hex_color( get_post_meta( $kb_id, '_itsdz_kb_brand_color', true ) );
 
 		if ( $color ) {
-			wp_add_inline_style( self::HANDLE, '.itsdz-docs{--itsdz-brand:' . $color . ';}' );
+			wp_add_inline_style(
+				self::HANDLE,
+				'.itsdz-docs{--itsdz-brand:' . $color . ';--itsdz-brand-strong:color-mix(in srgb,' . $color . ' 78%,#000);}'
+			);
 		}
 
 		wp_set_script_translations( self::HANDLE, 'doczur', ITSDZ_PLUGIN_DIR . 'languages' );

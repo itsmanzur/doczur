@@ -77,4 +77,17 @@ export function initNavigation( root: HTMLElement ) {
 			closeNavigation();
 		}
 	} );
+
+	// Close sidebar when tapping outside on mobile.
+	document.addEventListener( 'click', ( event ) => {
+		if (
+			! root.classList.contains( 'is-nav-open' ) ||
+			! sidebar ||
+			sidebar.contains( event.target as Node ) ||
+			navToggle?.contains( event.target as Node )
+		) {
+			return;
+		}
+		closeNavigation();
+	} );
 }

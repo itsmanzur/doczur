@@ -26,6 +26,7 @@ final class Template_Loader implements Service {
 		add_action( 'template_redirect', array( $this, 'guard_article' ), 1 );
 		add_filter( 'template_include', array( $this, 'select_template' ), 99 );
 		add_filter( 'document_title_parts', array( $this, 'document_title' ) );
+		add_filter( 'the_content', array( $this, 'inject_lazy_images' ) );
 	}
 
 	/**
@@ -79,5 +80,33 @@ final class Template_Loader implements Service {
 		}
 
 		return $parts;
+	}
+
+	/**
+	 * Inject loading="lazy" on images inside article content.
+	 *
+	 * Runs only on Doczur article singles so no other post types are affected.
+	 * Images that already carry a loading attribute are left untouched.
+	 *
+	 * @param string $content Post content.
+	 * @return string
+	 */
+	public function inject_lazy_images( $content ) {
+		if ( ! is_singular( Article_Post_Type::POST_TYPE ) ) {
+			return $content;
+		}
+
+		if ( ! str_contains( $content, '<img' ) ) {
+			return $content;
+		}
+
+		return (string) preg_replace_callback(
+			'/<img(?![^>]*\bloading=)[^>]*>/i',
+			static function ( $matches ) {
+				// Insert loading="lazy" just before the closing >.
+				return substr_replace( $matches[0], ' loading="lazy"', -1, 0 );
+			},
+			$content
+		);
 	}
 }

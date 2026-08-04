@@ -16,7 +16,7 @@ export function ImportExport( { project }: { project: Project } ) {
 			await api.downloadExport( project.id );
 			setNotice( {
 				status: 'success',
-				message: __( 'Export downloaded.', 'doczur' ),
+				message: __( 'Export downloaded successfully.', 'doczur' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -39,7 +39,7 @@ export function ImportExport( { project }: { project: Project } ) {
 			};
 			if ( ! Array.isArray( payload.articles ) ) {
 				throw new Error(
-					__( 'This is not a valid Doczur export.', 'doczur' )
+					__( 'This is not a valid Doczur export file.', 'doczur' )
 				);
 			}
 			const result = await api.importArticles(
@@ -67,59 +67,81 @@ export function ImportExport( { project }: { project: Project } ) {
 	};
 
 	return (
-		<div className="itsdz-transfer-grid">
-			<Card>
-				<CardBody>
-					<h1>{ __( 'Export documentation', 'doczur' ) }</h1>
-					<p>
-						{ __(
-							'Download a portable JSON backup of the project, articles, sections, and tags.',
-							'doczur'
-						) }
-					</p>
-					<Button
-						variant="primary"
-						onClick={ () => void exportJson() }
-						disabled={ busy }
-					>
-						{ busy && <Spinner /> }{ ' ' }
-						{ __( 'Download JSON', 'doczur' ) }
-					</Button>
-				</CardBody>
-			</Card>
-			<Card>
-				<CardBody>
-					<h2>{ __( 'Import documentation', 'doczur' ) }</h2>
-					<p>
-						{ __(
-							'Imported articles are always created as drafts so you can review them safely.',
-							'doczur'
-						) }
-					</p>
-					<label
-						className="itsdz-file-button"
-						htmlFor="itsdz-import-file"
-					>
-						<span>
-							{ busy
-								? __( 'Working…', 'doczur' )
-								: __( 'Choose JSON file', 'doczur' ) }
-						</span>
-						<input
-							id="itsdz-import-file"
-							type="file"
-							accept="application/json,.json"
-							disabled={ busy }
-							onChange={ ( event ) => {
-								const file = event.target.files?.[ 0 ];
-								if ( file ) {
-									void importJson( file );
-								}
-							} }
-						/>
-					</label>
-				</CardBody>
-			</Card>
+		<div className="itsdz-transfer-container">
+			<div className="itsdz-settings-header">
+				<div>
+					<h1>{ __( 'Import & Export Documentation', 'doczur' ) }</h1>
+					<p>{ __( 'Backup your documentation project or restore content from a JSON export.', 'doczur' ) }</p>
+				</div>
+			</div>
+
+			<div className="itsdz-transfer-grid">
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-download" aria-hidden="true" />
+							<h2>{ __( 'Export Documentation', 'doczur' ) }</h2>
+						</div>
+						<p className="itsdz-transfer-desc">
+							{ __(
+								'Download a portable JSON backup containing all articles, sections, tags, and structure.',
+								'doczur'
+							) }
+						</p>
+						<div className="itsdz-transfer-action">
+							<Button
+								variant="primary"
+								onClick={ () => void exportJson() }
+								disabled={ busy }
+							>
+								{ busy && <Spinner /> }{ ' ' }
+								<span className="dashicons dashicons-download" aria-hidden="true" style={ { marginInlineEnd: '6px' } } />
+								{ __( 'Download JSON Backup', 'doczur' ) }
+							</Button>
+						</div>
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-upload" aria-hidden="true" />
+							<h2>{ __( 'Import Documentation', 'doczur' ) }</h2>
+						</div>
+						<p className="itsdz-transfer-desc">
+							{ __(
+								'Restore or merge articles into this project. Imported articles are created as drafts for safety.',
+								'doczur'
+							) }
+						</p>
+						<div className="itsdz-transfer-action">
+							<label
+								className="itsdz-file-button"
+								htmlFor="itsdz-import-file"
+							>
+								<span className="dashicons dashicons-upload" aria-hidden="true" style={ { marginInlineEnd: '6px' } } />
+								<span>
+									{ busy
+										? __( 'Importing…', 'doczur' )
+										: __( 'Choose JSON File', 'doczur' ) }
+								</span>
+								<input
+									id="itsdz-import-file"
+									type="file"
+									accept="application/json,.json"
+									disabled={ busy }
+									onChange={ ( event ) => {
+										const file = event.target.files?.[ 0 ];
+										if ( file ) {
+											void importJson( file );
+										}
+									} }
+								/>
+							</label>
+						</div>
+					</CardBody>
+				</Card>
+			</div>
 		</div>
 	);
 }

@@ -65,6 +65,8 @@ function SortableArticle( {
 		isDragging,
 	} = useSortable( { id: article.id } );
 
+	const isPublished = article.status === 'publish';
+
 	return (
 		<div
 			ref={ setNodeRef }
@@ -90,7 +92,7 @@ function SortableArticle( {
 				{ ...attributes }
 				{ ...listeners }
 			>
-				<span aria-hidden="true">⋮⋮</span>
+				<span className="dashicons dashicons-menu" aria-hidden="true" />
 			</button>
 			<button
 				type="button"
@@ -100,29 +102,39 @@ function SortableArticle( {
 				<strong>
 					{ article.title || __( 'Untitled article', 'doczur' ) }
 				</strong>
-				<span>
-					{ sectionName || __( 'Unsectioned', 'doczur' ) } ·{ ' ' }
-					{ article.status }
+				<span className="itsdz-tree-meta">
+					<span className="itsdz-tree-section-tag">
+						{ sectionName || __( 'Unsectioned', 'doczur' ) }
+					</span>
+					<span className={ `itsdz-status-pill ${ isPublished ? 'is-published' : 'is-draft' }` }>
+						{ isPublished ? __( 'Published', 'doczur' ) : __( 'Draft', 'doczur' ) }
+					</span>
 				</span>
 			</button>
 			<div className="itsdz-tree-actions">
 				<button
 					type="button"
 					onClick={ onToggleStatus }
+					title={
+						isPublished
+							? __( 'Switch to Draft', 'doczur' )
+							: __( 'Publish Article', 'doczur' )
+					}
 					aria-label={
-						article.status === 'publish'
+						isPublished
 							? __( 'Move article to drafts', 'doczur' )
 							: __( 'Publish article', 'doczur' )
 					}
 				>
-					{ article.status === 'publish' ? '●' : '○' }
+					<span className={ `dashicons ${ isPublished ? 'dashicons-hidden' : 'dashicons-visibility' }` } aria-hidden="true" />
 				</button>
 				<button
 					type="button"
 					onClick={ onDuplicate }
+					title={ __( 'Duplicate Article', 'doczur' ) }
 					aria-label={ __( 'Duplicate article', 'doczur' ) }
 				>
-					⧉
+					<span className="dashicons dashicons-admin-page" aria-hidden="true" />
 				</button>
 			</div>
 		</div>
@@ -140,8 +152,10 @@ function ArticleEditor( { article, sections, onSaved }: EditorProps ) {
 	const [ content, setContent ] = useState( '' );
 	const [ status, setStatus ] = useState< 'draft' | 'publish' >( 'draft' );
 	const [ sectionId, setSectionId ] = useState( 0 );
+	const [ editorMode, setEditorMode ] = useState< 'edit' | 'preview' >( 'edit' );
 	const [ dirty, setDirty ] = useState( false );
 	const [ saving, setSaving ] = useState( false );
+
 	let saveState: string = __( 'Saved', 'doczur' );
 	if ( saving ) {
 		saveState = __( 'Saving…', 'doczur' );
@@ -155,6 +169,7 @@ function ArticleEditor( { article, sections, onSaved }: EditorProps ) {
 		setStatus( article?.status ?? 'draft' );
 		setSectionId( article?.section_ids[ 0 ] ?? 0 );
 		setDirty( false );
+		setEditorMode( 'edit' );
 	}, [ article ] );
 
 	const save = useCallback( async () => {
@@ -210,6 +225,46 @@ function ArticleEditor( { article, sections, onSaved }: EditorProps ) {
 		return () => window.removeEventListener( 'keydown', shortcut );
 	}, [ save ] );
 
+	// Calculate word count & estimated reading time.
+	const wordCount = useMemo( () => {
+		const plainText = content.replace( /<[^>]*>/g, ' ' ).trim();
+		return plainText ? plainText.split( /\s+/ ).length : 0;
+	}, [ content ] );
+
+	const readingTime = useMemo( () => {
+		return Math.max( 1, Math.ceil( wordCount / 200 ) );
+	}, [ wordCount ] );
+
+	// Quick Formatting Helper for Textarea insertion.
+	const insertFormat = ( openTag: string, closeTag: string = '' ) => {
+		const textarea = document.querySelector< HTMLTextAreaElement >(
+			'.itsdz-content-editor textarea'
+		);
+		if ( ! textarea ) {
+			setContent( ( prev ) => prev + openTag + closeTag );
+			setDirty( true );
+			return;
+		}
+
+		const start = textarea.selectionStart;
+		const end = textarea.selectionEnd;
+		const selectedText = content.substring( start, end );
+		const replacement = openTag + ( selectedText || 'text' ) + closeTag;
+
+		const newContent =
+			content.substring( 0, start ) + replacement + content.substring( end );
+		setContent( newContent );
+		setDirty( true );
+
+		window.setTimeout( () => {
+			textarea.focus();
+			textarea.setSelectionRange(
+				start + openTag.length,
+				start + openTag.length + ( selectedText || 'text' ).length
+			);
+		}, 10 );
+	};
+
 	if ( ! article ) {
 		return (
 			<div className="itsdz-empty-editor">
@@ -230,24 +285,41 @@ function ArticleEditor( { article, sections, onSaved }: EditorProps ) {
 			setDirty( true );
 		};
 
+	const nativeGutenbergUrl = `post.php?post=${ article.id }&action=edit`;
+
 	return (
 		<div className="itsdz-editor">
 			<div className="itsdz-editor-toolbar">
 				<div>
 					<span
-						className={ `itsdz-save-state ${
-							dirty ? 'is-dirty' : ''
+						className={ `itsdz-save-badge ${
+							saving ? 'is-saving' : dirty ? 'is-dirty' : 'is-saved'
 						}` }
 					>
-						{ saveState }
+						{ saving ? (
+							<Spinner />
+						) : (
+							<span className={ `dashicons ${ dirty ? 'dashicons-edit' : 'dashicons-saved' }` } aria-hidden="true" />
+						) }
+						<span>{ saveState }</span>
 					</span>
 				</div>
 				<div>
+					<Button
+						variant="tertiary"
+						href={ nativeGutenbergUrl }
+						target="_blank"
+						title={ __( 'Edit with WordPress Block Editor (Gutenberg)', 'doczur' ) }
+					>
+						<span className="dashicons dashicons-wordpress" aria-hidden="true" style={ { marginInlineEnd: '4px', fontSize: '15px', width: '15px', height: '15px' } } />
+						{ __( 'Gutenberg Editor', 'doczur' ) }
+					</Button>
 					<Button
 						variant="secondary"
 						href={ article.url }
 						target="_blank"
 					>
+						<span className="dashicons dashicons-external" aria-hidden="true" style={ { marginInlineEnd: '4px', fontSize: '15px', width: '15px', height: '15px' } } />
 						{ __( 'Preview', 'doczur' ) }
 					</Button>
 					<Button
@@ -259,55 +331,149 @@ function ArticleEditor( { article, sections, onSaved }: EditorProps ) {
 					</Button>
 				</div>
 			</div>
-			<TextControl
-				className="itsdz-title-input"
-				label={ __( 'Article title', 'doczur' ) }
-				value={ title }
-				onChange={ change( setTitle ) }
-			/>
-			<div className="itsdz-editor-meta">
-				<SelectControl
-					label={ __( 'Status', 'doczur' ) }
-					value={ status }
-					onChange={ ( value: 'draft' | 'publish' ) => {
-						setStatus( value );
-						setDirty( true );
-					} }
-					options={ [
-						{ label: __( 'Draft', 'doczur' ), value: 'draft' },
-						{
-							label: __( 'Published', 'doczur' ),
-							value: 'publish',
-						},
-					] }
+
+			<div className="itsdz-editor-form-group">
+				<TextControl
+					className="itsdz-title-input"
+					label={ __( 'ARTICLE TITLE', 'doczur' ) }
+					value={ title }
+					onChange={ change( setTitle ) }
+					placeholder={ __( 'Enter article title…', 'doczur' ) }
 				/>
-				<SelectControl
-					label={ __( 'Section', 'doczur' ) }
-					value={ String( sectionId ) }
-					onChange={ ( value ) => {
-						setSectionId( Number( value ) );
-						setDirty( true );
-					} }
-					options={ [
-						{ label: __( 'Unsectioned', 'doczur' ), value: '0' },
-						...sections.map( ( section ) => ( {
-							label: section.name,
-							value: String( section.id ),
-						} ) ),
-					] }
-				/>
-			</div>
-			<TextareaControl
-				className="itsdz-content-editor"
-				label={ __( 'Article content', 'doczur' ) }
-				help={ __(
-					'HTML is supported. Gutenberg editing will remain available from the native post editor.',
-					'doczur'
+				{ article.url && (
+					<div className="itsdz-permalink-preview">
+						<span className="dashicons dashicons-admin-links" aria-hidden="true" />
+						<span>{ article.url }</span>
+					</div>
 				) }
-				value={ content }
-				onChange={ change( setContent ) }
-				rows={ 22 }
-			/>
+
+				<div className="itsdz-editor-meta">
+					<SelectControl
+						label={ __( 'STATUS', 'doczur' ) }
+						value={ status }
+						onChange={ ( value: 'draft' | 'publish' ) => {
+							setStatus( value );
+							setDirty( true );
+						} }
+						options={ [
+							{ label: __( 'Draft', 'doczur' ), value: 'draft' },
+							{
+								label: __( 'Published', 'doczur' ),
+								value: 'publish',
+							},
+						] }
+					/>
+					<SelectControl
+						label={ __( 'SECTION', 'doczur' ) }
+						value={ String( sectionId ) }
+						onChange={ ( value ) => {
+							setSectionId( Number( value ) );
+							setDirty( true );
+						} }
+						options={ [
+							{ label: __( 'Unsectioned', 'doczur' ), value: '0' },
+							...sections.map( ( section ) => ( {
+								label: section.name,
+								value: String( section.id ),
+							} ) ),
+						] }
+					/>
+				</div>
+
+				<div className="itsdz-content-editor-wrapper">
+					<div className="itsdz-content-header">
+						<label className="itsdz-content-label">{ __( 'ARTICLE CONTENT', 'doczur' ) }</label>
+						<div className="itsdz-editor-mode-toggle">
+							<button
+								type="button"
+								className={ editorMode === 'edit' ? 'is-active' : '' }
+								onClick={ () => setEditorMode( 'edit' ) }
+							>
+								<span className="dashicons dashicons-editor-code" aria-hidden="true" />
+								{ __( 'Write / HTML', 'doczur' ) }
+							</button>
+							<button
+								type="button"
+								className={ editorMode === 'preview' ? 'is-active' : '' }
+								onClick={ () => setEditorMode( 'preview' ) }
+							>
+								<span className="dashicons dashicons-visibility" aria-hidden="true" />
+								{ __( 'Live Preview', 'doczur' ) }
+							</button>
+						</div>
+					</div>
+
+					{ editorMode === 'edit' && (
+						<>
+							<div className="itsdz-formatting-toolbar" role="toolbar" aria-label={ __( 'Formatting options', 'doczur' ) }>
+								<button type="button" onClick={ () => insertFormat( '<strong>', '</strong>' ) } title={ __( 'Bold', 'doczur' ) }>
+									<strong>B</strong>
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<em>', '</em>' ) } title={ __( 'Italic', 'doczur' ) }>
+									<em>I</em>
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<h2>', '</h2>' ) } title={ __( 'Heading 2', 'doczur' ) }>
+									H2
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<h3>', '</h3>' ) } title={ __( 'Heading 3', 'doczur' ) }>
+									H3
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<ul>\n  <li>', '</li>\n</ul>' ) } title={ __( 'Bullet List', 'doczur' ) }>
+									<span className="dashicons dashicons-editor-ul" aria-hidden="true" />
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<ol>\n  <li>', '</li>\n</ol>' ) } title={ __( 'Numbered List', 'doczur' ) }>
+									<span className="dashicons dashicons-editor-ol" aria-hidden="true" />
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<pre><code>', '</code></pre>' ) } title={ __( 'Code Block', 'doczur' ) }>
+									&lt;/&gt;
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<blockquote>', '</blockquote>' ) } title={ __( 'Quote', 'doczur' ) }>
+									<span className="dashicons dashicons-editor-quote" aria-hidden="true" />
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<div class="itsdz-callout">\n  ', '\n</div>' ) } title={ __( 'Callout / Alert Box', 'doczur' ) }>
+									<span className="dashicons dashicons-info" aria-hidden="true" />
+								</button>
+								<button type="button" onClick={ () => insertFormat( '<a href="https://">', '</a>' ) } title={ __( 'Insert Link', 'doczur' ) }>
+									<span className="dashicons dashicons-admin-links" aria-hidden="true" />
+								</button>
+							</div>
+
+							<TextareaControl
+								className="itsdz-content-editor"
+								value={ content }
+								onChange={ change( setContent ) }
+								rows={ 18 }
+								placeholder={ __( 'Write your article content here (HTML and formatting tags supported)…', 'doczur' ) }
+							/>
+						</>
+					) }
+
+					{ editorMode === 'preview' && (
+						<div className="itsdz-live-preview-box">
+							{ content ? (
+								<div
+									className="itsdz-article-content-rendered"
+									dangerouslySetInnerHTML={ { __html: content } }
+								/>
+							) : (
+								<p className="itsdz-preview-placeholder">
+									{ __( 'No content to preview yet. Switch to Write mode to add text.', 'doczur' ) }
+								</p>
+							) }
+						</div>
+					) }
+
+					<div className="itsdz-content-footer">
+						<span className="itsdz-content-help">
+							{ __( 'HTML & formatting supported. Gutenberg editing is also available natively.', 'doczur' ) }
+						</span>
+						<div className="itsdz-content-stats">
+							<span>📝 { wordCount } { __( 'words', 'doczur' ) }</span>
+							<span>⏱ { readingTime } { __( 'min read', 'doczur' ) }</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }

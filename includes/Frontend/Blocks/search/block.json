@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "itsdz/search",
+  "version": "0.1.0",
+  "title": "Doczur Search",
+  "category": "widgets",
+  "icon": "search",
+  "description": "Embed a documentation search box anywhere on your site. Submits to the chosen knowledge base and auto-opens the search modal with the entered query.",
+  "keywords": [ "documentation", "search", "knowledge base", "docs", "doczur" ],
+  "supports": {
+    "html": false,
+    "color": false,
+    "spacing": { "margin": true, "padding": true }
+  },
+  "attributes": {
+    "kb_id": {
+      "type": "integer",
+      "default": 0
+    },
+    "placeholder": {
+      "type": "string",
+      "default": ""
+    },
+    "button_text": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "render": "file:./render.php",
+  "textdomain": "doczur"
+}

@@ -37,4 +37,28 @@ if ( root ) {
 			openSearch();
 		}
 	} );
+
+	// Auto-open search when the page was reached via the embedded search block.
+	// The block form submits as GET ?itsdz_q=query to the KB URL.
+	const preQuery = new URLSearchParams( window.location.search ).get(
+		'itsdz_q'
+	);
+	if ( preQuery ) {
+		openSearch();
+		// After the search module loads and the modal is visible, pre-fill the
+		// input and fire an 'input' event so the search executes immediately.
+		void searchController!.then( () => {
+			const input = root.querySelector< HTMLInputElement >(
+				'[data-itsdz-search-input]'
+			);
+			if ( input ) {
+				window.setTimeout( () => {
+					input.value = preQuery;
+					input.dispatchEvent(
+						new Event( 'input', { bubbles: true } )
+					);
+				}, 80 );
+			}
+		} );
+	}
 }

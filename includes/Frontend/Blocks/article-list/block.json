@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "itsdz/docs-list",
+  "version": "0.1.0",
+  "title": "Doczur Article List",
+  "category": "widgets",
+  "icon": "list-view",
+  "description": "Display a list of documentation articles from a knowledge base — useful for sidebars, landing pages, and related-content sections.",
+  "keywords": [ "documentation", "articles", "list", "knowledge base", "docs", "doczur" ],
+  "supports": {
+    "html": false,
+    "color": false,
+    "spacing": { "margin": true, "padding": true }
+  },
+  "attributes": {
+    "kb_id": {
+      "type": "integer",
+      "default": 0
+    },
+    "limit": {
+      "type": "integer",
+      "default": 5
+    },
+    "show_section": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "render": "file:./render.php",
+  "textdomain": "doczur"
+}

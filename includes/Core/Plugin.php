@@ -9,13 +9,17 @@ namespace ItsDZ\Doczur\Core;
 
 use ItsDZ\Doczur\Admin\Admin_Menu;
 use ItsDZ\Doczur\Admin\Assets as Admin_Assets;
+use ItsDZ\Doczur\Analytics\View_Tracker;
 use ItsDZ\Doczur\Core\Migrations\Migrator;
 use ItsDZ\Doczur\Frontend\Assets as Frontend_Assets;
+use ItsDZ\Doczur\Frontend\Blocks;
 use ItsDZ\Doczur\Frontend\Rewrite_Manager;
+use ItsDZ\Doczur\Frontend\Shortcode;
 use ItsDZ\Doczur\Frontend\Template_Loader;
 use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 use ItsDZ\Doczur\PostTypes\Meta_Fields;
+use ItsDZ\Doczur\REST\Analytics_Controller;
 use ItsDZ\Doczur\REST\Article_Controller;
 use ItsDZ\Doczur\REST\Feedback_Controller;
 use ItsDZ\Doczur\REST\KB_Controller;
@@ -107,15 +111,19 @@ final class Plugin {
 			new Meta_Fields(),
 			new Migrator(),
 			new Indexer(),
+			new View_Tracker(),
 			new KB_Controller(),
 			new Article_Controller(),
 			new Search_Controller(),
 			new Feedback_Controller(),
 			new Transfer_Controller(),
+			new Analytics_Controller(),
 			new Admin_Menu(),
 			new Admin_Assets(),
 			new Template_Loader(),
+			new Shortcode(),
 			new Frontend_Assets(),
+			new Blocks(),
 			new Rewrite_Manager(),
 		);
 	}

@@ -2,15 +2,16 @@
 /**
  * Documentation project landing template.
  *
- * @package ItsDZ\Doczur
+ * @package ItsDZ\\Doczur
  */
 
 use ItsDZ\Doczur\Frontend\Documentation;
 
 defined( 'ABSPATH' ) || exit;
 
-$itsdz_kb     = get_queried_object();
-$itsdz_groups = Documentation::get_groups( $itsdz_kb->ID );
+$itsdz_kb         = get_queried_object();
+$itsdz_groups     = Documentation::get_groups( $itsdz_kb->ID );
+$itsdz_current_id = 0; // No active article on the landing page.
 
 require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 ?>
@@ -40,10 +41,11 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 			</div>
 			<span>
 				<?php
+				$itsdz_total = count( Documentation::get_articles( $itsdz_kb->ID ) );
 				printf(
 					/* translators: %d: published article count. */
-					esc_html( _n( '%d published article', '%d published articles', count( Documentation::get_articles( $itsdz_kb->ID ) ), 'doczur' ) ),
-					absint( count( Documentation::get_articles( $itsdz_kb->ID ) ) )
+					esc_html( _n( '%d published article', '%d published articles', $itsdz_total, 'doczur' ) ),
+					absint( $itsdz_total )
 				);
 				?>
 			</span>

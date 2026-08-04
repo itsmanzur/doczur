@@ -2,7 +2,6 @@ import {
 	Button,
 	Card,
 	CardBody,
-	SelectControl,
 	Spinner,
 	TextControl,
 } from '@wordpress/components';
@@ -72,110 +71,219 @@ export function Settings( { project }: { project: Project } ) {
 		}
 	};
 
+	const presetColors = [ '#3858e9', '#0d9488', '#2563eb', '#7c3aed', '#db2777', '#ea580c', '#16a34a' ];
+
 	return (
-		<Card className="itsdz-settings-card">
-			<CardBody>
-				<h1>{ __( 'Documentation settings', 'doczur' ) }</h1>
-				<p>
-					{ __(
-						'Control the project identity and default visual experience.',
-						'doczur'
-					) }
-				</p>
-				<div className="itsdz-form-stack">
-					<TextControl
-						label={ __( 'Project name', 'doczur' ) }
-						value={ name }
-						onChange={ setName }
-					/>
-					<TextControl
-						label={ __( 'URL slug', 'doczur' ) }
-						value={ slug }
-						onChange={ setSlug }
-					/>
-					<label
-						className="itsdz-color-control"
-						htmlFor="itsdz-settings-brand-color"
-					>
-						<span>{ __( 'Brand color', 'doczur' ) }</span>
-						<input
-							id="itsdz-settings-brand-color"
-							type="color"
-							value={ color }
-							onChange={ ( event ) =>
-								setColor( event.target.value )
-							}
-						/>
-					</label>
-					<SelectControl
-						label={ __( 'Color mode', 'doczur' ) }
-						value={ themeMode }
-						onChange={ ( value ) =>
-							setThemeMode(
-								value as Project[ 'meta' ][ '_itsdz_kb_theme_mode' ]
-							)
-						}
-						options={ [
-							{
-								label: __( 'System', 'doczur' ),
-								value: 'system',
-							},
-							{ label: __( 'Light', 'doczur' ), value: 'light' },
-							{ label: __( 'Dark', 'doczur' ), value: 'dark' },
-						] }
-					/>
-					<SelectControl
-						label={ __( 'Page shell', 'doczur' ) }
-						value={ layoutMode }
-						onChange={ ( value ) =>
-							setLayoutMode(
-								value as Project[ 'meta' ][ '_itsdz_kb_layout_mode' ]
-							)
-						}
-						options={ [
-							{
-								label: __( 'Doczur canvas', 'doczur' ),
-								value: 'canvas',
-							},
-							{
-								label: __(
-									'Theme header and footer',
-									'doczur'
-								),
-								value: 'theme',
-							},
-						] }
-					/>
-					<SelectControl
-						label={ __( 'Template', 'doczur' ) }
-						value={ template }
-						onChange={ ( value ) =>
-							setTemplate(
-								value as Project[ 'meta' ][ '_itsdz_kb_template' ]
-							)
-						}
-						options={ [
-							{ label: __( 'Clean', 'doczur' ), value: 'clean' },
-							{
-								label: __( 'Modern', 'doczur' ),
-								value: 'modern',
-							},
-							{
-								label: __( 'Compact', 'doczur' ),
-								value: 'compact',
-							},
-						] }
-					/>
+		<div className="itsdz-settings-container">
+			<div className="itsdz-settings-header">
+				<div>
+					<h1>{ __( 'Documentation Settings', 'doczur' ) }</h1>
+					<p>{ __( 'Customize identity, layout, colors, and global display preferences.', 'doczur' ) }</p>
+				</div>
+				<Button
+					variant="primary"
+					onClick={ () => void save() }
+					disabled={ saving || ! name.trim() }
+				>
+					{ saving && <Spinner /> }{ ' ' }
+					{ __( 'Save Settings', 'doczur' ) }
+				</Button>
+			</div>
+
+			<div className="itsdz-settings-sections">
+				{ /* Section 1: Project Identity & Permalinks */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-admin-generic" aria-hidden="true" />
+							<h2>{ __( 'Identity & Permalinks', 'doczur' ) }</h2>
+						</div>
+						<div className="itsdz-form-grid-2">
+							<TextControl
+								label={ __( 'PROJECT NAME', 'doczur' ) }
+								value={ name }
+								onChange={ setName }
+								placeholder={ __( 'Documentation project title', 'doczur' ) }
+							/>
+							<div>
+								<TextControl
+									label={ __( 'URL SLUG BASE', 'doczur' ) }
+									value={ slug }
+									onChange={ setSlug }
+									placeholder={ __( 'docs', 'doczur' ) }
+								/>
+								<div className="itsdz-setting-permalink-hint">
+									<span>{ __( 'Base URL:', 'doczur' ) } <code>{ window.location.origin }/{ slug || 'docs' }/</code></span>
+								</div>
+							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				{ /* Section 2: Branding & Color Accent */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-art" aria-hidden="true" />
+							<h2>{ __( 'Branding & Color Accent', 'doczur' ) }</h2>
+						</div>
+						<div className="itsdz-color-picker-box">
+							<label className="itsdz-field-label" htmlFor="itsdz-settings-color-input">
+								{ __( 'PRIMARY BRAND COLOR', 'doczur' ) }
+							</label>
+							<div className="itsdz-color-picker-controls">
+								<input
+									id="itsdz-settings-color-input"
+									type="color"
+									className="itsdz-color-swatch-input"
+									value={ color }
+									onChange={ ( event ) => setColor( event.target.value ) }
+								/>
+								<input
+									type="text"
+									className="itsdz-color-hex-input"
+									value={ color }
+									onChange={ ( event ) => setColor( event.target.value ) }
+									placeholder="#3858e9"
+								/>
+								<div className="itsdz-color-presets">
+									{ presetColors.map( ( hex ) => (
+										<button
+											key={ hex }
+											type="button"
+											className={ `itsdz-preset-btn ${ color.toLowerCase() === hex ? 'is-active' : '' }` }
+											style={ { background: hex } }
+											onClick={ () => setColor( hex ) }
+											aria-label={ `Select color ${ hex }` }
+										/>
+									) ) }
+								</div>
+							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				{ /* Section 3: Visual Theme & Appearance */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-desktop" aria-hidden="true" />
+							<h2>{ __( 'Appearance & Color Mode', 'doczur' ) }</h2>
+						</div>
+						<div className="itsdz-visual-choice-group">
+							<label className="itsdz-field-label">{ __( 'COLOR MODE PREFERENCE', 'doczur' ) }</label>
+							<div className="itsdz-visual-grid-3">
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ themeMode === 'system' ? 'is-selected' : '' }` }
+									onClick={ () => setThemeMode( 'system' ) }
+								>
+									<span className="dashicons dashicons-admin-settings" aria-hidden="true" />
+									<strong>{ __( 'System Auto', 'doczur' ) }</strong>
+									<span>{ __( 'Matches visitor’s OS setting', 'doczur' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ themeMode === 'light' ? 'is-selected' : '' }` }
+									onClick={ () => setThemeMode( 'light' ) }
+								>
+									<span className="dashicons dashicons-day" aria-hidden="true" />
+									<strong>{ __( 'Light Mode', 'doczur' ) }</strong>
+									<span>{ __( 'Always clean light theme', 'doczur' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ themeMode === 'dark' ? 'is-selected' : '' }` }
+									onClick={ () => setThemeMode( 'dark' ) }
+								>
+									<span className="dashicons dashicons-night" aria-hidden="true" />
+									<strong>{ __( 'Dark Mode', 'doczur' ) }</strong>
+									<span>{ __( 'Always sleek dark theme', 'doczur' ) }</span>
+								</button>
+							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				{ /* Section 4: Page Shell & Template Style */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-layout" aria-hidden="true" />
+							<h2>{ __( 'Layout & Template Style', 'doczur' ) }</h2>
+						</div>
+
+						<div className="itsdz-visual-choice-group">
+							<label className="itsdz-field-label">{ __( 'PAGE SHELL LAYOUT', 'doczur' ) }</label>
+							<div className="itsdz-visual-grid-2">
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ layoutMode === 'canvas' ? 'is-selected' : '' }` }
+									onClick={ () => setLayoutMode( 'canvas' ) }
+								>
+									<span className="dashicons dashicons-welcome-view-site" aria-hidden="true" />
+									<strong>{ __( 'Doczur Canvas', 'doczur' ) }</strong>
+									<span>{ __( 'Standalone full-screen portal, zero theme conflicts', 'doczur' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ layoutMode === 'theme' ? 'is-selected' : '' }` }
+									onClick={ () => setLayoutMode( 'theme' ) }
+								>
+									<span className="dashicons dashicons-align-center" aria-hidden="true" />
+									<strong>{ __( 'Active Theme Integration', 'doczur' ) }</strong>
+									<span>{ __( 'Integrates inside your active WordPress theme header & footer', 'doczur' ) }</span>
+								</button>
+							</div>
+						</div>
+
+						<div className="itsdz-visual-choice-group" style={ { marginTop: '22px' } }>
+							<label className="itsdz-field-label">{ __( 'TEMPLATE STYLE', 'doczur' ) }</label>
+							<div className="itsdz-visual-grid-3">
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ template === 'clean' ? 'is-selected' : '' }` }
+									onClick={ () => setTemplate( 'clean' ) }
+								>
+									<span className="dashicons dashicons-category" aria-hidden="true" />
+									<strong>{ __( 'Clean', 'doczur' ) }</strong>
+									<span>{ __( 'Minimalist, content-focused layout', 'doczur' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ template === 'modern' ? 'is-selected' : '' }` }
+									onClick={ () => setTemplate( 'modern' ) }
+								>
+									<span className="dashicons dashicons-superhero" aria-hidden="true" />
+									<strong>{ __( 'Modern', 'doczur' ) }</strong>
+									<span>{ __( 'Vibrant hero header & rich cards', 'doczur' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ template === 'compact' ? 'is-selected' : '' }` }
+									onClick={ () => setTemplate( 'compact' ) }
+								>
+									<span className="dashicons dashicons-excerpt-view" aria-hidden="true" />
+									<strong>{ __( 'Compact', 'doczur' ) }</strong>
+									<span>{ __( 'Dense sidebar layout for large docs', 'doczur' ) }</span>
+								</button>
+							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				<div className="itsdz-settings-footer-actions">
 					<Button
 						variant="primary"
 						onClick={ () => void save() }
 						disabled={ saving || ! name.trim() }
 					>
 						{ saving && <Spinner /> }{ ' ' }
-						{ __( 'Save settings', 'doczur' ) }
+						{ __( 'Save Settings', 'doczur' ) }
 					</Button>
 				</div>
-			</CardBody>
-		</Card>
+			</div>
+		</div>
 	);
 }
+

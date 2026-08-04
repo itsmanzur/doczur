@@ -7,6 +7,7 @@
 
 namespace ItsDZ\Doczur\Core;
 
+use ItsDZ\Doczur\Analytics\View_Tracker;
 use ItsDZ\Doczur\Core\Migrations\Migrator;
 
 defined( 'ABSPATH' ) || exit;
@@ -21,8 +22,23 @@ final class Deactivator {
 	 * @return void
 	 */
 	public static function deactivate() {
-		wp_clear_scheduled_hook( 'itsdz_flush_view_counts' );
+		// Unschedule WP-Cron view-flush event.
+		$cron_timestamp = wp_next_scheduled( View_Tracker::CRON_HOOK );
+		if ( $cron_timestamp ) {
+			wp_unschedule_event( $cron_timestamp, View_Tracker::CRON_HOOK );
+		}
+
+		// Unschedule Action Scheduler recurring action when AS is available.
+		if ( function_exists( 'as_unschedule_all_actions' ) ) {
+			as_unschedule_all_actions( View_Tracker::AS_HOOK, array(), 'itsdz' );
+		}
+
+		// Drop the pending view buffer so stale counts are not flushed later.
+		delete_transient( View_Tracker::BUFFER_TRANSIENT );
+
+		// Allow the migration check to re-run on next activation.
 		delete_transient( Migrator::CHECK_TRANSIENT );
+
 		flush_rewrite_rules();
 	}
 }

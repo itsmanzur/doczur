@@ -155,12 +155,12 @@ export function App() {
 				>
 					{ (
 						[
-							[ 'docs', __( 'Documentation', 'doczur' ) ],
-							[ 'settings', __( 'Settings', 'doczur' ) ],
-							[ 'transfer', __( 'Import / Export', 'doczur' ) ],
-							[ 'guide', __( 'Help & Guide', 'doczur' ) ],
-						] as [ View, string ][]
-					 ).map( ( [ itemView, label ] ) => (
+							[ 'docs', __( 'Documentation', 'doczur' ), 'dashicons-document' ],
+							[ 'settings', __( 'Settings', 'doczur' ), 'dashicons-admin-settings' ],
+							[ 'transfer', __( 'Import / Export', 'doczur' ), 'dashicons-database-export' ],
+							[ 'guide', __( 'Help & Guide', 'doczur' ), 'dashicons-editor-help' ],
+						] as [ View, string, string ][]
+					 ).map( ( [ itemView, label, iconClass ] ) => (
 						<Button
 							key={ itemView }
 							className={ view === itemView ? 'is-active' : '' }
@@ -169,10 +169,12 @@ export function App() {
 								view === itemView ? 'page' : undefined
 							}
 						>
+							<span className={ `dashicons ${ iconClass }` } aria-hidden="true" style={ { marginInlineEnd: '8px', fontSize: '17px', width: '17px', height: '17px' } } />
 							{ label }
 						</Button>
 					) ) }
 					<Button disabled className="itsdz-pro-nav">
+						<span className="dashicons dashicons-chart-bar" aria-hidden="true" style={ { marginInlineEnd: '8px', fontSize: '17px', width: '17px', height: '17px' } } />
 						{ __( 'Analytics', 'doczur' ) } <small>PRO</small>
 					</Button>
 				</nav>
