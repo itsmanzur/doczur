@@ -105,7 +105,7 @@ final class Section_Taxonomy implements Service {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['itsdz_section_icon'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$icon = sanitize_text_field( wp_unslash( $_POST['itsdz_section_icon'] ) );
+			$icon = sanitize_html_class( wp_unslash( $_POST['itsdz_section_icon'] ) );
 			update_term_meta( $term_id, '_itsdz_section_icon', $icon );
 		}
 	}

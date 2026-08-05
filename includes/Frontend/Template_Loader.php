@@ -68,7 +68,7 @@ final class Template_Loader implements Service {
 		);
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<script type="application/ld+json">' . (string) wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+		echo '<script type="application/ld+json">' . (string) wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 	}
 
 	/**

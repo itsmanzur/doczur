@@ -106,6 +106,32 @@ final class Content_Validator {
 		$allowed_html['div']['class'] = true;
 		$allowed_html['div']['style'] = true;
 
-		return wp_kses( (string) $content, $allowed_html );
+		$sanitized = wp_kses( (string) $content, $allowed_html );
+
+		if ( str_contains( $sanitized, '<iframe' ) ) {
+			$sanitized = (string) preg_replace_callback(
+				'/<iframe([^>]+)>/i',
+				static function ( $matches ) {
+					$attrs_string = $matches[1];
+					if ( preg_match( '/\bsrc=["\'\s]*([^"\'\s>]+)/i', $attrs_string, $src_matches ) ) {
+						$src  = $src_matches[1];
+						$host = wp_parse_url( $src, PHP_URL_HOST );
+
+						if ( $host ) {
+							$host = strtolower( $host );
+							if ( ! preg_match( '/^(?:[a-z0-9-]+\.)*(?:youtube\.com|youtube-nocookie\.com|youtu\.be|vimeo\.com|player\.vimeo\.com|loom\.com|fast\.wistia\.(?:net|com)|wistia\.com)$/', $host ) ) {
+								return '<!-- Removed unsafe iframe -->';
+							}
+						} else {
+							return '<!-- Removed invalid iframe -->';
+						}
+					}
+					return $matches[0];
+				},
+				$sanitized
+			);
+		}
+
+		return $sanitized;
 	}
 }

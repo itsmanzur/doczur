@@ -2,6 +2,14 @@
   "name": "doczur",
   "version": "0.1.0",
   "private": true,
+  "files": [
+    "doczur.php",
+    "readme.txt",
+    "uninstall.php",
+    "build/",
+    "includes/",
+    "templates/"
+  ],
   "description": "Admin and frontend assets for Doczur.",
   "scripts": {
     "build": "wp-scripts build",
