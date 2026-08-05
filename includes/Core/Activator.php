@@ -27,11 +27,11 @@ final class Activator {
 	 * @return void
 	 */
 	public static function activate() {
-		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
+		if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 			deactivate_plugins( plugin_basename( ITSDZ_PLUGIN_FILE ) );
 
 			wp_die(
-				esc_html__( 'Doczur requires PHP 7.4 or newer.', 'doczur' ),
+				esc_html__( 'Doczur requires PHP 8.0 or newer.', 'doczur' ),
 				esc_html__( 'Plugin activation failed', 'doczur' ),
 				array( 'back_link' => true )
 			);

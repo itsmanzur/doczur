@@ -5,7 +5,7 @@
  * Description:       Product documentation, knowledge base, and help center for WordPress.
  * Version:           0.1.0
  * Requires at least: 6.5
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            ItsDZ
  * Text Domain:       doczur
  * Domain Path:       /languages
