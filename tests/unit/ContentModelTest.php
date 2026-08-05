@@ -75,7 +75,8 @@ final class ContentModelTest extends TestCase {
 		$this->assertTrue( $section['args']['hierarchical'] );
 		$this->assertFalse( $tag['args']['hierarchical'] );
 		$this->assertFalse( $version['args']['show_ui'] );
-		$this->assertFalse( $version['args']['show_in_rest'] );
+		$this->assertTrue( $version['args']['hierarchical'] );
+		$this->assertTrue( $version['args']['show_in_rest'] );
 	}
 
 	/**
