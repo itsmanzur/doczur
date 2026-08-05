@@ -216,6 +216,8 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<li>{ __( 'No coding required', 'doczur' ) }</li>
 						<li>{ __( 'Fast visitor search', 'doczur' ) }</li>
 						<li>{ __( 'Mobile friendly', 'doczur' ) }</li>
+						<li>{ __( 'Article tags & versions', 'doczur' ) }</li>
+						<li>{ __( 'View analytics built-in', 'doczur' ) }</li>
 					</ul>
 				</div>
 
@@ -395,6 +397,105 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				</div>
 			</section>
 
+			{ /* ─── What's New ─── */ }
+			<section
+				className="itsdz-guide-features"
+				aria-labelledby="itsdz-features-title"
+			>
+				<div className="itsdz-guide-section-heading">
+					<span>{ __( "What's new", 'doczur' ) }</span>
+					<h2 id="itsdz-features-title">
+						{ __( 'Recently added features', 'doczur' ) }
+					</h2>
+					<p>
+						{ __(
+							'Everything below is available in the free version.',
+							'doczur'
+						) }
+					</p>
+				</div>
+				<div className="itsdz-features-grid">
+					{ (
+						[
+							[
+								'🏷️',
+								__( 'Article Tags', 'doczur' ),
+								__(
+									'Assign tags to articles from the editor. Tags group related articles and display as clickable pills on the frontend.',
+									'doczur'
+								),
+							],
+							[
+								'🔖',
+								__( 'Version Selector', 'doczur' ),
+								__(
+									'Tag articles with a version label such as v1.0. Create new versions instantly using the + New version button in the editor.',
+									'doczur'
+								),
+							],
+							[
+								'👁',
+								__( 'View Analytics', 'doczur' ),
+								__(
+									'See how many times each article has been read. View counts appear next to articles in the tree panel and inside the editor toolbar.',
+									'doczur'
+								),
+							],
+							[
+								'📋',
+								__( 'Code Copy Button', 'doczur' ),
+								__(
+									'Every code block on the frontend shows a Copy button on hover. Visitors can copy code to the clipboard in one click.',
+									'doczur'
+								),
+							],
+							[
+								'💬',
+								__( 'Callout Variants', 'doczur' ),
+								__(
+									'Four callout styles—Info ℹ️, Warning ⚠️, Danger 🚫, and Tip 💡—available from the toolbar. Each has a distinct color and icon.',
+									'doczur'
+								),
+							],
+							[
+								'📖',
+								__( 'Reading Progress Bar', 'doczur' ),
+								__(
+									'A thin gradient bar at the top of the page shows visitors how far through an article they have scrolled.',
+									'doczur'
+								),
+							],
+							[
+								'🔍',
+								__( 'Search Highlight', 'doczur' ),
+								__(
+									'When a visitor arrives from the search modal, matching keywords are highlighted inside the article content automatically.',
+									'doczur'
+								),
+							],
+							[
+								'🗂️',
+								__( 'Rich Content Toolbar', 'doczur' ),
+								__(
+									'Insert images from the Media Library, embed YouTube or Vimeo videos, add tables with custom headers, and create animated accordion blocks—all from toolbar buttons.',
+									'doczur'
+								),
+							],
+						] as [ string, string, string ][]
+					).map( ( [ icon, title, description ] ) => (
+						<div className="itsdz-feature-card" key={ title }>
+							<span className="itsdz-feature-icon" aria-hidden="true">
+								{ icon }
+							</span>
+							<div>
+								<strong>{ title }</strong>
+								<p>{ description }</p>
+							</div>
+						</div>
+					) ) }
+				</div>
+			</section>
+
 			<section
 				className="itsdz-guide-faq"
 				aria-labelledby="itsdz-faq-title"
@@ -455,6 +556,61 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<p>
 							{ __(
 								'Open Import / Export and download a JSON backup. The file includes articles, tags, and the full section hierarchy.',
+								'doczur'
+							) }
+						</p>
+					</details>
+					<details>
+						<summary>
+							{ __( 'How do I add tags to an article?', 'doczur' ) }
+						</summary>
+						<p>
+							{ __(
+								'Open the article editor and scroll below the Status and Section fields. You will see a tag selector showing all available tags. Click any pill to toggle it. Tags are saved with the article automatically.',
+								'doczur'
+							) }
+						</p>
+					</details>
+					<details>
+						<summary>
+							{ __( 'How do I create a version label?', 'doczur' ) }
+						</summary>
+						<p>
+							{ __(
+								'In the article editor, find the Version dropdown next to the section selector. Click + New version, type the label such as v2.0, and it will be created and selected instantly.',
+								'doczur'
+							) }
+						</p>
+					</details>
+					<details>
+						<summary>
+							{ __( 'Where can I see article view counts?', 'doczur' ) }
+						</summary>
+						<p>
+							{ __(
+								'View counts are shown in two places: as a small badge next to the article title in the tree panel, and as an eye icon counter inside the editor toolbar when you open an article.',
+								'doczur'
+							) }
+						</p>
+					</details>
+					<details>
+						<summary>
+							{ __( 'How do I insert a callout box?', 'doczur' ) }
+						</summary>
+						<p>
+							{ __(
+								'In the article content editor, use the four emoji buttons in the toolbar: ℹ️ for Info, ⚠️ for Warning, 🚫 for Danger, and 💡 for Tip. Each inserts a styled callout block with the correct color and icon.',
+								'doczur'
+							) }
+						</p>
+					</details>
+					<details>
+						<summary>
+							{ __( 'Does the frontend show a reading progress bar?', 'doczur' ) }
+						</summary>
+						<p>
+							{ __(
+								'Yes. When a visitor reads an article, a thin gradient bar at the very top of the browser window fills as they scroll through the content.',
 								'doczur'
 							) }
 						</p>

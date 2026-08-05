@@ -27,8 +27,87 @@ final class Section_Taxonomy implements Service {
 	 *
 	 * @return void
 	 */
+	/**
+	 * Register WordPress hooks.
+	 *
+	 * @return void
+	 */
 	public function register() {
 		add_action( 'init', array( $this, 'register_taxonomy' ), 5 );
+		add_action( 'init', array( $this, 'register_meta' ) );
+
+		// Admin form fields for term icon.
+		add_action( self::TAXONOMY . '_add_form_fields', array( $this, 'add_icon_field' ) );
+		add_action( self::TAXONOMY . '_edit_form_fields', array( $this, 'edit_icon_field' ) );
+		add_action( 'created_' . self::TAXONOMY, array( $this, 'save_icon_field' ) );
+		add_action( 'edited_' . self::TAXONOMY, array( $this, 'save_icon_field' ) );
+	}
+
+	/**
+	 * Register term meta for section icon.
+	 *
+	 * @return void
+	 */
+	public function register_meta() {
+		register_term_meta(
+			self::TAXONOMY,
+			'_itsdz_section_icon',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'show_in_rest'      => true,
+			)
+		);
+	}
+
+	/**
+	 * Add icon field on new term screen.
+	 *
+	 * @return void
+	 */
+	public function add_icon_field() {
+		?>
+		<div class="form-field term-icon-wrap">
+			<label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon (Dashicon class)', 'doczur' ); ?></label>
+			<input type="text" name="itsdz_section_icon" id="itsdz-section-icon" value="" placeholder="dashicons-category" />
+			<p class="description"><?php esc_html_e( 'Enter a Dashicons class (e.g. dashicons-book, dashicons-category, dashicons-vault).', 'doczur' ); ?></p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Edit icon field on edit term screen.
+	 *
+	 * @param \WP_Term $term Current term object.
+	 * @return void
+	 */
+	public function edit_icon_field( $term ) {
+		$icon = get_term_meta( $term->term_id, '_itsdz_section_icon', true );
+		?>
+		<tr class="form-field term-icon-wrap">
+			<th scope="row"><label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon', 'doczur' ); ?></label></th>
+			<td>
+				<input type="text" name="itsdz_section_icon" id="itsdz-section-icon" value="<?php echo esc_attr( (string) $icon ); ?>" placeholder="dashicons-category" />
+				<p class="description"><?php esc_html_e( 'Enter a Dashicons class name (e.g. dashicons-book, dashicons-category, dashicons-hammer).', 'doczur' ); ?></p>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * Save term icon meta.
+	 *
+	 * @param int $term_id Term ID.
+	 * @return void
+	 */
+	public function save_icon_field( $term_id ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['itsdz_section_icon'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$icon = sanitize_text_field( wp_unslash( $_POST['itsdz_section_icon'] ) );
+			update_term_meta( $term_id, '_itsdz_section_icon', $icon );
+		}
 	}
 
 	/**

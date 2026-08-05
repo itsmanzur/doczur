@@ -30,6 +30,7 @@ export interface Article {
 	reading_time: number;
 	section_ids: number[];
 	tag_ids: number[];
+	version_id: number;
 	url: string;
 }
 

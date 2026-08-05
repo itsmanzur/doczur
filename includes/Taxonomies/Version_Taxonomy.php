@@ -47,9 +47,9 @@ final class Version_Taxonomy implements Service {
 				),
 				'public'             => false,
 				'publicly_queryable' => false,
-				'hierarchical'       => false,
+				'hierarchical'       => true,
 				'show_ui'            => false,
-				'show_in_rest'       => false,
+				'show_in_rest'       => true,
 				'capabilities'       => Capabilities::taxonomy_map(),
 				'rewrite'            => false,
 			)

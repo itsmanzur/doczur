@@ -54,8 +54,17 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 		<?php if ( $itsdz_groups ) : ?>
 			<div class="itsdz-cards">
 				<?php foreach ( $itsdz_groups as $itsdz_group ) : ?>
+					<?php
+					$itsdz_icon = $itsdz_group['term'] ? get_term_meta( $itsdz_group['term']->term_id, '_itsdz_section_icon', true ) : '';
+					?>
 					<article class="itsdz-section-card">
-						<div class="itsdz-section-card-icon" aria-hidden="true">§</div>
+						<div class="itsdz-section-card-icon" aria-hidden="true">
+							<?php if ( $itsdz_icon ) : ?>
+								<span class="dashicons <?php echo esc_attr( (string) $itsdz_icon ); ?>"></span>
+							<?php else : ?>
+								§
+							<?php endif; ?>
+						</div>
 						<h3><?php echo esc_html( $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'doczur' ) ); ?></h3>
 						<?php if ( $itsdz_group['term'] && $itsdz_group['term']->description ) : ?>
 							<p><?php echo esc_html( $itsdz_group['term']->description ); ?></p>

@@ -27,6 +27,48 @@ final class Template_Loader implements Service {
 		add_filter( 'template_include', array( $this, 'select_template' ), 99 );
 		add_filter( 'document_title_parts', array( $this, 'document_title' ) );
 		add_filter( 'the_content', array( $this, 'inject_lazy_images' ) );
+		add_action( 'wp_head', array( $this, 'inject_schema_org_jsonld' ) );
+	}
+
+	/**
+	 * Inject Schema.org TechArticle JSON-LD on single article pages.
+	 *
+	 * @return void
+	 */
+	public function inject_schema_org_jsonld() {
+		if ( ! is_singular( Article_Post_Type::POST_TYPE ) ) {
+			return;
+		}
+
+		$post = get_queried_object();
+
+		if ( ! $post instanceof \WP_Post ) {
+			return;
+		}
+
+		$author_name = get_the_author_meta( 'display_name', (int) $post->post_author );
+		$site_name   = get_bloginfo( 'name' );
+
+		$schema = array(
+			'@context'         => 'https://schema.org',
+			'@type'            => 'TechArticle',
+			'headline'         => get_the_title( $post ),
+			'description'      => wp_strip_all_tags( get_the_excerpt( $post ) ),
+			'datePublished'    => get_the_date( 'c', $post ),
+			'dateModified'     => get_the_modified_date( 'c', $post ),
+			'mainEntityOfPage' => get_permalink( $post ),
+			'author'           => array(
+				'@type' => 'Person',
+				'name'  => $author_name ? $author_name : $site_name,
+			),
+			'publisher'        => array(
+				'@type' => 'Organization',
+				'name'  => $site_name,
+			),
+		);
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<script type="application/ld+json">' . (string) wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 	}
 
 	/**

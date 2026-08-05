@@ -43,6 +43,8 @@ final class Assets implements Service {
 			return;
 		}
 
+		wp_enqueue_media();
+
 		$asset_file  = ITSDZ_PLUGIN_DIR . 'build/admin.asset.php';
 		$script_file = ITSDZ_PLUGIN_DIR . 'build/admin.js';
 

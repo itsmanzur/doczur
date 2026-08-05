@@ -34,6 +34,11 @@ export const api = {
 			method: 'PUT',
 			data: payload,
 		} ),
+	deleteArticle: ( id: number ) =>
+		apiFetch< { deleted: boolean } >( {
+			path: `/itsdz/v1/articles/${ id }`,
+			method: 'DELETE',
+		} ),
 	reorderArticles: ( kbId: number, articles: Article[] ) =>
 		apiFetch< { updated: number } >( {
 			path: '/itsdz/v1/articles/reorder',

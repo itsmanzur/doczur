@@ -294,6 +294,8 @@ final class Article_Controller extends REST_Controller {
 	 * @return array<string, mixed>
 	 */
 	public function prepare_item( $post ) {
+		$versions = wp_get_object_terms( $post->ID, 'itsdz_version', array( 'fields' => 'ids' ) );
+
 		return array(
 			'id'           => $post->ID,
 			'kb_id'        => absint( get_post_meta( $post->ID, '_itsdz_kb_id', true ) ),
@@ -305,7 +307,8 @@ final class Article_Controller extends REST_Controller {
 			'reading_time' => absint( get_post_meta( $post->ID, '_itsdz_reading_time', true ) ),
 			'section_ids'  => wp_get_object_terms( $post->ID, 'itsdz_section', array( 'fields' => 'ids' ) ),
 			'tag_ids'      => wp_get_object_terms( $post->ID, 'itsdz_tag', array( 'fields' => 'ids' ) ),
-			'url'          => get_permalink( $post ),
+			'version_id'   => ! is_wp_error( $versions ) && ! empty( $versions ) ? $versions[0] : 0,
+			'url'          => 'publish' === $post->post_status ? get_permalink( $post ) : ( get_preview_post_link( $post ) ? get_preview_post_link( $post ) : get_permalink( $post ) ),
 		);
 	}
 
@@ -319,7 +322,7 @@ final class Article_Controller extends REST_Controller {
 	private function post_data( $request, $existing = null ) {
 		return array(
 			'menu_order'   => null !== $request->get_param( 'menu_order' ) ? absint( $request->get_param( 'menu_order' ) ) : ( $existing ? (int) $existing->menu_order : 0 ),
-			'post_content' => null !== $request->get_param( 'content' ) ? wp_kses_post( $request->get_param( 'content' ) ) : ( $existing ? $existing->post_content : '' ),
+			'post_content' => null !== $request->get_param( 'content' ) ? Content_Validator::sanitize_content( $request->get_param( 'content' ) ) : ( $existing ? $existing->post_content : '' ),
 			'post_status'  => $this->sanitize_status( $request->get_param( 'status' ), $existing ? $existing->post_status : 'draft' ),
 			'post_title'   => null !== $request->get_param( 'title' ) ? sanitize_text_field( $request->get_param( 'title' ) ) : ( $existing ? $existing->post_title : '' ),
 			'post_type'    => Article_Post_Type::POST_TYPE,
@@ -359,6 +362,11 @@ final class Article_Controller extends REST_Controller {
 				wp_set_object_terms( $post_id, array_map( 'absint', $term_ids ), $taxonomy );
 			}
 		}
+
+		$version_id = $request->get_param( 'version_id' );
+		if ( null !== $version_id ) {
+			wp_set_object_terms( $post_id, $version_id ? array( absint( $version_id ) ) : array(), 'itsdz_version' );
+		}
 	}
 
 	/**
@@ -385,6 +393,11 @@ final class Article_Controller extends REST_Controller {
 					return new \WP_Error( 'itsdz_invalid_tag', __( 'One or more documentation tags are invalid.', 'doczur' ), array( 'status' => 400 ) );
 				}
 			}
+		}
+
+		$version_id = $request->get_param( 'version_id' );
+		if ( $version_id && ! term_exists( absint( $version_id ), 'itsdz_version' ) ) {
+			return new \WP_Error( 'itsdz_invalid_version', __( 'The selected version is invalid.', 'doczur' ), array( 'status' => 400 ) );
 		}
 
 		return true;
@@ -454,6 +467,9 @@ final class Article_Controller extends REST_Controller {
 			'tag_ids'     => array(
 				'items' => array( 'type' => 'integer' ),
 				'type'  => 'array',
+			),
+			'version_id'  => array(
+				'type' => 'integer',
 			),
 		);
 	}

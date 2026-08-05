@@ -97,6 +97,13 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<p class="itsdz-feedback-status" role="status" aria-live="polite" data-itsdz-feedback-status></p>
 			</section>
 
+			<div class="itsdz-article-share" aria-label="<?php esc_attr_e( 'Share article', 'doczur' ); ?>">
+				<span><?php esc_html_e( 'Share article:', 'doczur' ); ?></span>
+				<a href="https://twitter.com/intent/tweet?text=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on Twitter or X', 'doczur' ); ?>">X / Twitter</a>
+				<a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on LinkedIn', 'doczur' ); ?>">LinkedIn</a>
+				<a href="mailto:?subject=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;body=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" aria-label="<?php esc_attr_e( 'Share via Email', 'doczur' ); ?>">Email</a>
+			</div>
+
 			<?php if ( $itsdz_related ) : ?>
 				<section class="itsdz-related" aria-labelledby="itsdz-related-title">
 					<h2 id="itsdz-related-title"><?php esc_html_e( 'Related articles', 'doczur' ); ?></h2>

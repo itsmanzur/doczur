@@ -43,4 +43,69 @@ final class Content_Validator {
 
 		return $kb;
 	}
+
+	/**
+	 * Sanitize article content allowing responsive iframe video embeds.
+	 *
+	 * @param string $content Raw HTML content.
+	 * @return string
+	 */
+	public static function sanitize_content( $content ) {
+		$allowed_html                 = wp_kses_allowed_html( 'post' );
+		$allowed_html['iframe']       = array(
+			'src'             => true,
+			'width'           => true,
+			'height'          => true,
+			'frameborder'     => true,
+			'allow'           => true,
+			'allowfullscreen' => true,
+			'class'           => true,
+			'style'           => true,
+			'title'           => true,
+		);
+		$allowed_html['figure']       = array(
+			'class' => true,
+			'style' => true,
+		);
+		$allowed_html['figcaption']   = array(
+			'class' => true,
+			'style' => true,
+		);
+		$allowed_html['img']          = array(
+			'src'     => true,
+			'alt'     => true,
+			'width'   => true,
+			'height'  => true,
+			'class'   => true,
+			'style'   => true,
+			'loading' => true,
+		);
+		$allowed_html['details']      = array(
+			'class' => true,
+			'open'  => true,
+		);
+		$allowed_html['summary']      = array(
+			'class' => true,
+		);
+		$allowed_html['table']        = array(
+			'class' => true,
+			'style' => true,
+		);
+		$allowed_html['thead']        = array( 'class' => true );
+		$allowed_html['tbody']        = array( 'class' => true );
+		$allowed_html['tr']           = array( 'class' => true );
+		$allowed_html['th']           = array(
+			'class' => true,
+			'scope' => true,
+		);
+		$allowed_html['td']           = array(
+			'class'   => true,
+			'colspan' => true,
+			'rowspan' => true,
+		);
+		$allowed_html['div']['class'] = true;
+		$allowed_html['div']['style'] = true;
+
+		return wp_kses( (string) $content, $allowed_html );
+	}
 }
