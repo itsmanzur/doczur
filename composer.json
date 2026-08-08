@@ -12,6 +12,7 @@
     "phpunit/phpunit": "^9.6",
     "squizlabs/php_codesniffer": "^3.13",
     "wp-coding-standards/wpcs": "^3.2",
+    "wp-phpunit/wp-phpunit": "^7.0",
     "yoast/phpunit-polyfills": "^3.1"
   },
   "autoload": {
@@ -22,7 +23,16 @@
   "scripts": {
     "lint": "phpcs",
     "lint:fix": "phpcbf",
-    "test": "phpunit"
+    "test": "phpunit",
+    "test:integration": "phpunit -c phpunit-integration.xml.dist",
+    "test:all": [
+      "@test",
+      "@test:integration"
+    ]
+  },
+  "scripts-descriptions": {
+    "test": "Run the fast isolated unit suite (no database required).",
+    "test:integration": "Run the WordPress integration suite. Requires a dedicated test database — see tests/README.md."
   },
   "config": {
     "allow-plugins": {

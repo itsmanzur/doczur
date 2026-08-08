@@ -2,12 +2,13 @@ import {
 	Button,
 	Card,
 	CardBody,
+	CheckboxControl,
 	Spinner,
 	TextControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { useEffect, useState } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
 import { api } from '../api';
 import { store } from '../store';
 import type { Project } from '../types';
@@ -35,6 +36,131 @@ export function Settings( { project }: { project: Project } ) {
 		project.meta._itsdz_kb_layout_mode || 'canvas'
 	);
 	const [ saving, setSaving ] = useState( false );
+	const [ sampleExists, setSampleExists ] = useState( false );
+	const [ sampleBusy, setSampleBusy ] = useState( false );
+	const [ deleteDataOnUninstall, setDeleteDataOnUninstall ] =
+		useState( false );
+	const [ deleteDataSaving, setDeleteDataSaving ] = useState( false );
+
+	useEffect( () => {
+		let cancelled = false;
+
+		api.getSampleDataStatus( project.id )
+			.then( ( result ) => {
+				if ( ! cancelled ) {
+					setSampleExists( result.exists );
+				}
+			} )
+			.catch( () => {
+				// Non-critical: the card still offers to generate content.
+			} );
+
+		return () => {
+			cancelled = true;
+		};
+	}, [ project.id ] );
+
+	useEffect( () => {
+		let cancelled = false;
+
+		api.getSettings()
+			.then( ( result ) => {
+				if ( ! cancelled ) {
+					setDeleteDataOnUninstall( result.delete_data_on_uninstall );
+				}
+			} )
+			.catch( () => {
+				// Non-critical: the checkbox just stays at its default (off).
+			} );
+
+		return () => {
+			cancelled = true;
+		};
+	}, [] );
+
+	const toggleDeleteDataOnUninstall = async ( checked: boolean ) => {
+		setDeleteDataOnUninstall( checked );
+		setDeleteDataSaving( true );
+		try {
+			await api.updateSettings( { delete_data_on_uninstall: checked } );
+		} catch ( error ) {
+			setDeleteDataOnUninstall( ! checked );
+			setNotice( {
+				status: 'error',
+				message:
+					error instanceof Error
+						? error.message
+						: __( 'This setting could not be saved.', 'doczur' ),
+			} );
+		} finally {
+			setDeleteDataSaving( false );
+		}
+	};
+
+	const generateSample = async () => {
+		setSampleBusy( true );
+		try {
+			const result = await api.createSampleData( project.id );
+			setSampleExists( true );
+			setNotice( {
+				status: 'success',
+				message: sprintf(
+					/* translators: 1: number of articles, 2: number of sections. */
+					__( 'Added %1$d sample articles across %2$d sections.', 'doczur' ),
+					result.articles,
+					result.sections
+				),
+			} );
+		} catch ( error ) {
+			setNotice( {
+				status: 'error',
+				message:
+					error instanceof Error
+						? error.message
+						: __( 'Sample content could not be created.', 'doczur' ),
+			} );
+		} finally {
+			setSampleBusy( false );
+		}
+	};
+
+	const removeSample = async () => {
+		// eslint-disable-next-line no-alert
+		const confirmed = window.confirm(
+			__(
+				'This permanently deletes the sample articles, including any edits you made to them. Continue?',
+				'doczur'
+			)
+		);
+
+		if ( ! confirmed ) {
+			return;
+		}
+
+		setSampleBusy( true );
+		try {
+			const result = await api.removeSampleData( project.id );
+			setSampleExists( false );
+			setNotice( {
+				status: 'success',
+				message: sprintf(
+					/* translators: %d: number of removed articles. */
+					__( 'Removed %d sample articles.', 'doczur' ),
+					result.articles
+				),
+			} );
+		} catch ( error ) {
+			setNotice( {
+				status: 'error',
+				message:
+					error instanceof Error
+						? error.message
+						: __( 'Sample content could not be removed.', 'doczur' ),
+			} );
+		} finally {
+			setSampleBusy( false );
+		}
+	};
 
 	const save = async () => {
 		setSaving( true );
@@ -268,6 +394,77 @@ export function Settings( { project }: { project: Project } ) {
 									<span>{ __( 'Dense sidebar layout for large docs', 'doczur' ) }</span>
 								</button>
 							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				{ /* Section 5: Data & Privacy */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-privacy" aria-hidden="true" />
+							<h2>{ __( 'Data & Privacy', 'doczur' ) }</h2>
+						</div>
+
+						<CheckboxControl
+							label={ __(
+								'Delete all Doczur data when the plugin is uninstalled',
+								'doczur'
+							) }
+							help={ __(
+								'Off by default. Removes your documentation projects, articles, and settings only when you actually delete the plugin — not on deactivation.',
+								'doczur'
+							) }
+							checked={ deleteDataOnUninstall }
+							disabled={ deleteDataSaving }
+							onChange={ ( checked: boolean ) =>
+								void toggleDeleteDataOnUninstall( checked )
+							}
+						/>
+					</CardBody>
+				</Card>
+
+				{ /* Section 6: Sample Content */ }
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-welcome-add-page" aria-hidden="true" />
+							<h2>{ __( 'Sample Content', 'doczur' ) }</h2>
+						</div>
+
+						<p className="itsdz-settings-card-intro">
+							{ sampleExists
+								? __(
+										'This project contains generated sample articles. Remove them once you have finished exploring — your own articles are never touched.',
+										'doczur'
+								  )
+								: __(
+										'Publishes eight ready-made articles across three sections so you can see a finished documentation site immediately. Every formatting feature is demonstrated, and you can delete it all in one click.',
+										'doczur'
+								  ) }
+						</p>
+
+						<div className="itsdz-sample-actions">
+							<Button
+								variant={ sampleExists ? 'secondary' : 'primary' }
+								onClick={ () => void generateSample() }
+								disabled={ sampleBusy }
+							>
+								{ sampleBusy && <Spinner /> }{ ' ' }
+								{ sampleExists
+									? __( 'Regenerate sample content', 'doczur' )
+									: __( 'Generate sample content', 'doczur' ) }
+							</Button>
+							{ sampleExists && (
+								<Button
+									variant="tertiary"
+									isDestructive
+									onClick={ () => void removeSample() }
+									disabled={ sampleBusy }
+								>
+									{ __( 'Remove sample content', 'doczur' ) }
+								</Button>
+							) }
 						</div>
 					</CardBody>
 				</Card>

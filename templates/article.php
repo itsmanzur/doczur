@@ -18,6 +18,16 @@ $itsdz_related    = Documentation::get_related( $itsdz_kb->ID, $itsdz_article->I
 $itsdz_sections   = get_the_terms( $itsdz_article, 'itsdz_section' );
 $itsdz_section    = is_array( $itsdz_sections ) ? reset( $itsdz_sections ) : null;
 $itsdz_reading    = max( 1, absint( get_post_meta( $itsdz_article->ID, '_itsdz_reading_time', true ) ) );
+$itsdz_author     = get_the_author_meta( 'display_name', (int) $itsdz_article->post_author );
+$itsdz_reviewed   = (string) get_post_meta( $itsdz_article->ID, '_itsdz_last_reviewed', true );
+
+/**
+ * Filter whether the article byline (author name and avatar) is displayed.
+ *
+ * @param bool     $show    Whether to show the byline.
+ * @param \WP_Post $article Current article.
+ */
+$itsdz_show_author = (bool) apply_filters( 'itsdz_show_article_author', true, $itsdz_article );
 
 require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 ?>
@@ -26,19 +36,42 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 
 	<main class="itsdz-article-main" id="itsdz-main">
 		<nav class="itsdz-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'doczur' ); ?>">
-			<a href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>"><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></a>
-			<span aria-hidden="true">/</span>
-			<?php if ( $itsdz_section instanceof WP_Term ) : ?>
-				<span><?php echo esc_html( $itsdz_section->name ); ?></span>
+			<div class="itsdz-breadcrumb-trail">
+				<a href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>"><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></a>
 				<span aria-hidden="true">/</span>
+				<?php if ( $itsdz_section instanceof WP_Term ) : ?>
+					<span><?php echo esc_html( $itsdz_section->name ); ?></span>
+					<span aria-hidden="true">/</span>
+				<?php endif; ?>
+				<span aria-current="page"><?php echo esc_html( get_the_title( $itsdz_article ) ); ?></span>
+			</div>
+			<?php if ( 'theme' === $itsdz_layout_mode ) : ?>
+				<div class="itsdz-breadcrumb-actions">
+					<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
+						<span class="itsdz-icon-menu" aria-hidden="true"></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'doczur' ); ?></span>
+					</button>
+					<button class="itsdz-icon-button" type="button" data-itsdz-search-open aria-label="<?php esc_attr_e( 'Search documentation', 'doczur' ); ?>">
+						<span class="itsdz-icon-search" aria-hidden="true"></span>
+					</button>
+					<button class="itsdz-icon-button" type="button" data-itsdz-theme-toggle aria-label="<?php esc_attr_e( 'Toggle color mode', 'doczur' ); ?>">
+						<span class="itsdz-icon-contrast" aria-hidden="true"></span>
+					</button>
+				</div>
 			<?php endif; ?>
-			<span aria-current="page"><?php echo esc_html( get_the_title( $itsdz_article ) ); ?></span>
 		</nav>
 
 		<article class="itsdz-article">
 			<header class="itsdz-article-header">
 				<h1><?php echo esc_html( get_the_title( $itsdz_article ) ); ?></h1>
 				<div class="itsdz-article-meta">
+					<?php if ( $itsdz_show_author && $itsdz_author ) : ?>
+						<span class="itsdz-article-byline">
+							<?php echo get_avatar( (int) $itsdz_article->post_author, 20, '', $itsdz_author, array( 'class' => 'itsdz-article-avatar' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_avatar() returns escaped markup. ?>
+							<span><?php echo esc_html( $itsdz_author ); ?></span>
+						</span>
+						<span aria-hidden="true">•</span>
+					<?php endif; ?>
 					<span>
 						<?php
 						printf(
@@ -48,6 +81,18 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 						);
 						?>
 					</span>
+					<?php if ( $itsdz_reviewed ) : ?>
+						<span aria-hidden="true">•</span>
+						<span class="itsdz-article-reviewed">
+							<?php
+							printf(
+								/* translators: %s: date the article was last reviewed for accuracy. */
+								esc_html__( 'Reviewed %s', 'doczur' ),
+								esc_html( wp_date( (string) get_option( 'date_format' ), (int) strtotime( $itsdz_reviewed . ' UTC' ) ) )
+							);
+							?>
+						</span>
+					<?php endif; ?>
 					<span aria-hidden="true">•</span>
 					<span>
 						<?php
@@ -59,6 +104,13 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 						?>
 					</span>
 					<button type="button" class="itsdz-copy-link" data-itsdz-copy-link><?php esc_html_e( 'Copy link', 'doczur' ); ?></button>
+					<button
+						type="button"
+						class="itsdz-copy-link"
+						data-itsdz-copy-markdown
+						data-itsdz-title="<?php echo esc_attr( get_the_title( $itsdz_article ) ); ?>"
+						title="<?php esc_attr_e( 'Copy this article as Markdown, ready to paste into an AI assistant', 'doczur' ); ?>"
+					><?php esc_html_e( 'Copy as Markdown', 'doczur' ); ?></button>
 				</div>
 			</header>
 

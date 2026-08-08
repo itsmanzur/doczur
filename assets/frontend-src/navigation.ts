@@ -2,6 +2,37 @@ import { __ } from '@wordpress/i18n';
 
 const COLOR_KEY = 'itsdz-color-mode';
 
+/**
+ * navigator.clipboard is only available in a secure context (https, or the
+ * literal `localhost` host) — on a plain-http dev/staging site it throws
+ * synchronously. Fall back to the legacy execCommand path in that case
+ * instead of silently reporting "Copy failed" for every visitor there.
+ * @param text
+ */
+async function copyToClipboard( text: string ): Promise< void > {
+	if ( window.isSecureContext && navigator.clipboard ) {
+		await navigator.clipboard.writeText( text );
+		return;
+	}
+
+	const textarea = document.createElement( 'textarea' );
+	textarea.value = text;
+	textarea.style.position = 'fixed';
+	textarea.style.top = '-1000px';
+	textarea.style.opacity = '0';
+	document.body.appendChild( textarea );
+	textarea.focus();
+	textarea.select();
+
+	try {
+		if ( ! document.execCommand( 'copy' ) ) {
+			throw new Error( 'execCommand copy was unsuccessful' );
+		}
+	} finally {
+		document.body.removeChild( textarea );
+	}
+}
+
 export function initNavigation( root: HTMLElement ) {
 	const sidebar = root.querySelector< HTMLElement >( '[data-itsdz-sidebar]' );
 	const navToggle = root.querySelector< HTMLButtonElement >(
@@ -62,7 +93,7 @@ export function initNavigation( root: HTMLElement ) {
 
 	copyButton?.addEventListener( 'click', async () => {
 		try {
-			await navigator.clipboard.writeText( window.location.href );
+			await copyToClipboard( window.location.href );
 			copyButton.textContent = __( 'Copied', 'doczur' );
 			window.setTimeout( () => {
 				copyButton.textContent = __( 'Copy link', 'doczur' );
@@ -70,6 +101,46 @@ export function initNavigation( root: HTMLElement ) {
 		} catch {
 			copyButton.textContent = __( 'Copy failed', 'doczur' );
 		}
+	} );
+
+	const markdownButton = root.querySelector< HTMLButtonElement >(
+		'[data-itsdz-copy-markdown]'
+	);
+
+	markdownButton?.addEventListener( 'click', async () => {
+		const content = root.querySelector< HTMLElement >(
+			'[data-itsdz-content]'
+		);
+
+		if ( ! content ) {
+			return;
+		}
+
+		const label =
+			markdownButton.textContent ?? __( 'Copy as Markdown', 'doczur' );
+
+		try {
+			// Loaded on demand so the converter stays out of the initial bundle.
+			const { articleToMarkdown } = await import(
+				/* webpackChunkName: "itsdz-markdown" */ './markdown'
+			);
+
+			await copyToClipboard(
+				articleToMarkdown(
+					content,
+					markdownButton.dataset.itsdzTitle ?? document.title,
+					window.location.href
+				)
+			);
+
+			markdownButton.textContent = __( 'Copied', 'doczur' );
+		} catch {
+			markdownButton.textContent = __( 'Copy failed', 'doczur' );
+		}
+
+		window.setTimeout( () => {
+			markdownButton.textContent = label;
+		}, 1800 );
 	} );
 
 	document.addEventListener( 'keydown', ( event ) => {

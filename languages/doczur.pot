@@ -1,0 +1,14 @@
+# Copyright (C) 2026 ItsDZ
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Doczur 1.0.0\n"
+"Report-Msgid-Bugs-To: https://doczur.com/support\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-08T00:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: manual\n"
+"X-Domain: doczur\n"
+"Language: en\n"

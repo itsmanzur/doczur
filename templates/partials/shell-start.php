@@ -9,7 +9,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$itsdz_kb_id       = $itsdz_kb->ID;
+$itsdz_kb_id = $itsdz_kb->ID;
+// The landing page's queried object is the KB itself; article pages query
+// the article and resolve $itsdz_kb separately — this tells them apart
+// without a post-type check.
+$itsdz_is_landing  = get_queried_object_id() === $itsdz_kb_id;
 $itsdz_layout_mode = get_post_meta( $itsdz_kb_id, '_itsdz_kb_layout_mode', true );
 $itsdz_theme_mode  = get_post_meta( $itsdz_kb_id, '_itsdz_kb_theme_mode', true );
 $itsdz_template    = get_post_meta( $itsdz_kb_id, '_itsdz_kb_template', true );
@@ -42,29 +46,58 @@ if ( 'theme' === $itsdz_layout_mode ) {
 	data-theme="<?php echo esc_attr( $itsdz_theme_mode ); ?>"
 >
 	<a class="itsdz-skip-link" href="#itsdz-main"><?php esc_html_e( 'Skip to documentation', 'doczur' ); ?></a>
-	<header class="itsdz-site-header">
-		<div class="itsdz-header-inner">
-			<a class="itsdz-site-brand" href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>">
-				<?php if ( $itsdz_logo_id ) : ?>
-					<?php echo wp_get_attachment_image( $itsdz_logo_id, 'thumbnail', false, array( 'class' => 'itsdz-site-logo' ) ); ?>
-				<?php else : ?>
-					<span class="itsdz-site-mark" aria-hidden="true">D</span>
+	<?php
+	// In `theme` layout mode, article pages fold the search/nav/theme
+	// controls into the breadcrumb row instead (see templates/article.php)
+	// rather than showing a second full-width bar under the active theme's
+	// own header. The landing page has no breadcrumb to fold into, and its
+	// header already carries nothing but the theme-toggle (search and nav
+	// are hidden there via $itsdz_is_landing), so it keeps this bar as-is.
+	$itsdz_show_header_bar = ( 'canvas' === $itsdz_layout_mode ) || $itsdz_is_landing;
+	?>
+	<?php if ( $itsdz_show_header_bar ) : ?>
+		<header class="itsdz-site-header">
+			<div class="itsdz-header-inner">
+				<?php if ( 'canvas' === $itsdz_layout_mode ) : ?>
+					<div class="itsdz-header-brand-group">
+						<a class="itsdz-back-to-site" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<span aria-hidden="true">←</span>
+							<span>
+								<?php
+								printf(
+									/* translators: %s: site name */
+									esc_html__( 'Back to %s', 'doczur' ),
+									esc_html( get_bloginfo( 'name' ) )
+								);
+								?>
+							</span>
+						</a>
+						<a class="itsdz-site-brand" href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>">
+							<?php if ( $itsdz_logo_id ) : ?>
+								<?php echo wp_get_attachment_image( $itsdz_logo_id, 'thumbnail', false, array( 'class' => 'itsdz-site-logo' ) ); ?>
+							<?php else : ?>
+								<span class="itsdz-site-mark" aria-hidden="true">D</span>
+							<?php endif; ?>
+							<span><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></span>
+						</a>
+					</div>
 				<?php endif; ?>
-				<span><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></span>
-			</a>
-			<div class="itsdz-header-actions">
-				<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
-					<span aria-hidden="true">☰</span>
-					<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'doczur' ); ?></span>
-				</button>
-				<button class="itsdz-search-trigger" type="button" data-itsdz-search-open aria-label="<?php esc_attr_e( 'Search documentation', 'doczur' ); ?>">
-					<span aria-hidden="true">⌕</span>
-					<span><?php esc_html_e( 'Search documentation', 'doczur' ); ?></span>
-					<kbd>Ctrl K</kbd>
-				</button>
-				<button class="itsdz-icon-button" type="button" data-itsdz-theme-toggle aria-label="<?php esc_attr_e( 'Toggle color mode', 'doczur' ); ?>">
-					<span aria-hidden="true">◐</span>
-				</button>
+				<div class="itsdz-header-actions">
+					<?php if ( ! $itsdz_is_landing ) : ?>
+						<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
+							<span class="itsdz-icon-menu" aria-hidden="true"></span>
+							<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'doczur' ); ?></span>
+						</button>
+						<button class="itsdz-search-trigger" type="button" data-itsdz-search-open aria-label="<?php esc_attr_e( 'Search documentation', 'doczur' ); ?>">
+							<span class="itsdz-icon-search" aria-hidden="true"></span>
+							<span><?php esc_html_e( 'Search documentation', 'doczur' ); ?></span>
+							<kbd>Ctrl K</kbd>
+						</button>
+					<?php endif; ?>
+					<button class="itsdz-icon-button" type="button" data-itsdz-theme-toggle aria-label="<?php esc_attr_e( 'Toggle color mode', 'doczur' ); ?>">
+						<span class="itsdz-icon-contrast" aria-hidden="true"></span>
+					</button>
+				</div>
 			</div>
-		</div>
-	</header>
+		</header>
+	<?php endif; ?>

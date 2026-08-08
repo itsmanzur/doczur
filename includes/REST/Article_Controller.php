@@ -297,18 +297,20 @@ final class Article_Controller extends REST_Controller {
 		$versions = wp_get_object_terms( $post->ID, 'itsdz_version', array( 'fields' => 'ids' ) );
 
 		return array(
-			'id'           => $post->ID,
-			'kb_id'        => absint( get_post_meta( $post->ID, '_itsdz_kb_id', true ) ),
-			'title'        => get_the_title( $post ),
-			'content'      => $post->post_content,
-			'slug'         => $post->post_name,
-			'status'       => $post->post_status,
-			'menu_order'   => (int) $post->menu_order,
-			'reading_time' => absint( get_post_meta( $post->ID, '_itsdz_reading_time', true ) ),
-			'section_ids'  => wp_get_object_terms( $post->ID, 'itsdz_section', array( 'fields' => 'ids' ) ),
-			'tag_ids'      => wp_get_object_terms( $post->ID, 'itsdz_tag', array( 'fields' => 'ids' ) ),
-			'version_id'   => ! is_wp_error( $versions ) && ! empty( $versions ) ? $versions[0] : 0,
-			'url'          => 'publish' === $post->post_status ? get_permalink( $post ) : ( get_preview_post_link( $post ) ? get_preview_post_link( $post ) : get_permalink( $post ) ),
+			'id'            => $post->ID,
+			'kb_id'         => absint( get_post_meta( $post->ID, '_itsdz_kb_id', true ) ),
+			'title'         => get_the_title( $post ),
+			'content'       => $post->post_content,
+			'slug'          => $post->post_name,
+			'status'        => $post->post_status,
+			'menu_order'    => (int) $post->menu_order,
+			'reading_time'  => absint( get_post_meta( $post->ID, '_itsdz_reading_time', true ) ),
+			'last_reviewed' => (string) get_post_meta( $post->ID, '_itsdz_last_reviewed', true ),
+			'modified'      => mysql_to_rfc3339( $post->post_modified_gmt ),
+			'section_ids'   => wp_get_object_terms( $post->ID, 'itsdz_section', array( 'fields' => 'ids' ) ),
+			'tag_ids'       => wp_get_object_terms( $post->ID, 'itsdz_tag', array( 'fields' => 'ids' ) ),
+			'version_id'    => ! is_wp_error( $versions ) && ! empty( $versions ) ? $versions[0] : 0,
+			'url'           => 'publish' === $post->post_status ? get_permalink( $post ) : ( get_preview_post_link( $post ) ? get_preview_post_link( $post ) : get_permalink( $post ) ),
 		);
 	}
 
@@ -337,9 +339,17 @@ final class Article_Controller extends REST_Controller {
 	 * @return void
 	 */
 	private function update_optional_meta( $post_id, $request ) {
-		foreach ( array( '_itsdz_last_reviewed', '_itsdz_owner' ) as $key ) {
-			if ( null !== $request->get_param( $key ) ) {
-				update_post_meta( $post_id, $key, $request->get_param( $key ) );
+		// Public param name => meta key. The raw meta keys stay accepted for
+		// backwards compatibility with existing integrations.
+		$aliases = array(
+			'last_reviewed'        => '_itsdz_last_reviewed',
+			'_itsdz_last_reviewed' => '_itsdz_last_reviewed',
+			'_itsdz_owner'         => '_itsdz_owner',
+		);
+
+		foreach ( $aliases as $param => $key ) {
+			if ( null !== $request->get_param( $param ) ) {
+				update_post_meta( $post_id, $key, $request->get_param( $param ) );
 			}
 		}
 	}
@@ -442,34 +452,38 @@ final class Article_Controller extends REST_Controller {
 	 */
 	private function write_args( $required ) {
 		return array(
-			'title'       => array(
+			'title'         => array(
 				'required'          => $required,
 				'sanitize_callback' => 'sanitize_text_field',
 				'type'              => 'string',
 			),
-			'content'     => array( 'type' => 'string' ),
-			'status'      => array(
+			'content'       => array( 'type' => 'string' ),
+			'status'        => array(
 				'enum' => array( 'draft', 'publish' ),
 				'type' => 'string',
 			),
-			'kb_id'       => array(
+			'kb_id'         => array(
 				'required' => $required,
 				'type'     => 'integer',
 			),
-			'menu_order'  => array(
+			'menu_order'    => array(
 				'minimum' => 0,
 				'type'    => 'integer',
 			),
-			'section_ids' => array(
+			'section_ids'   => array(
 				'items' => array( 'type' => 'integer' ),
 				'type'  => 'array',
 			),
-			'tag_ids'     => array(
+			'tag_ids'       => array(
 				'items' => array( 'type' => 'integer' ),
 				'type'  => 'array',
 			),
-			'version_id'  => array(
+			'version_id'    => array(
 				'type' => 'integer',
+			),
+			'last_reviewed' => array(
+				'description' => __( 'ISO 8601 date (YYYY-MM-DD) the article was last reviewed for accuracy.', 'doczur' ),
+				'type'        => 'string',
 			),
 		);
 	}

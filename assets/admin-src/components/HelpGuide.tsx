@@ -3,7 +3,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import type { Article, Project } from '../types';
 
-type GuideDestination = 'docs' | 'settings' | 'transfer';
+type GuideDestination = 'docs' | 'glossary' | 'settings' | 'transfer';
 
 interface Props {
 	project: Project;
@@ -88,12 +88,12 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				'doczur'
 			),
 			description: __(
-				'Give the article a clear title, write short step-by-step instructions, choose a section, and publish it when it is ready.',
+				'Clicking "+ New" opens the article straight in the WordPress block editor. Write your steps there, then set the section, tags and version in the "Doczur" panel on the right before publishing.',
 				'doczur'
 			),
 			steps: [
 				__(
-					'Click Add article in the Documentation screen.',
+					'Click "+ New" in the Documentation screen — it opens the editor immediately.',
 					'doczur'
 				),
 				__(
@@ -101,7 +101,11 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 					'doczur'
 				),
 				__(
-					'Save as Draft while editing, then choose Published.',
+					'Open the "Doczur" panel in the sidebar to set the section, tags and version.',
+					'doczur'
+				),
+				__(
+					'Save as Draft while writing, then choose Publish when it is ready.',
 					'doczur'
 				),
 			],
@@ -109,8 +113,63 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 			destination: 'docs',
 		},
 		{
-			id: 'design',
+			id: 'format',
 			number: '03',
+			title: __( 'Format with confidence', 'doczur' ),
+			summary: __( 'Write visually — you never see a tag.', 'doczur' ),
+			heading: __( 'Article content is written in the WordPress block editor', 'doczur' ),
+			description: __(
+				'Click "Edit content in Gutenberg" on any article to open the same visual, block-based editor you already use for posts and pages. Every block you add — paragraphs, images, tables, lists — is fully WYSIWYG.',
+				'doczur'
+			),
+			steps: [
+				__(
+					'On the Documentation screen, click "Edit content in Gutenberg" for any article.',
+					'doczur'
+				),
+				__(
+					'Add the "Doczur Callout" block for coloured notes, tips, warnings and cautions.',
+					'doczur'
+				),
+				__(
+					'Use core WordPress blocks for images, tables and collapsible lists.',
+					'doczur'
+				),
+				__(
+					'Save or publish, then return to Doczur — the preview updates automatically.',
+					'doczur'
+				),
+			],
+			action: __( 'Open the documentation tree', 'doczur' ),
+			destination: 'docs',
+		},
+		{
+			id: 'glossary',
+			number: '04',
+			title: __( 'Explain your jargon', 'doczur' ),
+			summary: __( 'Define a term once, everywhere.', 'doczur' ),
+			heading: __( 'Readers hover, and the definition appears', 'doczur' ),
+			description: __(
+				'Add the words your product uses to the glossary. The first time each term appears in an article it gets a dotted underline, and the definition shows on hover or keyboard focus. Links, headings and code samples are never touched.',
+				'doczur'
+			),
+			steps: [
+				__( 'Open Glossary and add a term with its definition.', 'doczur' ),
+				__(
+					'Add alternative spellings so plurals and abbreviations match too.',
+					'doczur'
+				),
+				__(
+					'Use the Doczur Glossary block to publish the full list on its own page.',
+					'doczur'
+				),
+			],
+			action: __( 'Manage the glossary', 'doczur' ),
+			destination: 'glossary',
+		},
+		{
+			id: 'design',
+			number: '05',
 			title: __( 'Make it yours', 'doczur' ),
 			summary: __( 'Match the help center to your brand.', 'doczur' ),
 			heading: __(
@@ -134,7 +193,7 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 		},
 		{
 			id: 'maintain',
-			number: '04',
+			number: '06',
 			title: __( 'Share and maintain', 'doczur' ),
 			summary: __( 'Keep documentation useful over time.', 'doczur' ),
 			heading: __(
@@ -142,7 +201,7 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				'doczur'
 			),
 			description: __(
-				'Send customers to your documentation home page. Update articles when your product changes, review feedback, and download a JSON backup before large edits.',
+				'Send customers to your documentation home page. Mark articles as reviewed when you check them, so anything drifting out of date is easy to spot, and download a JSON backup before large edits.',
 				'doczur'
 			),
 			steps: [
@@ -151,7 +210,11 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 					'doczur'
 				),
 				__(
-					'Use helpful feedback to improve unclear articles.',
+					'Use "Mark reviewed today" after checking an article is still accurate.',
+					'doczur'
+				),
+				__(
+					'Articles left unreviewed for 90 days show a "Needs review" badge.',
 					'doczur'
 				),
 				__(
@@ -161,6 +224,40 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 			],
 			action: __( 'Open Import / Export', 'doczur' ),
 			destination: 'transfer',
+		},
+		{
+			id: 'ai',
+			number: '07',
+			title: __( 'Be readable by AI', 'doczur' ),
+			summary: __( 'Help assistants answer from your docs.', 'doczur' ),
+			heading: __(
+				'Your documentation already speaks to AI assistants',
+				'doczur'
+			),
+			description: __(
+				'Customers increasingly ask ChatGPT, Claude or Perplexity instead of searching your site. Doczur publishes a machine-readable map of your documentation automatically, so those answers come from your actual content rather than guesswork.',
+				'doczur'
+			),
+			steps: [
+				__(
+					'Visit /llms.txt on your site to see the generated index.',
+					'doczur'
+				),
+				__(
+					'/llms-full.txt adds the complete text of every published article.',
+					'doczur'
+				),
+				__(
+					'Readers can use "Copy as Markdown" on any article to paste it into a chat.',
+					'doczur'
+				),
+				__(
+					'Only published articles in published projects are ever included.',
+					'doczur'
+				),
+			],
+			action: __( 'Review your articles', 'doczur' ),
+			destination: 'docs',
 		},
 	];
 	const selectedLesson =

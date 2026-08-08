@@ -62,11 +62,36 @@ export const api = {
 			method: 'POST',
 			data: { name, parent },
 		} ),
+	getSampleDataStatus: ( kbId: number ) =>
+		apiFetch< { exists: boolean } >( {
+			path: `/itsdz/v1/sample-data?kb_id=${ kbId }`,
+		} ),
+	createSampleData: ( kbId: number ) =>
+		apiFetch< { articles: number; sections: number; exists: boolean } >( {
+			path: '/itsdz/v1/sample-data',
+			method: 'POST',
+			data: { kb_id: kbId },
+		} ),
+	removeSampleData: ( kbId: number ) =>
+		apiFetch< { articles: number; sections: number; exists: boolean } >( {
+			path: `/itsdz/v1/sample-data?kb_id=${ kbId }`,
+			method: 'DELETE',
+		} ),
 	importArticles: ( kbId: number, articles: Record< string, unknown >[] ) =>
 		apiFetch< { created: number; article_ids: number[] } >( {
 			path: '/itsdz/v1/import',
 			method: 'POST',
 			data: { kb_id: kbId, articles },
+		} ),
+	getSettings: () =>
+		apiFetch< { delete_data_on_uninstall: boolean } >( {
+			path: '/itsdz/v1/settings',
+		} ),
+	updateSettings: ( payload: { delete_data_on_uninstall: boolean } ) =>
+		apiFetch< { delete_data_on_uninstall: boolean } >( {
+			path: '/itsdz/v1/settings',
+			method: 'PUT',
+			data: payload,
 		} ),
 	async downloadExport( kbId: number ) {
 		const response = await fetch(

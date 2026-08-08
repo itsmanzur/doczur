@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "itsdz/popular-docs",
+  "version": "0.1.0",
+  "title": "Doczur Popular Articles",
+  "category": "widgets",
+  "icon": "chart-bar",
+  "description": "Show the most viewed or most recently published articles from a knowledge base.",
+  "keywords": [ "popular", "recent", "trending", "documentation", "doczur" ],
+  "supports": {
+    "html": false,
+    "color": false,
+    "spacing": { "margin": true, "padding": true }
+  },
+  "attributes": {
+    "kb_id": {
+      "type": "integer",
+      "default": 0
+    },
+    "limit": {
+      "type": "integer",
+      "default": 5
+    },
+    "order": {
+      "type": "string",
+      "default": "popular"
+    },
+    "show_views": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "itsdz-blocks",
+  "style": "itsdz-frontend",
+  "render": "file:./render.php",
+  "textdomain": "doczur"
+}

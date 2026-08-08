@@ -26,7 +26,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<p class="itsdz-hero-copy"><?php esc_html_e( 'Find answers, setup guidance, and detailed product information.', 'doczur' ); ?></p>
 			<?php endif; ?>
 			<button class="itsdz-hero-search" type="button" data-itsdz-search-open>
-				<span aria-hidden="true">⌕</span>
+				<span class="itsdz-icon-search itsdz-icon-lg" aria-hidden="true"></span>
 				<span><?php esc_html_e( 'Search for an answer…', 'doczur' ); ?></span>
 				<kbd>Ctrl K</kbd>
 			</button>
@@ -55,17 +55,18 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 			<div class="itsdz-cards">
 				<?php foreach ( $itsdz_groups as $itsdz_group ) : ?>
 					<?php
-					$itsdz_icon = $itsdz_group['term'] ? get_term_meta( $itsdz_group['term']->term_id, '_itsdz_section_icon', true ) : '';
+					$itsdz_group_name = $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'doczur' );
+					$itsdz_icon       = $itsdz_group['term'] ? get_term_meta( $itsdz_group['term']->term_id, '_itsdz_section_icon', true ) : '';
 					?>
 					<article class="itsdz-section-card">
 						<div class="itsdz-section-card-icon" aria-hidden="true">
 							<?php if ( $itsdz_icon ) : ?>
 								<span class="dashicons <?php echo esc_attr( (string) $itsdz_icon ); ?>"></span>
 							<?php else : ?>
-								§
+								<?php echo esc_html( mb_strtoupper( mb_substr( $itsdz_group_name, 0, 1 ) ) ); ?>
 							<?php endif; ?>
 						</div>
-						<h3><?php echo esc_html( $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'doczur' ) ); ?></h3>
+						<h3><?php echo esc_html( $itsdz_group_name ); ?></h3>
 						<?php if ( $itsdz_group['term'] && $itsdz_group['term']->description ) : ?>
 							<p><?php echo esc_html( $itsdz_group['term']->description ); ?></p>
 						<?php endif; ?>

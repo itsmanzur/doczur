@@ -4,6 +4,8 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		admin: './assets/admin-src/index.tsx',
+		blocks: './assets/blocks-src/index.tsx',
+		'editor-panel': './assets/editor-panel-src/index.tsx',
 		frontend: './assets/frontend-src/index.ts',
 	},
 };

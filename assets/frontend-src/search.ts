@@ -43,8 +43,21 @@ export function initSearch( root: HTMLElement ) {
 		trigger?.focus();
 	};
 
-	const renderResults = ( items: SearchResult[] ) => {
+	const renderResults = ( items: SearchResult[], query: string ) => {
 		results.replaceChildren();
+
+		if ( items.length === 0 ) {
+			const empty = document.createElement( 'p' );
+			empty.className = 'itsdz-search-empty';
+			empty.textContent = sprintf(
+				/* translators: %s: the search query that returned no results. */
+				__( 'No results for "%s". Try different keywords.', 'doczur' ),
+				query
+			);
+			results.appendChild( empty );
+			return;
+		}
+
 		items.forEach( ( item ) => {
 			const link = document.createElement( 'a' );
 			const title = document.createElement( 'strong' );
@@ -82,7 +95,7 @@ export function initSearch( root: HTMLElement ) {
 				throw new Error();
 			}
 			const payload = ( await response.json() ) as SearchResponse;
-			renderResults( payload.results );
+			renderResults( payload.results, query );
 			status.textContent = sprintf(
 				/* translators: %d: number of search results. */
 				__( '%d results found.', 'doczur' ),

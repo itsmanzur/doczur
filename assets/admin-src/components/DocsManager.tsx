@@ -21,27 +21,36 @@ import {
 	CardBody,
 	SelectControl,
 	Spinner,
-	TextareaControl,
 	TextControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { api } from '../api';
+import { getStaleness } from '../staleness';
 import { store } from '../store';
-import type { Article, Project, Section } from '../types';
+import type { Article, Project } from '../types';
+import { KbOverviewPanel } from './KbOverviewPanel';
 
 interface ManagerProps {
 	project: Project;
 }
 
+/**
+ * Relative to wp-admin/, same as the current admin.php?page=doczur screen —
+ * this is the only editing surface for an article's content and metadata
+ * from this point on, so every row navigates straight into it.
+ * @param articleId
+ */
+function editUrl( articleId: number ): string {
+	return `post.php?post=${ articleId }&action=edit`;
+}
+
 interface SortableArticleProps {
 	article: Article;
-	active: boolean;
 	checked: boolean;
 	sectionName: string;
-	onSelect: () => void;
 	onCheck: ( checked: boolean ) => void;
 	onDuplicate: () => void;
 	onToggleStatus: () => void;
@@ -51,10 +60,8 @@ interface SortableArticleProps {
 
 function SortableArticle( {
 	article,
-	active,
 	checked,
 	sectionName,
-	onSelect,
 	onCheck,
 	onDuplicate,
 	onToggleStatus,
@@ -71,6 +78,7 @@ function SortableArticle( {
 	} = useSortable( { id: article.id } );
 
 	const isPublished = article.status === 'publish';
+	const staleness = getStaleness( article );
 
 	return (
 		<div
@@ -79,9 +87,7 @@ function SortableArticle( {
 				transform: CSS.Transform.toString( transform ),
 				transition,
 			} }
-			className={ `itsdz-tree-item${ active ? ' is-active' : '' }${
-				isDragging ? ' is-dragging' : ''
-			}` }
+			className={ `itsdz-tree-item${ isDragging ? ' is-dragging' : '' }` }
 		>
 			<input
 				type="checkbox"
@@ -99,24 +105,49 @@ function SortableArticle( {
 			>
 				<span className="dashicons dashicons-menu" aria-hidden="true" />
 			</button>
-			<button
-				type="button"
-				className="itsdz-tree-select"
-				onClick={ onSelect }
-			>
+			<a className="itsdz-tree-select" href={ editUrl( article.id ) }>
 				<strong>
 					{ article.title || __( 'Untitled article', 'doczur' ) }
-					<span className="itsdz-view-badge">{ viewCount ?? 0 }</span>
+					{ !! viewCount && (
+						<span
+							className="itsdz-view-badge"
+							title={ sprintf(
+								/* translators: %d: number of page views. */
+								__( '%d views', 'doczur' ),
+								viewCount
+							) }
+						>
+							<span
+								className="dashicons dashicons-visibility"
+								aria-hidden="true"
+							/>
+							{ viewCount }
+						</span>
+					) }
 				</strong>
 				<span className="itsdz-tree-meta">
 					<span className="itsdz-tree-section-tag">
 						{ sectionName || __( 'Unsectioned', 'doczur' ) }
 					</span>
-					<span className={ `itsdz-status-pill ${ isPublished ? 'is-published' : 'is-draft' }` }>
-						{ isPublished ? __( 'Published', 'doczur' ) : __( 'Draft', 'doczur' ) }
+					<span
+						className={ `itsdz-status-pill ${
+							isPublished ? 'is-published' : 'is-draft'
+						}` }
+					>
+						{ isPublished
+							? __( 'Published', 'doczur' )
+							: __( 'Draft', 'doczur' ) }
 					</span>
+					{ staleness?.isStale && (
+						<span
+							className="itsdz-stale-pill"
+							title={ staleness.label }
+						>
+							{ __( 'Needs review', 'doczur' ) }
+						</span>
+					) }
 				</span>
-			</button>
+			</a>
 			<div className="itsdz-tree-actions">
 				<button
 					type="button"
@@ -132,7 +163,14 @@ function SortableArticle( {
 							: __( 'Publish article', 'doczur' )
 					}
 				>
-					<span className={ `dashicons ${ isPublished ? 'dashicons-hidden' : 'dashicons-visibility' }` } aria-hidden="true" />
+					<span
+						className={ `dashicons ${
+							isPublished
+								? 'dashicons-hidden'
+								: 'dashicons-visibility'
+						}` }
+						aria-hidden="true"
+					/>
 				</button>
 				<button
 					type="button"
@@ -140,7 +178,10 @@ function SortableArticle( {
 					title={ __( 'Duplicate Article', 'doczur' ) }
 					aria-label={ __( 'Duplicate article', 'doczur' ) }
 				>
-					<span className="dashicons dashicons-admin-page" aria-hidden="true" />
+					<span
+						className="dashicons dashicons-admin-page"
+						aria-hidden="true"
+					/>
 				</button>
 				<button
 					type="button"
@@ -149,607 +190,11 @@ function SortableArticle( {
 					aria-label={ __( 'Delete article', 'doczur' ) }
 					className="itsdz-delete-btn"
 				>
-					<span className="dashicons dashicons-trash" aria-hidden="true" />
-				</button>
-			</div>
-		</div>
-	);
-}
-
-interface EditorProps {
-	article: Article | null;
-	sections: Section[];
-	onSaved: ( article: Article ) => void;
-	onDelete: () => void;
-	viewCount?: number;
-}
-
-function ArticleEditor( { article, sections, onSaved, onDelete, viewCount }: EditorProps ) {
-	const [ title, setTitle ] = useState( '' );
-	const [ content, setContent ] = useState( '' );
-	const [ status, setStatus ] = useState< 'draft' | 'publish' >( 'draft' );
-	const [ sectionId, setSectionId ] = useState( 0 );
-	const [ selectedTagIds, setSelectedTagIds ] = useState< number[] >( [] );
-	const [ versionId, setVersionId ] = useState( 0 );
-	const [ availableTags, setAvailableTags ] = useState< { id: number; name: string }[] >( [] );
-	const [ availableVersions, setAvailableVersions ] = useState< { id: number; name: string }[] >( [] );
-	const [ editorMode, setEditorMode ] = useState< 'edit' | 'preview' >( 'edit' );
-	const [ dirty, setDirty ] = useState( false );
-	const [ saving, setSaving ] = useState( false );
-
-	let saveState: string = __( 'Saved', 'doczur' );
-	if ( saving ) {
-		saveState = __( 'Saving…', 'doczur' );
-	} else if ( dirty ) {
-		saveState = __( 'Unsaved changes', 'doczur' );
-	}
-
-	useEffect( () => {
-		apiFetch< { id: number; name: string }[] >( { path: '/wp/v2/itsdz_tag?per_page=100' } )
-			.then( setAvailableTags )
-			.catch( () => setAvailableTags( [] ) );
-		apiFetch< { id: number; name: string }[] >( { path: '/wp/v2/itsdz_version?per_page=100' } )
-			.then( setAvailableVersions )
-			.catch( () => setAvailableVersions( [] ) );
-	}, [] );
-
-	useEffect( () => {
-		setTitle( article?.title ?? '' );
-		setContent( article?.content ?? '' );
-		setStatus( article?.status ?? 'draft' );
-		setSectionId( article?.section_ids[ 0 ] ?? 0 );
-		setSelectedTagIds( article?.tag_ids ?? [] );
-		setVersionId( article?.version_id ?? 0 );
-		setDirty( false );
-		setEditorMode( 'edit' );
-	}, [ article ] );
-
-	const save = useCallback( async () => {
-		if ( ! article || ! dirty || saving ) {
-			return;
-		}
-
-		setSaving( true );
-		try {
-			const saved = await api.updateArticle( article.id, {
-				title,
-				content,
-				status,
-				section_ids: sectionId ? [ sectionId ] : [],
-				tag_ids: selectedTagIds,
-				version_id: versionId,
-			} );
-			onSaved( saved );
-			setDirty( false );
-		} finally {
-			setSaving( false );
-		}
-	}, [ article, content, dirty, onSaved, saving, sectionId, selectedTagIds, status, title, versionId ] );
-
-	useEffect( () => {
-		if ( ! dirty ) {
-			return undefined;
-		}
-
-		const timeout = window.setTimeout( () => void save(), 1500 );
-		return () => window.clearTimeout( timeout );
-	}, [ dirty, save ] );
-
-	useEffect( () => {
-		const warn = ( event: BeforeUnloadEvent ) => {
-			if ( dirty ) {
-				event.preventDefault();
-			}
-		};
-		window.addEventListener( 'beforeunload', warn );
-		return () => window.removeEventListener( 'beforeunload', warn );
-	}, [ dirty ] );
-
-	useEffect( () => {
-		const shortcut = ( event: KeyboardEvent ) => {
-			if (
-				( event.ctrlKey || event.metaKey ) &&
-				event.key.toLowerCase() === 's'
-			) {
-				event.preventDefault();
-				void save();
-			}
-		};
-		window.addEventListener( 'keydown', shortcut );
-		return () => window.removeEventListener( 'keydown', shortcut );
-	}, [ save ] );
-
-	// Calculate word count & estimated reading time.
-	const wordCount = useMemo( () => {
-		const plainText = content.replace( /<[^>]*>/g, ' ' ).trim();
-		return plainText ? plainText.split( /\s+/ ).length : 0;
-	}, [ content ] );
-
-	const readingTime = useMemo( () => {
-		return Math.max( 1, Math.ceil( wordCount / 200 ) );
-	}, [ wordCount ] );
-
-	// Quick Formatting Helper for Textarea insertion.
-	const insertFormat = ( openTag: string, closeTag: string = '' ) => {
-		const textarea = document.querySelector< HTMLTextAreaElement >(
-			'.itsdz-content-editor textarea'
-		);
-		if ( ! textarea ) {
-			setContent( ( prev ) => prev + openTag + closeTag );
-			setDirty( true );
-			return;
-		}
-
-		const start = textarea.selectionStart;
-		const end = textarea.selectionEnd;
-		const selectedText = content.substring( start, end );
-		const replacement = openTag + ( selectedText || 'text' ) + closeTag;
-
-		const newContent =
-			content.substring( 0, start ) + replacement + content.substring( end );
-		setContent( newContent );
-		setDirty( true );
-
-		window.setTimeout( () => {
-			textarea.focus();
-			textarea.setSelectionRange(
-				start + openTag.length,
-				start + openTag.length + ( selectedText || 'text' ).length
-			);
-		}, 10 );
-	};
-
-	const insertVideo = () => {
-		const inputUrl = window.prompt(
-			__( 'Enter YouTube or Vimeo video URL:', 'doczur' ),
-			'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-		);
-		if ( ! inputUrl || ! inputUrl.trim() ) {
-			return;
-		}
-
-		let embedUrl = inputUrl.trim();
-		const ytMatch = embedUrl.match(
-			/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/
-		);
-		if ( ytMatch && ytMatch[ 1 ] ) {
-			embedUrl = `https://www.youtube.com/embed/${ ytMatch[ 1 ] }`;
-		} else {
-			const vimeoMatch = embedUrl.match( /vimeo\.com\/(?:video\/)?(\d+)/ );
-			if ( vimeoMatch && vimeoMatch[ 1 ] ) {
-				embedUrl = `https://player.vimeo.com/video/${ vimeoMatch[ 1 ] }`;
-			}
-		}
-
-		const snippet = `\n<div class="itsdz-video-container">\n  <iframe src="${ embedUrl }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>\n</div>\n`;
-		insertFormat( snippet );
-	};
-
-	const insertImage = () => {
-		const wpMedia = (
-			window as unknown as {
-				wp?: {
-					media?: ( opts: Record< string, unknown > ) => {
-						open: () => void;
-						state: () => {
-							get: ( k: string ) => {
-								first: () => {
-									toJSON: () => {
-										url: string;
-										alt?: string;
-										title?: string;
-										caption?: string;
-									};
-								};
-							};
-						};
-						on: ( event: string, cb: () => void ) => void;
-					};
-				};
-			}
-		).wp?.media;
-
-		if ( wpMedia ) {
-			const frame = wpMedia( {
-				title: __( 'Select or Upload Image / Screenshot', 'doczur' ),
-				button: { text: __( 'Insert into Article', 'doczur' ) },
-				multiple: false,
-			} );
-
-			frame.on( 'select', () => {
-				const attachment = frame
-					.state()
-					.get( 'selection' )
-					.first()
-					.toJSON();
-				const imageUrl = attachment.url;
-				const altText =
-					attachment.alt || attachment.title || __( 'Screenshot', 'doczur' );
-				const captionHtml = attachment.caption
-					? `\n  <figcaption>${ attachment.caption }</figcaption>`
-					: '';
-				const snippet = `\n<figure class="itsdz-article-image">\n  <img src="${ imageUrl }" alt="${ altText }" loading="lazy" />${ captionHtml }\n</figure>\n`;
-				insertFormat( snippet );
-			} );
-
-			frame.open();
-		} else {
-			const fallbackUrl = window.prompt(
-				__( 'Enter Image / Screenshot URL:', 'doczur' ),
-				'https://'
-			);
-			if ( fallbackUrl && fallbackUrl.trim() ) {
-				const snippet = `\n<figure class="itsdz-article-image">\n  <img src="${ fallbackUrl.trim() }" alt="Screenshot" loading="lazy" />\n</figure>\n`;
-				insertFormat( snippet );
-			}
-		}
-	};
-
-	const insertTable = () => {
-		// eslint-disable-next-line no-alert
-		const colInput = window.prompt(
-			__( 'How many columns? (e.g. 3)', 'doczur' ),
-			'3'
-		);
-		if ( ! colInput ) {
-			return;
-		}
-		const numCols = Math.min( Math.max( parseInt( colInput, 10 ) || 3, 1 ), 10 );
-
-		// eslint-disable-next-line no-alert
-		const rowInput = window.prompt(
-			__( 'How many data rows? (e.g. 3)', 'doczur' ),
-			'3'
-		);
-		if ( ! rowInput ) {
-			return;
-		}
-		const numRows = Math.min( Math.max( parseInt( rowInput, 10 ) || 3, 1 ), 20 );
-
-		// eslint-disable-next-line no-alert
-		const headerInput = window.prompt(
-			__( 'Enter column headers separated by comma (leave blank for defaults):', 'doczur' ),
-			''
-		);
-		const defaultHeaders = Array.from(
-			{ length: numCols },
-			( _, i ) => `Column ${ i + 1 }`
-		);
-		const headerLabels = headerInput
-			? headerInput
-					.split( ',' )
-					.map( ( h ) => h.trim() )
-					.concat( defaultHeaders )
-					.slice( 0, numCols )
-			: defaultHeaders;
-
-		const headerRow =
-			'    <tr>\n' +
-			headerLabels.map( ( h ) => `      <th>${ h }</th>` ).join( '\n' ) +
-			'\n    </tr>';
-
-		const dataRows = Array.from( { length: numRows }, ( _, r ) =>
-			'    <tr>\n' +
-			Array.from(
-				{ length: numCols },
-				( __, c ) => `      <td>Row ${ r + 1 } Col ${ c + 1 }</td>`
-			).join( '\n' ) +
-			'\n    </tr>'
-		).join( '\n' );
-
-		const snippet = `\n<table class="itsdz-article-table">\n  <thead>\n${ headerRow }\n  </thead>\n  <tbody>\n${ dataRows }\n  </tbody>\n</table>\n`;
-		insertFormat( snippet );
-	};
-
-	const insertAccordion = () => {
-		// eslint-disable-next-line no-alert
-		const summaryText = window.prompt(
-			__( 'Enter the accordion heading / question:', 'doczur' ),
-			'Click to view details'
-		);
-		if ( ! summaryText ) {
-			return;
-		}
-		const snippet = `\n<details class="itsdz-accordion">\n  <summary>${ summaryText.trim() }</summary>\n  <p>Add details, steps, or explanation here.</p>\n</details>\n`;
-		insertFormat( snippet );
-	};
-
-	if ( ! article ) {
-		return (
-			<div className="itsdz-empty-editor">
-				<h2>{ __( 'Choose an article', 'doczur' ) }</h2>
-				<p>
-					{ __(
-						'Select an article from the documentation tree or create a new one.',
-						'doczur'
-					) }
-				</p>
-			</div>
-		);
-	}
-
-	const change =
-		( setter: ( value: string ) => void ) => ( value: string ) => {
-			setter( value );
-			setDirty( true );
-		};
-
-	const nativeGutenbergUrl = `post.php?post=${ article.id }&action=edit`;
-
-	return (
-		<div className="itsdz-editor">
-			<div className="itsdz-editor-toolbar">
-				<div>
 					<span
-						className={ `itsdz-save-badge ${
-							saving ? 'is-saving' : dirty ? 'is-dirty' : 'is-saved'
-						}` }
-					>
-						{ saving ? (
-							<Spinner />
-						) : (
-							<span className={ `dashicons ${ dirty ? 'dashicons-edit' : 'dashicons-saved' }` } aria-hidden="true" />
-						) }
-						<span>{ saveState }</span>
-					</span>
-					{ article && <span className="itsdz-view-count" style={ { marginInlineStart: '12px', fontSize: '12px', color: '#64748b' } }>👁 { viewCount ?? 0 } views</span> }
-				</div>
-				<div>
-					<Button
-						variant="tertiary"
-						href={ nativeGutenbergUrl }
-						target="_blank"
-						title={ __( 'Edit with WordPress Block Editor (Gutenberg)', 'doczur' ) }
-					>
-						<span className="dashicons dashicons-wordpress" aria-hidden="true" style={ { marginInlineEnd: '4px', fontSize: '15px', width: '15px', height: '15px' } } />
-						{ __( 'Gutenberg Editor', 'doczur' ) }
-					</Button>
-					<Button
-						variant="tertiary"
-						isDestructive
-						onClick={ onDelete }
-						title={ __( 'Delete Article', 'doczur' ) }
-					>
-						<span className="dashicons dashicons-trash" aria-hidden="true" style={ { marginInlineEnd: '4px' } } />
-						{ __( 'Delete', 'doczur' ) }
-					</Button>
-					<Button
-						variant="secondary"
-						href={ article.url }
-						target="_blank"
-					>
-						<span className="dashicons dashicons-visibility" aria-hidden="true" style={ { marginInlineEnd: '4px' } } />
-						{ __( 'Preview', 'doczur' ) }
-					</Button>
-					<Button
-						variant="primary"
-						onClick={ () => void save() }
-						disabled={ saving || ! title.trim() }
-					>
-						{ saving && <Spinner /> }{ ' ' }
-						{ __( 'Save', 'doczur' ) }
-					</Button>
-				</div>
-			</div>
-
-			<div className="itsdz-editor-fields">
-				<div className="itsdz-editor-main-title">
-					<TextControl
-						label={ __( 'ARTICLE TITLE', 'doczur' ) }
-						value={ title }
-						onChange={ change( setTitle ) }
-						placeholder={ __( 'Enter article title…', 'doczur' ) }
+						className="dashicons dashicons-trash"
+						aria-hidden="true"
 					/>
-					<div className="itsdz-editor-permalink-badge">
-						<span className="dashicons dashicons-admin-links" aria-hidden="true" />
-						<code>{ article.url }</code>
-					</div>
-				</div>
-
-				<div className="itsdz-editor-meta">
-					<SelectControl
-						label={ __( 'STATUS', 'doczur' ) }
-						value={ status }
-						onChange={ ( value: 'draft' | 'publish' ) => {
-							setStatus( value );
-							setDirty( true );
-						} }
-						options={ [
-							{ label: __( 'Draft', 'doczur' ), value: 'draft' },
-							{
-								label: __( 'Published', 'doczur' ),
-								value: 'publish',
-							},
-						] }
-					/>
-					<SelectControl
-						label={ __( 'SECTION', 'doczur' ) }
-						value={ String( sectionId ) }
-						onChange={ ( value ) => {
-							setSectionId( Number( value ) );
-							setDirty( true );
-						} }
-						options={ [
-							{ label: __( 'Unsectioned', 'doczur' ), value: '0' },
-							...sections.map( ( section ) => ( {
-								label: section.name,
-								value: String( section.id ),
-							} ) ),
-						] }
-					/>
-					<div className="itsdz-editor-version-wrap">
-						<SelectControl
-							label={ __( 'VERSION', 'doczur' ) }
-							value={ String( versionId ) }
-							onChange={ ( value ) => {
-								setVersionId( Number( value ) );
-								setDirty( true );
-							} }
-							options={ [
-								{ label: __( 'No version', 'doczur' ), value: '0' },
-								...availableVersions.map( ( v ) => ( { label: v.name, value: String( v.id ) } ) )
-							] }
-						/>
-						<Button
-							variant="tertiary"
-							onClick={ () => {
-								const name = window.prompt( __( 'New version name (e.g. v1.0):', 'doczur' ) );
-								if ( name ) {
-									apiFetch< { id: number; name: string } >( {
-										path: '/wp/v2/itsdz_version',
-										method: 'POST',
-										data: { name },
-									} ).then( ( v ) => {
-										setAvailableVersions( ( prev ) => [ ...prev, v ] );
-										setVersionId( v.id );
-										setDirty( true );
-									} );
-								}
-							} }
-							style={ { marginTop: '16px' } }
-						>
-							+ { __( 'New version', 'doczur' ) }
-						</Button>
-					</div>
-				</div>
-
-				<div className="itsdz-tag-selector-wrap" style={ { marginBottom: '24px', padding: '0 20px' } }>
-					<label className="itsdz-content-label" style={ { display: 'block', marginBottom: '8px' } }>{ __( 'TAGS', 'doczur' ) }</label>
-					<div className="itsdz-tag-selector">
-						{ availableTags.map( ( tag ) => (
-							<button
-								key={ tag.id }
-								type="button"
-								className={ `itsdz-tag-pill ${ selectedTagIds.includes( tag.id ) ? 'is-selected' : '' }` }
-								onClick={ () => {
-									setSelectedTagIds( ( prev ) =>
-										prev.includes( tag.id )
-											? prev.filter( ( id ) => id !== tag.id )
-											: [ ...prev, tag.id ]
-									);
-									setDirty( true );
-								} }
-							>
-								{ tag.name }
-							</button>
-						) ) }
-					</div>
-				</div>
-
-				<div className="itsdz-content-editor-wrapper">
-					<div className="itsdz-content-header">
-						<label className="itsdz-content-label">{ __( 'ARTICLE CONTENT', 'doczur' ) }</label>
-						<div className="itsdz-editor-mode-toggle">
-							<button
-								type="button"
-								className={ editorMode === 'edit' ? 'is-active' : '' }
-								onClick={ () => setEditorMode( 'edit' ) }
-							>
-								<span className="dashicons dashicons-editor-code" aria-hidden="true" />
-								{ __( 'Write / HTML', 'doczur' ) }
-							</button>
-							<button
-								type="button"
-								className={ editorMode === 'preview' ? 'is-active' : '' }
-								onClick={ () => setEditorMode( 'preview' ) }
-							>
-								<span className="dashicons dashicons-visibility" aria-hidden="true" />
-								{ __( 'Live Preview', 'doczur' ) }
-							</button>
-						</div>
-					</div>
-
-					{ editorMode === 'edit' && (
-						<>
-							<div className="itsdz-formatting-toolbar" role="toolbar" aria-label={ __( 'Formatting options', 'doczur' ) }>
-								<button type="button" onClick={ () => insertFormat( '<strong>', '</strong>' ) } title={ __( 'Bold', 'doczur' ) }>
-									<strong>B</strong>
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<em>', '</em>' ) } title={ __( 'Italic', 'doczur' ) }>
-									<em>I</em>
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<h2>', '</h2>' ) } title={ __( 'Heading 2', 'doczur' ) }>
-									H2
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<h3>', '</h3>' ) } title={ __( 'Heading 3', 'doczur' ) }>
-									H3
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<ul>\n  <li>', '</li>\n</ul>' ) } title={ __( 'Bullet List', 'doczur' ) }>
-									<span className="dashicons dashicons-editor-ul" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<ol>\n  <li>', '</li>\n</ol>' ) } title={ __( 'Numbered List', 'doczur' ) }>
-									<span className="dashicons dashicons-editor-ol" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<pre><code>', '</code></pre>' ) } title={ __( 'Code Block', 'doczur' ) }>
-									&lt;/&gt;
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<blockquote>', '</blockquote>' ) } title={ __( 'Quote', 'doczur' ) }>
-									<span className="dashicons dashicons-editor-quote" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<div class="itsdz-callout itsdz-callout-info">\n  ', '\n</div>' ) } title={ __( 'Callout: Info (blue)', 'doczur' ) }>
-								ℹ️
-							</button>
-							<button type="button" onClick={ () => insertFormat( '<div class="itsdz-callout itsdz-callout-warning">\n  ', '\n</div>' ) } title={ __( 'Callout: Warning (yellow)', 'doczur' ) }>
-								⚠️
-							</button>
-							<button type="button" onClick={ () => insertFormat( '<div class="itsdz-callout itsdz-callout-danger">\n  ', '\n</div>' ) } title={ __( 'Callout: Danger (red)', 'doczur' ) }>
-								🚫
-							</button>
-							<button type="button" onClick={ () => insertFormat( '<div class="itsdz-callout itsdz-callout-tip">\n  ', '\n</div>' ) } title={ __( 'Callout: Tip (green)', 'doczur' ) }>
-								💡
-							</button>
-								<button type="button" onClick={ insertImage } title={ __( 'Insert Image / Screenshot (Media Library)', 'doczur' ) }>
-									<span className="dashicons dashicons-format-image" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ insertVideo } title={ __( 'Insert Video (YouTube / Vimeo)', 'doczur' ) }>
-									<span className="dashicons dashicons-video-alt3" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ insertTable } title={ __( 'Insert Data Table', 'doczur' ) }>
-									<span className="dashicons dashicons-editor-table" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ insertAccordion } title={ __( 'Insert Accordion / FAQ Block', 'doczur' ) }>
-									<span className="dashicons dashicons-excerpt-view" aria-hidden="true" />
-								</button>
-								<button type="button" onClick={ () => insertFormat( '<a href="https://">', '</a>' ) } title={ __( 'Insert Link', 'doczur' ) }>
-									<span className="dashicons dashicons-admin-links" aria-hidden="true" />
-								</button>
-							</div>
-
-							<TextareaControl
-								className="itsdz-content-editor"
-								value={ content }
-								onChange={ change( setContent ) }
-								rows={ 18 }
-								placeholder={ __( 'Write your article content here (HTML and formatting tags supported)…', 'doczur' ) }
-							/>
-						</>
-					) }
-
-					{ editorMode === 'preview' && (
-						<div className="itsdz-live-preview-box">
-							{ content ? (
-								<div
-									className="itsdz-article-content-rendered"
-									dangerouslySetInnerHTML={ { __html: content } }
-								/>
-							) : (
-								<p className="itsdz-preview-placeholder">
-									{ __( 'No content to preview yet. Switch to Write mode to add text.', 'doczur' ) }
-								</p>
-							) }
-						</div>
-					) }
-
-					<div className="itsdz-content-footer">
-						<span className="itsdz-content-help">
-							{ __( 'HTML & formatting supported. Gutenberg editing is also available natively.', 'doczur' ) }
-						</span>
-						<div className="itsdz-content-stats">
-							<span>📝 { wordCount } { __( 'words', 'doczur' ) }</span>
-							<span>⏱ { readingTime } { __( 'min read', 'doczur' ) }</span>
-						</div>
-					</div>
-				</div>
+				</button>
 			</div>
 		</div>
 	);
@@ -764,14 +209,13 @@ export function DocsManager( { project }: ManagerProps ) {
 		[]
 	);
 	const { setArticles, setNotice } = useDispatch( store );
-	const [ selectedId, setSelectedId ] = useState< number | null >(
-		articles[ 0 ]?.id ?? null
-	);
 	const [ creating, setCreating ] = useState( false );
 	const [ selectedForBulk, setSelectedForBulk ] = useState< number[] >( [] );
 	const [ bulkSectionId, setBulkSectionId ] = useState( 0 );
 	const [ bulkBusy, setBulkBusy ] = useState( false );
-	const [ viewTotals, setViewTotals ] = useState< Record< number, number > >( {} );
+	const [ viewTotals, setViewTotals ] = useState< Record< number, number > >(
+		{}
+	);
 
 	useEffect( () => {
 		apiFetch< { articles: Record< number, number > } >( {
@@ -794,17 +238,6 @@ export function DocsManager( { project }: ManagerProps ) {
 			),
 		[ sections ]
 	);
-	const selected =
-		articles.find( ( article ) => article.id === selectedId ) ?? null;
-
-	useEffect( () => {
-		if (
-			selectedId &&
-			! articles.some( ( article ) => article.id === selectedId )
-		) {
-			setSelectedId( articles[ 0 ]?.id ?? null );
-		}
-	}, [ articles, selectedId ] );
 
 	const createArticle = useCallback( async () => {
 		setCreating( true );
@@ -816,7 +249,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				menu_order: articles.length,
 			} );
 			setArticles( [ ...articles, article ] );
-			setSelectedId( article.id );
+			window.location.href = editUrl( article.id );
 		} catch ( error ) {
 			setNotice( {
 				status: 'error',
@@ -825,7 +258,6 @@ export function DocsManager( { project }: ManagerProps ) {
 						? error.message
 						: __( 'Article creation failed.', 'doczur' ),
 			} );
-		} finally {
 			setCreating( false );
 		}
 	}, [ articles, project.id, setArticles, setNotice ] );
@@ -863,11 +295,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				tag_ids: article.tag_ids,
 			} );
 			setArticles( [ ...articles, duplicate ] );
-			setSelectedId( duplicate.id );
-			setNotice( {
-				status: 'success',
-				message: __( 'Article duplicated as a draft.', 'doczur' ),
-			} );
+			window.location.href = editUrl( duplicate.id );
 		} catch ( error ) {
 			setNotice( {
 				status: 'error',
@@ -880,16 +308,28 @@ export function DocsManager( { project }: ManagerProps ) {
 	};
 
 	const [ treeSearch, setTreeSearch ] = useState( '' );
+	const [ sectionFilter, setSectionFilter ] = useState< number | null >(
+		null
+	);
 
 	const filteredArticles = useMemo( () => {
-		if ( ! treeSearch.trim() ) {
-			return articles;
+		let list = articles;
+
+		if ( null !== sectionFilter ) {
+			list = list.filter( ( article ) =>
+				article.section_ids.includes( sectionFilter )
+			);
 		}
-		const term = treeSearch.toLowerCase();
-		return articles.filter( ( article ) =>
-			article.title.toLowerCase().includes( term )
-		);
-	}, [ articles, treeSearch ] );
+
+		const term = treeSearch.trim().toLowerCase();
+		if ( term ) {
+			list = list.filter( ( article ) =>
+				article.title.toLowerCase().includes( term )
+			);
+		}
+
+		return list;
+	}, [ articles, treeSearch, sectionFilter ] );
 
 	const bulkMove = async () => {
 		if ( ! selectedForBulk.length ) {
@@ -1027,26 +467,20 @@ export function DocsManager( { project }: ManagerProps ) {
 		}
 	};
 
-	const updateSaved = ( saved: Article ) => {
-		setArticles(
-			articles.map( ( article ) =>
-				article.id === saved.id ? saved : article
-			)
-		);
-	};
-
 	const deleteArticle = async ( article: Article ) => {
-		// eslint-disable-next-line no-alert
-		if ( ! window.confirm( __( 'Are you sure you want to delete this article?', 'doczur' ) ) ) {
+		if (
+			// eslint-disable-next-line no-alert
+			! window.confirm(
+				__( 'Are you sure you want to delete this article?', 'doczur' )
+			)
+		) {
 			return;
 		}
 		try {
 			await api.deleteArticle( article.id );
-			const remaining = articles.filter( ( item ) => item.id !== article.id );
-			setArticles( remaining );
-			if ( selectedId === article.id ) {
-				setSelectedId( remaining[ 0 ]?.id ?? null );
-			}
+			setArticles(
+				articles.filter( ( item ) => item.id !== article.id )
+			);
 			setNotice( {
 				status: 'success',
 				message: __( 'Article deleted.', 'doczur' ),
@@ -1066,8 +500,15 @@ export function DocsManager( { project }: ManagerProps ) {
 		if ( ! selectedForBulk.length ) {
 			return;
 		}
-		// eslint-disable-next-line no-alert
-		if ( ! window.confirm( __( 'Are you sure you want to delete selected articles?', 'doczur' ) ) ) {
+		if (
+			// eslint-disable-next-line no-alert
+			! window.confirm(
+				__(
+					'Are you sure you want to delete selected articles?',
+					'doczur'
+				)
+			)
+		) {
 			return;
 		}
 
@@ -1076,13 +517,11 @@ export function DocsManager( { project }: ManagerProps ) {
 			await Promise.all(
 				selectedForBulk.map( ( id ) => api.deleteArticle( id ) )
 			);
-			const remaining = articles.filter(
-				( article ) => ! selectedForBulk.includes( article.id )
+			setArticles(
+				articles.filter(
+					( article ) => ! selectedForBulk.includes( article.id )
+				)
 			);
-			setArticles( remaining );
-			if ( selectedId && selectedForBulk.includes( selectedId ) ) {
-				setSelectedId( remaining[ 0 ]?.id ?? null );
-			}
 			setSelectedForBulk( [] );
 			setNotice( {
 				status: 'success',
@@ -1131,20 +570,37 @@ export function DocsManager( { project }: ManagerProps ) {
 					</div>
 					<div
 						className="itsdz-section-summary"
-						aria-label={ __( 'Documentation sections', 'doczur' ) }
+						role="group"
+						aria-label={ __( 'Filter by section', 'doczur' ) }
 					>
+						<button
+							type="button"
+							className={ `itsdz-section-chip${
+								null === sectionFilter ? ' is-active' : ''
+							}` }
+							onClick={ () => setSectionFilter( null ) }
+						>
+							{ __( 'All', 'doczur' ) }
+						</button>
 						{ sections.map( ( section ) => (
-							<span
+							<button
+								type="button"
 								key={ section.id }
+								className={ `itsdz-section-chip${
+									sectionFilter === section.id
+										? ' is-active'
+										: ''
+								}` }
 								style={ {
 									marginInlineStart: `${
 										section.parent ? 12 : 0
 									}px`,
 								} }
+								onClick={ () => setSectionFilter( section.id ) }
 							>
 								{ section.parent ? '↳ ' : '' }
 								{ section.name }
-							</span>
+							</button>
 						) ) }
 					</div>
 					{ selectedForBulk.length > 0 && (
@@ -1166,7 +622,15 @@ export function DocsManager( { project }: ManagerProps ) {
 									} ) ),
 								] }
 							/>
-							<div className="itsdz-bulk-btn-group" style={ { display: 'flex', gap: '4px', marginTop: '6px', flexWrap: 'wrap' } }>
+							<div
+								className="itsdz-bulk-btn-group"
+								style={ {
+									display: 'flex',
+									gap: '4px',
+									marginTop: '6px',
+									flexWrap: 'wrap',
+								} }
+							>
 								<Button
 									variant="secondary"
 									onClick={ () => void bulkMove() }
@@ -1177,14 +641,18 @@ export function DocsManager( { project }: ManagerProps ) {
 								</Button>
 								<Button
 									variant="secondary"
-									onClick={ () => void bulkSetStatus( 'publish' ) }
+									onClick={ () =>
+										void bulkSetStatus( 'publish' )
+									}
 									disabled={ bulkBusy }
 								>
 									{ __( 'Publish', 'doczur' ) }
 								</Button>
 								<Button
 									variant="secondary"
-									onClick={ () => void bulkSetStatus( 'draft' ) }
+									onClick={ () =>
+										void bulkSetStatus( 'draft' )
+									}
 									disabled={ bulkBusy }
 								>
 									{ __( 'Draft', 'doczur' ) }
@@ -1212,15 +680,70 @@ export function DocsManager( { project }: ManagerProps ) {
 						onDragEnd={ dragEnd }
 					>
 						<SortableContext
-							items={ filteredArticles.map( ( article ) => article.id ) }
+							items={ filteredArticles.map(
+								( article ) => article.id
+							) }
 							strategy={ verticalListSortingStrategy }
 						>
 							<div className="itsdz-tree-list">
+								{ articles.length === 0 && (
+									<div className="itsdz-tree-empty">
+										<span
+											className="dashicons dashicons-media-document"
+											aria-hidden="true"
+										/>
+										<p>
+											{ __(
+												'No articles yet.',
+												'doczur'
+											) }
+										</p>
+										<Button
+											variant="secondary"
+											onClick={ () =>
+												void createArticle()
+											}
+											disabled={ creating }
+										>
+											{ __(
+												'Write your first article',
+												'doczur'
+											) }
+										</Button>
+									</div>
+								) }
+								{ articles.length > 0 &&
+									filteredArticles.length === 0 && (
+										<div className="itsdz-tree-empty">
+											<p>
+												{ null !== sectionFilter
+													? __(
+															'No articles in this section.',
+															'doczur'
+													  )
+													: __(
+															'No articles match your search.',
+															'doczur'
+													  ) }
+											</p>
+											<Button
+												variant="tertiary"
+												onClick={ () => {
+													setTreeSearch( '' );
+													setSectionFilter( null );
+												} }
+											>
+												{ __(
+													'Clear filters',
+													'doczur'
+												) }
+											</Button>
+										</div>
+									) }
 								{ filteredArticles.map( ( article ) => (
 									<SortableArticle
 										key={ article.id }
 										article={ article }
-										active={ article.id === selectedId }
 										checked={ selectedForBulk.includes(
 											article.id
 										) }
@@ -1228,9 +751,6 @@ export function DocsManager( { project }: ManagerProps ) {
 											sectionNames.get(
 												article.section_ids[ 0 ]
 											) ?? ''
-										}
-										onSelect={ () =>
-											setSelectedId( article.id )
 										}
 										onCheck={ ( checked ) =>
 											setSelectedForBulk( ( current ) =>
@@ -1260,19 +780,9 @@ export function DocsManager( { project }: ManagerProps ) {
 					</DndContext>
 				</CardBody>
 			</Card>
-			<Card className="itsdz-editor-panel">
+			<Card className="itsdz-overview-panel">
 				<CardBody>
-					<ArticleEditor
-						article={ selected }
-						sections={ sections }
-						onSaved={ updateSaved }
-						onDelete={ () => {
-							if ( selected ) {
-								void deleteArticle( selected );
-							}
-						} }
-						viewCount={ selected ? viewTotals[ selected.id ] : undefined }
-					/>
+					<KbOverviewPanel kbId={ project.id } />
 				</CardBody>
 			</Card>
 		</div>

@@ -42,6 +42,119 @@ final class Shortcode implements Service {
 	public function add_shortcodes() {
 		add_shortcode( 'doczur_search', array( $this, 'render_search' ) );
 		add_shortcode( 'doczur_docs_list', array( $this, 'render_docs_list' ) );
+		add_shortcode( 'doczur_faq', array( $this, 'render_faq' ) );
+		add_shortcode( 'doczur_popular_docs', array( $this, 'render_popular_docs' ) );
+		add_shortcode( 'doczur_glossary', array( $this, 'render_glossary' ) );
+	}
+
+	// -------------------------------------------------------------------------
+	// [doczur_glossary]
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render the glossary definition list.
+	 *
+	 * @param array<string, string>|string $atts Raw shortcode attributes.
+	 * @return string HTML output.
+	 */
+	public function render_glossary( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'heading'      => '',
+				'show_aliases' => 'true',
+			),
+			is_array( $atts ) ? $atts : array(),
+			'doczur_glossary'
+		);
+
+		return Renderers::glossary(
+			sanitize_text_field( $atts['heading'] ),
+			in_array( strtolower( (string) $atts['show_aliases'] ), array( 'true', '1', 'yes' ), true )
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// [doczur_faq]
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render a FAQ list from enclosed content.
+	 *
+	 * Each line of the enclosed content is one entry, written as
+	 * `Question | Answer`:
+	 *
+	 *     [doczur_faq heading="Billing"]
+	 *     Can I cancel? | Yes, any time from your account page.
+	 *     Do you offer refunds? | Within 30 days of purchase.
+	 *     [/doczur_faq]
+	 *
+	 * @param array<string, string>|string $atts    Raw shortcode attributes.
+	 * @param string|null                  $content Enclosed content.
+	 * @return string HTML output.
+	 */
+	public function render_faq( $atts, $content = null ) {
+		$atts = shortcode_atts(
+			array(
+				'heading' => '',
+				'schema'  => 'true',
+			),
+			is_array( $atts ) ? $atts : array(),
+			'doczur_faq'
+		);
+
+		$items = array();
+		$lines = preg_split( '/\R/', (string) $content );
+
+		foreach ( is_array( $lines ) ? $lines : array() as $line ) {
+			$line = trim( $line );
+
+			if ( '' === $line || ! str_contains( $line, '|' ) ) {
+				continue;
+			}
+
+			list( $question, $answer ) = array_pad( explode( '|', $line, 2 ), 2, '' );
+
+			$items[] = array(
+				'question' => trim( $question ),
+				'answer'   => trim( $answer ),
+			);
+		}
+
+		return Renderers::faq(
+			$items,
+			sanitize_text_field( $atts['heading'] ),
+			in_array( strtolower( (string) $atts['schema'] ), array( 'true', '1', 'yes' ), true )
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// [doczur_popular_docs]
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render the popular / recent article ranking shortcode.
+	 *
+	 * @param array<string, string>|string $atts Raw shortcode attributes.
+	 * @return string HTML output.
+	 */
+	public function render_popular_docs( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'kb_id'      => '0',
+				'limit'      => '5',
+				'order'      => 'popular',
+				'show_views' => 'true',
+			),
+			is_array( $atts ) ? $atts : array(),
+			'doczur_popular_docs'
+		);
+
+		return Renderers::article_ranking(
+			absint( $atts['kb_id'] ),
+			absint( $atts['limit'] ),
+			sanitize_key( $atts['order'] ),
+			in_array( strtolower( (string) $atts['show_views'] ), array( 'true', '1', 'yes' ), true )
+		);
 	}
 
 	// -------------------------------------------------------------------------

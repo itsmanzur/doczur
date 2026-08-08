@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="itsdz-search-backdrop" data-itsdz-search-close></div>
 		<section class="itsdz-search-dialog" role="dialog" aria-modal="true" aria-labelledby="itsdz-search-title">
 			<div class="itsdz-search-box">
-				<span aria-hidden="true">⌕</span>
+				<span class="itsdz-icon-search itsdz-icon-lg" aria-hidden="true"></span>
 				<label class="screen-reader-text" id="itsdz-search-title" for="itsdz-search-input"><?php esc_html_e( 'Search documentation', 'doczur' ); ?></label>
 				<input id="itsdz-search-input" type="search" autocomplete="off" placeholder="<?php esc_attr_e( 'Search articles…', 'doczur' ); ?>" data-itsdz-search-input>
 				<button type="button" data-itsdz-search-close aria-label="<?php esc_attr_e( 'Close search', 'doczur' ); ?>">Esc</button>

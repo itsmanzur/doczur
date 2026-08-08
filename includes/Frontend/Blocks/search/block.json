@@ -27,6 +27,8 @@
       "default": ""
     }
   },
+  "editorScript": "itsdz-blocks",
+  "style": "itsdz-frontend",
   "render": "file:./render.php",
   "textdomain": "doczur"
 }

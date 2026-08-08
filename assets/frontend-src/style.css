@@ -99,6 +99,18 @@
 	backdrop-filter: blur(14px);
 }
 
+/* In `theme` layout mode the active theme already renders its own sticky
+   site header above this one — this bar only needs to carry Doczur's own
+   search/nav/theme controls, so it stays a plain, non-sticky, low-height
+   toolbar rather than a second full header. */
+body:not(.itsdz-canvas-page) .itsdz-site-header {
+	position: static;
+}
+
+body:not(.itsdz-canvas-page) .itsdz-header-inner {
+	height: 48px;
+}
+
 .itsdz-header-inner {
 	display: flex;
 	align-items: center;
@@ -109,12 +121,36 @@
 	padding: 0 28px;
 }
 
+.itsdz-header-brand-group {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+}
+
 .itsdz-site-brand {
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
 	color: var(--itsdz-text) !important;
 	font-weight: 700;
+}
+
+.itsdz-back-to-site {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 10px;
+	color: var(--itsdz-muted) !important;
+	font-size: 12.5px;
+	font-weight: 500;
+	border-radius: 8px;
+	text-decoration: none !important;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.itsdz-back-to-site:hover {
+	color: var(--itsdz-text) !important;
+	background: var(--itsdz-surface);
 }
 
 .itsdz-site-brand:hover {
@@ -147,12 +183,16 @@
 	gap: 10px;
 }
 
+.itsdz-header-actions {
+	margin-left: auto;
+}
+
 .itsdz-search-trigger,
 .itsdz-icon-button {
 	min-height: 38px;
-	color: var(--itsdz-muted);
+	color: var(--itsdz-muted) !important;
 	background: var(--itsdz-surface);
-	border: 1px solid var(--itsdz-border);
+	border: 1px solid var(--itsdz-border) !important;
 	border-radius: 8px;
 }
 
@@ -180,12 +220,77 @@
 }
 
 .itsdz-icon-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	width: 40px;
 	padding: 0;
 }
 
+/*
+ * The old header icons relied on Unicode dingbats (☰ ⌕ ◐) — one of them
+ * (⌕, U+2315) is missing from common system font stacks and rendered as an
+ * empty box. Drawn with plain shapes instead, so rendering never depends on
+ * font/glyph coverage, and they inherit `color` so they always match the
+ * brand accent.
+ */
+.itsdz-icon-menu,
+.itsdz-icon-search,
+.itsdz-icon-contrast {
+	display: inline-block;
+	flex: none;
+	color: var(--itsdz-brand);
+}
+
+.itsdz-icon-menu {
+	width: 14px;
+	height: 2px;
+	background: currentcolor;
+	border-radius: 1px;
+	box-shadow: 0 -4px 0 currentcolor, 0 4px 0 currentcolor;
+}
+
+.itsdz-icon-search {
+	position: relative;
+	width: 9px;
+	height: 9px;
+	border: 1.5px solid currentcolor;
+	border-radius: 50%;
+}
+
+.itsdz-icon-search::after {
+	content: "";
+	position: absolute;
+	right: -3px;
+	bottom: -3.5px;
+	width: 5px;
+	height: 1.5px;
+	background: currentcolor;
+	border-radius: 1px;
+	transform: rotate(45deg);
+}
+
+.itsdz-icon-contrast {
+	width: 14px;
+	height: 14px;
+	border: 1.5px solid currentcolor;
+	border-radius: 50%;
+	background: linear-gradient(90deg, currentcolor 50%, transparent 50%);
+}
+
+.itsdz-icon-lg.itsdz-icon-search {
+	width: 13px;
+	height: 13px;
+}
+
+.itsdz-icon-lg.itsdz-icon-search::after {
+	right: -4px;
+	bottom: -4.5px;
+	width: 7px;
+}
+
 .itsdz-mobile-nav-button {
-	display: none;
+	display: none !important;
 }
 
 .itsdz-hero {
@@ -381,16 +486,52 @@
 .itsdz-sidebar summary {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	gap: 8px;
 	padding: 7px 6px;
 	font-weight: 650;
 	font-size: 13px;
+	color: var(--itsdz-text);
 	cursor: pointer;
+	user-select: none;
+	list-style: none;
+	border-radius: 6px;
+	transition: background 0.12s ease;
+}
+
+.itsdz-sidebar summary:hover {
+	background: var(--itsdz-bg);
+}
+
+.itsdz-sidebar summary::marker,
+.itsdz-sidebar summary::-webkit-details-marker {
+	display: none;
+}
+
+.itsdz-sidebar summary::before {
+	content: "\25B6";
+	flex-shrink: 0;
+	font-size: 9px;
+	color: var(--itsdz-muted);
+	transition: transform 0.2s ease;
+}
+
+.itsdz-sidebar details[open] > summary::before {
+	transform: rotate(90deg);
+}
+
+.itsdz-sidebar details[open] > summary {
+	color: var(--itsdz-brand-strong);
 }
 
 .itsdz-sidebar summary span {
+	flex-shrink: 0;
+	margin-inline-start: auto;
+	padding: 1px 7px;
 	color: var(--itsdz-muted);
-	font-size: 11px;
+	font-size: 10.5px;
+	font-weight: 600;
+	background: var(--itsdz-bg);
+	border-radius: 10px;
 }
 
 .itsdz-sidebar ul {
@@ -431,17 +572,46 @@
 .itsdz-breadcrumbs {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	justify-content: space-between;
+	gap: 16px;
 	margin-bottom: 36px;
+}
+
+.itsdz-breadcrumb-trail {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 	overflow: hidden;
 	color: var(--itsdz-muted);
 	font-size: 12px;
 	white-space: nowrap;
 }
 
-.itsdz-breadcrumbs span:last-child {
+.itsdz-breadcrumb-trail span:last-child {
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.itsdz-breadcrumb-actions {
+	display: flex;
+	align-items: center;
+	flex: none;
+	gap: 4px;
+}
+
+.itsdz-breadcrumb-actions .itsdz-icon-button {
+	display: flex;
+	align-items: center;
+	width: 34px;
+	min-height: 32px;
+	padding: inherit;
+	background: transparent !important;
+	border-color: transparent !important;
+}
+
+.itsdz-breadcrumb-actions .itsdz-icon-button:hover {
+	background: var(--itsdz-surface) !important;
+	border-color: var(--itsdz-border) !important;
 }
 
 .itsdz-article-header {
@@ -462,11 +632,32 @@
 	font-size: 12px;
 }
 
+.itsdz-article-byline {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.itsdz-article-byline .itsdz-article-avatar {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+}
+
 .itsdz-copy-link {
-	padding: 2px 7px;
-	color: var(--itsdz-brand-strong);
-	background: transparent;
-	border: 0;
+	padding: 5px 10px;
+	color: var(--itsdz-muted) !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	transition: color 140ms ease, background 140ms ease;
+}
+
+.itsdz-copy-link:hover {
+	color: var(--itsdz-brand-strong) !important;
+	background: var(--itsdz-surface) !important;
 }
 
 .itsdz-article-content {
@@ -530,6 +721,7 @@
 	color: var(--itsdz-muted);
 	border-left: 4px solid var(--itsdz-brand);
 }
+
 .itsdz-video-container {
 	position: relative;
 	width: 100%;
@@ -600,7 +792,7 @@
 }
 
 .itsdz-accordion summary::after {
-	content: '\25B6';
+	content: "\25B6";
 	font-size: 11px;
 	color: var(--itsdz-muted);
 	transition: transform 0.22s ease;
@@ -615,7 +807,7 @@
 	border-bottom: 1px solid var(--itsdz-border);
 }
 
-.itsdz-accordion > *:not( summary ) {
+.itsdz-accordion > *:not(summary) {
 	padding: 14px 18px;
 }
 
@@ -952,6 +1144,13 @@
 	font-size: 13px;
 }
 
+.itsdz-search-empty {
+	padding: 20px 12px;
+	color: var(--itsdz-muted);
+	font-size: 13px;
+	text-align: center;
+}
+
 .itsdz-modal-open {
 	overflow: hidden;
 }
@@ -991,14 +1190,19 @@
 	}
 
 	.itsdz-mobile-nav-button {
-		display: block;
+		display: block !important;
 	}
 
 	.itsdz-sidebar {
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 500;
+
+		/* Above the active theme's own sticky header (thumezur's
+		   .tz-scroll--auto_hide uses z-index: 1000) — otherwise, in `theme`
+		   layout mode, the theme's header renders on top of the drawer's
+		   own heading and first sections, hiding them behind it. */
+		z-index: 1500;
 		width: min(340px, 88vw);
 		height: 100vh;
 		padding-top: 22px;
@@ -1009,6 +1213,22 @@
 
 	.itsdz-docs.is-nav-open .itsdz-sidebar {
 		transform: translateX(0);
+	}
+
+	/* Dims and separates the page behind the open drawer — without it the
+	   article text underneath reads as visible/broken layout rather than
+	   content intentionally covered by an overlay. Sits one z-index below
+	   the sidebar; a click on it is already handled by the existing
+	   "tap outside closes the drawer" listener in navigation.ts, since the
+	   event target resolves to .itsdz-docs itself, which isn't inside the
+	   sidebar or the toggle button. */
+	.itsdz-docs.is-nav-open::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: 1499;
+		background: rgb(15 23 42 / 45%);
+		animation: itsdz-backdrop-fade 180ms ease;
 	}
 
 	.itsdz-sidebar-heading button {
@@ -1037,6 +1257,10 @@
 
 	.itsdz-search-trigger > span:nth-child(2),
 	.itsdz-search-trigger kbd {
+		display: none;
+	}
+
+	.itsdz-back-to-site span:last-child {
 		display: none;
 	}
 
@@ -1232,6 +1456,190 @@
 }
 
 /* ═══════════════════════════════════════════════════
+   Ranking block (popular / recent articles)
+═══════════════════════════════════════════════════ */
+.itsdz-ranking-block {
+	font: 16px / 1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.itsdz-ranking-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: itsdz-rank;
+}
+
+.itsdz-ranking-item {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 9px 0 9px 28px;
+	position: relative;
+	border-bottom: 1px solid #e1e5ec;
+	counter-increment: itsdz-rank;
+}
+
+.itsdz-ranking-item::before {
+	content: counter(itsdz-rank);
+	position: absolute;
+	inset-inline-start: 0;
+	color: #98a2b3;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.itsdz-ranking-item:last-child {
+	border-bottom: 0;
+}
+
+.itsdz-ranking-item a {
+	color: #2445d7;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.itsdz-ranking-item a:hover {
+	text-decoration: underline;
+}
+
+.itsdz-ranking-views {
+	flex-shrink: 0;
+	color: #667085;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   Glossary terms and tooltip
+═══════════════════════════════════════════════════ */
+.itsdz-glossary-term {
+	position: relative;
+	text-decoration: underline dotted;
+	text-underline-offset: 3px;
+	cursor: help;
+}
+
+.itsdz-glossary-tip {
+	position: absolute;
+	bottom: calc(100% + 8px);
+	inset-inline-start: 50%;
+	z-index: 20;
+	width: max-content;
+	max-width: 260px;
+	padding: 8px 10px;
+	color: #f8fafc;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: start;
+	text-decoration: none;
+	background: #0f172a;
+	border-radius: 6px;
+	box-shadow: 0 4px 12px rgb(15 23 42 / 18%);
+	transform: translateX(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.14s ease;
+}
+
+.itsdz-glossary-tip::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	inset-inline-start: 50%;
+	border: 6px solid transparent;
+	border-top-color: #0f172a;
+	transform: translateX(-50%);
+}
+
+.itsdz-glossary-term:hover .itsdz-glossary-tip,
+.itsdz-glossary-term:focus-visible .itsdz-glossary-tip {
+	opacity: 1;
+	visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.itsdz-glossary-tip {
+		transition: none;
+	}
+
+	.itsdz-docs.is-nav-open::before {
+		animation: none;
+	}
+}
+
+@keyframes itsdz-backdrop-fade {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+/* ═══════════════════════════════════════════════════
+   Glossary list
+═══════════════════════════════════════════════════ */
+.itsdz-glossary-list {
+	margin: 0;
+	font: 16px / 1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.itsdz-glossary-entry {
+	padding: 12px 0;
+	border-bottom: 1px solid #e1e5ec;
+}
+
+.itsdz-glossary-entry:last-child {
+	border-bottom: 0;
+}
+
+.itsdz-glossary-entry dt {
+	color: #101828;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.itsdz-glossary-entry dd {
+	margin: 4px 0 0;
+	color: #475467;
+	font-size: 14px;
+}
+
+.itsdz-glossary-aliases {
+	display: block;
+	margin-top: 3px;
+	color: #667085;
+	font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════
+   FAQ block
+═══════════════════════════════════════════════════ */
+.itsdz-faq-block-heading {
+	margin: 0 0 12px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.itsdz-faq-block .itsdz-faq-item {
+	margin: 8px 0;
+}
+
+.itsdz-faq-answer > *:first-child {
+	margin-top: 0;
+}
+
+.itsdz-faq-answer > *:last-child {
+	margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════════════
    Code Block Copy Button
 ═══════════════════════════════════════════════════ */
 .itsdz-docs .itsdz-article-content pre {
@@ -1329,10 +1737,21 @@
 }
 
 .itsdz-callout::before,
-.itsdz-callout-info::before { content: 'ℹ️'; }
-.itsdz-callout-warning::before { content: '⚠️'; }
-.itsdz-callout-danger::before  { content: '🚫'; }
-.itsdz-callout-tip::before     { content: '💡'; }
+.itsdz-callout-info::before {
+	content: "ℹ️";
+}
+
+.itsdz-callout-warning::before {
+	content: "⚠️";
+}
+
+.itsdz-callout-danger::before {
+	content: "🚫";
+}
+
+.itsdz-callout-tip::before {
+	content: "💡";
+}
 
 /* Dark mode callout adjustments */
 .itsdz-docs[data-color-mode="dark"] .itsdz-callout,

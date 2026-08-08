@@ -5,18 +5,24 @@ import { __ } from '@wordpress/i18n';
 import { api } from '../api';
 import { store } from '../store';
 import { DocsManager } from '../components/DocsManager';
+import { Glossary } from '../components/Glossary';
 import { HelpGuide } from '../components/HelpGuide';
 import { ImportExport } from '../components/ImportExport';
 import { Settings } from '../components/Settings';
 import { SetupWizard } from '../components/SetupWizard';
 
-type View = 'docs' | 'settings' | 'transfer' | 'guide' | 'wizard';
+type View = 'docs' | 'glossary' | 'settings' | 'transfer' | 'guide' | 'wizard';
 
 const viewFromHash = (): View => {
 	const hash = window.location.hash.replace( '#/', '' );
-	return [ 'docs', 'settings', 'transfer', 'guide', 'wizard' ].includes(
-		hash
-	)
+	return [
+		'docs',
+		'glossary',
+		'settings',
+		'transfer',
+		'guide',
+		'wizard',
+	].includes( hash )
 		? ( hash as View )
 		: 'docs';
 };
@@ -143,9 +149,6 @@ export function App() {
 						v{ window.itsdzAdmin.pluginVersion }
 					</span>
 				</div>
-				<div className="itsdz-user">
-					{ window.itsdzAdmin.user.displayName }
-				</div>
 			</header>
 
 			<div className="itsdz-workspace">
@@ -155,10 +158,31 @@ export function App() {
 				>
 					{ (
 						[
-							[ 'docs', __( 'Documentation', 'doczur' ), 'dashicons-document' ],
-							[ 'settings', __( 'Settings', 'doczur' ), 'dashicons-admin-settings' ],
-							[ 'transfer', __( 'Import / Export', 'doczur' ), 'dashicons-database-export' ],
-							[ 'guide', __( 'Help & Guide', 'doczur' ), 'dashicons-editor-help' ],
+							[
+								'docs',
+								__( 'Documentation', 'doczur' ),
+								'dashicons-media-document',
+							],
+							[
+								'glossary',
+								__( 'Glossary', 'doczur' ),
+								'dashicons-book-alt',
+							],
+							[
+								'settings',
+								__( 'Settings', 'doczur' ),
+								'dashicons-admin-settings',
+							],
+							[
+								'transfer',
+								__( 'Import / Export', 'doczur' ),
+								'dashicons-database-export',
+							],
+							[
+								'guide',
+								__( 'Help & Guide', 'doczur' ),
+								'dashicons-editor-help',
+							],
 						] as [ View, string, string ][]
 					 ).map( ( [ itemView, label, iconClass ] ) => (
 						<Button
@@ -169,12 +193,30 @@ export function App() {
 								view === itemView ? 'page' : undefined
 							}
 						>
-							<span className={ `dashicons ${ iconClass }` } aria-hidden="true" style={ { marginInlineEnd: '8px', fontSize: '17px', width: '17px', height: '17px' } } />
+							<span
+								className={ `dashicons ${ iconClass }` }
+								aria-hidden="true"
+								style={ {
+									marginInlineEnd: '8px',
+									fontSize: '17px',
+									width: '17px',
+									height: '17px',
+								} }
+							/>
 							{ label }
 						</Button>
 					) ) }
 					<Button disabled className="itsdz-pro-nav">
-						<span className="dashicons dashicons-chart-bar" aria-hidden="true" style={ { marginInlineEnd: '8px', fontSize: '17px', width: '17px', height: '17px' } } />
+						<span
+							className="dashicons dashicons-chart-bar"
+							aria-hidden="true"
+							style={ {
+								marginInlineEnd: '8px',
+								fontSize: '17px',
+								width: '17px',
+								height: '17px',
+							} }
+						/>
 						{ __( 'Analytics', 'doczur' ) } <small>PRO</small>
 					</Button>
 				</nav>
@@ -191,6 +233,7 @@ export function App() {
 					{ view === 'docs' && (
 						<DocsManager project={ selectedProject } />
 					) }
+					{ view === 'glossary' && <Glossary /> }
 					{ view === 'settings' && (
 						<Settings project={ selectedProject } />
 					) }

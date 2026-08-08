@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "doczur/callout",
+  "version": "0.1.0",
+  "title": "Doczur Callout",
+  "category": "text",
+  "icon": "info-outline",
+  "description": "A coloured note, tip, warning or caution box for calling out important information inside an article.",
+  "keywords": [ "callout", "note", "tip", "warning", "admonition", "doczur" ],
+  "textdomain": "doczur",
+  "attributes": {
+    "variant": {
+      "type": "string",
+      "default": "info"
+    },
+    "content": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": false,
+    "spacing": { "margin": true, "padding": false }
+  },
+  "editorScript": "itsdz-blocks",
+  "style": "itsdz-frontend",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "itsdz/faq",
+  "version": "0.1.0",
+  "title": "Doczur FAQ",
+  "category": "widgets",
+  "icon": "editor-help",
+  "description": "Add a list of frequently asked questions with collapsible answers. Outputs FAQPage structured data so the questions can appear in search results.",
+  "keywords": [ "faq", "questions", "accordion", "documentation", "doczur" ],
+  "supports": {
+    "html": false,
+    "color": false,
+    "spacing": { "margin": true, "padding": true }
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "default": [],
+      "items": { "type": "object" }
+    },
+    "schema": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "itsdz-blocks",
+  "style": "itsdz-frontend",
+  "render": "file:./render.php",
+  "textdomain": "doczur"
+}

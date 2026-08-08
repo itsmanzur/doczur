@@ -3,23 +3,27 @@
  * Plugin Name:       Doczur
  * Plugin URI:        https://doczur.com/
  * Description:       Product documentation, knowledge base, and help center for WordPress.
- * Version:           0.1.0
+ * Version:           1.0.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            ItsDZ
  * Text Domain:       doczur
  * Domain Path:       /languages
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package ItsDZ\Doczur
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ITSDZ_VERSION', '0.1.0' );
+define( 'ITSDZ_VERSION', '1.0.0' );
 define( 'ITSDZ_DB_VERSION', '1.0.0' );
 define( 'ITSDZ_PLUGIN_FILE', __FILE__ );
 define( 'ITSDZ_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ITSDZ_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+require_once ITSDZ_PLUGIN_DIR . 'includes/functions.php';
 
 $itsdz_autoloader = ITSDZ_PLUGIN_DIR . 'vendor/autoload.php';
 

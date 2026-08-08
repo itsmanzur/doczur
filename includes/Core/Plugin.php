@@ -8,11 +8,14 @@
 namespace ItsDZ\Doczur\Core;
 
 use ItsDZ\Doczur\Admin\Admin_Menu;
+use ItsDZ\Doczur\Admin\Editor_Panel_Assets;
 use ItsDZ\Doczur\Admin\Assets as Admin_Assets;
 use ItsDZ\Doczur\Analytics\View_Tracker;
 use ItsDZ\Doczur\Core\Migrations\Migrator;
 use ItsDZ\Doczur\Frontend\Assets as Frontend_Assets;
 use ItsDZ\Doczur\Frontend\Blocks;
+use ItsDZ\Doczur\Frontend\Glossary_Highlighter;
+use ItsDZ\Doczur\Frontend\Llms_Txt;
 use ItsDZ\Doczur\Frontend\Rewrite_Manager;
 use ItsDZ\Doczur\Frontend\Shortcode;
 use ItsDZ\Doczur\Frontend\Template_Loader;
@@ -23,10 +26,14 @@ use ItsDZ\Doczur\REST\Analytics_Controller;
 use ItsDZ\Doczur\REST\Article_Controller;
 use ItsDZ\Doczur\REST\Feedback_Controller;
 use ItsDZ\Doczur\REST\KB_Controller;
+use ItsDZ\Doczur\REST\Sample_Data_Controller;
 use ItsDZ\Doczur\REST\Search_Controller;
+use ItsDZ\Doczur\REST\Settings_Controller;
 use ItsDZ\Doczur\REST\Transfer_Controller;
 use ItsDZ\Doczur\Search\Indexer;
 use ItsDZ\Doczur\Security\Capabilities;
+use ItsDZ\Doczur\Security\Content_Sanitizer;
+use ItsDZ\Doczur\Taxonomies\Glossary_Taxonomy;
 use ItsDZ\Doczur\Taxonomies\Section_Taxonomy;
 use ItsDZ\Doczur\Taxonomies\Tag_Taxonomy;
 use ItsDZ\Doczur\Taxonomies\Version_Taxonomy;
@@ -101,13 +108,15 @@ final class Plugin {
 	 * @return Service[]
 	 */
 	private function get_services() {
-		return array(
+		$services = array(
 			new Capabilities(),
+			new Content_Sanitizer(),
 			new KB_Post_Type(),
 			new Article_Post_Type(),
 			new Section_Taxonomy(),
 			new Tag_Taxonomy(),
 			new Version_Taxonomy(),
+			new Glossary_Taxonomy(),
 			new Meta_Fields(),
 			new Migrator(),
 			new Indexer(),
@@ -118,13 +127,28 @@ final class Plugin {
 			new Feedback_Controller(),
 			new Transfer_Controller(),
 			new Analytics_Controller(),
+			new Sample_Data_Controller(),
+			new Settings_Controller(),
 			new Admin_Menu(),
 			new Admin_Assets(),
+			new Editor_Panel_Assets(),
 			new Template_Loader(),
 			new Shortcode(),
 			new Frontend_Assets(),
 			new Blocks(),
+			new Glossary_Highlighter(),
+			new Llms_Txt(),
 			new Rewrite_Manager(),
 		);
+
+		/**
+		 * Let add-on plugins (Doczur Pro, or any third party) register their
+		 * own Service instances, without Free ever needing to know who is
+		 * using this filter or why. This is the one and only extension
+		 * point for adding backend behavior to Doczur.
+		 *
+		 * @param Service[] $services Registered services.
+		 */
+		return apply_filters( 'itsdz_services', $services );
 	}
 }

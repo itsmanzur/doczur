@@ -67,7 +67,12 @@ final class Article_Post_Type implements Service {
 					'with_front' => false,
 				),
 				'menu_icon'          => 'dashicons-text-page',
-				'supports'           => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', 'page-attributes' ),
+				// 'custom-fields' is required for WP_REST_Posts_Controller to
+				// expose a `meta` property at all — without it, none of the
+				// registered post meta (however show_in_rest is set) is
+				// readable or writable through the core REST API, which is
+				// what the Doczur sidebar panel in the block editor uses.
+				'supports'           => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', 'page-attributes', 'custom-fields' ),
 				'taxonomies'         => array( 'itsdz_section', 'itsdz_tag', 'itsdz_version' ),
 				'capabilities'       => Capabilities::post_type_map(),
 				'map_meta_cap'       => false,

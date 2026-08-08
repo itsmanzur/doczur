@@ -22,8 +22,13 @@ final class Rewrite_Manager implements Service {
 
 	/**
 	 * Current rewrite schema version.
+	 *
+	 * Bump this whenever a rewrite rule is added or changed so existing
+	 * installs flush their rules once on the next admin request.
+	 *
+	 * 1.1.0 — added the /llms.txt and /llms-full.txt routes.
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Register WordPress hooks.

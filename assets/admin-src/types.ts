@@ -28,6 +28,10 @@ export interface Article {
 	status: 'draft' | 'publish';
 	menu_order: number;
 	reading_time: number;
+	/** ISO date (YYYY-MM-DD) the article was last reviewed, or '' when never. */
+	last_reviewed: string;
+	/** RFC3339 timestamp of the last content edit. */
+	modified: string;
 	section_ids: number[];
 	tag_ids: number[];
 	version_id: number;

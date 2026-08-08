@@ -1,9 +1,9 @@
-=== Doczur — Product Documentation & Knowledge Base ===
-Contributors: itsdz
+=== Doczur ===
+Contributors: itsmanzur
 Tags: documentation, knowledge base, docs, help center, product docs
 Requires at least: 6.5
-Tested up to: 6.7
-Stable tag: 0.1.0
+Tested up to: 7.0
+Stable tag: 1.0.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,30 +37,61 @@ Most documentation plugins load heavy JavaScript, conflict with popular themes, 
 * Print-friendly layout
 * Mobile slide-out navigation
 * "Was this helpful?" feedback system
-* Reading time estimate
+* Reading time estimate, author byline, and last-updated date
+* Content freshness tracking — log a review date per article and spot stale docs at a glance
 * Basic view counter (buffered, performance-safe)
 * Two layout modes: **canvas** (full-page, no theme header/footer) and **theme** (integrates with your active theme)
 * Three template styles: **Clean**, **Modern**, **Compact**
 * Custom brand color per knowledge base
 * Import / export (JSON)
+* One-click sample content — publishes a complete demo knowledge base so you can see the result before writing anything, and removes it just as easily
+* **Glossary** — define your product's terminology once; the first mention of each term in an article is highlighted with a tooltip definition, and the full list can be embedded anywhere
 * Translation-ready, RTL support
 * SEO plugin compatible (Yoast SEO, Rank Math, AIOSEO)
+
+= AI-Ready Documentation =
+
+Assistants like ChatGPT, Claude and Perplexity increasingly read documentation on behalf of your users. Doczur makes that work properly instead of leaving them to guess from rendered HTML.
+
+* **`/llms.txt`** — an automatically generated, always up-to-date map of your documentation following the [llmstxt.org](https://llmstxt.org/) convention. One line per article with a short summary, grouped by project.
+* **`/llms-full.txt`** — the same index plus the complete plain-text body of every article, for assistants that can ingest the whole corpus.
+* **Copy as Markdown** — a button on every article that copies clean Markdown to the clipboard, ready to paste into an AI chat, an issue, or a pull request.
+
+Only published articles in published projects are ever included. Both routes are cached and can be switched off with a single filter:
+
+`add_filter( 'itsdz_llms_txt_enabled', '__return_false' );`
 
 = Gutenberg Blocks =
 
 * **Doczur Search** — Embed a search box anywhere on your site. Submits to your KB page and auto-opens the search modal with the entered query pre-filled.
 * **Doczur Article List** — Display a linked list of articles from any KB. Ideal for sidebars, landing pages, or related-content widgets.
+* **Doczur Popular Articles** — Rank articles by view count or publish date. Great for "Top questions" sections on a support landing page.
+* **Doczur FAQ** — Build a collapsible question-and-answer list. Automatically outputs FAQPage structured data so your questions can appear directly in search results.
+* **Doczur Glossary** — Display every defined term with its definition, sorted alphabetically.
+* **Doczur Callout** — A coloured note, tip, warning, or danger box inside an article. Insert it from the block inserter while writing.
 
 = Shortcodes =
 
 * `[doczur_search kb_id="123"]` — search form for a specific KB
 * `[doczur_docs_list kb_id="123" limit="5" show_section="true"]` — article list
+* `[doczur_popular_docs kb_id="123" limit="5" order="popular"]` — most viewed (or `order="recent"`) articles
+* `[doczur_faq heading="Billing"]` — FAQ list; write one `Question | Answer` pair per line between the opening and closing tags
+* `[doczur_glossary heading="Glossary" show_aliases="true"]` — alphabetical list of every glossary term
 
-= Pro Features (coming soon) =
+Glossary auto-highlighting never touches links, headings or code samples, and can be switched off entirely:
+
+`add_filter( 'itsdz_glossary_autolink', '__return_false' );`
+
+= Doczur Pro =
+
+**Available now**, as a separate add-on plugin (requires this free plugin to be active):
+
+* WooCommerce integration — link articles to products; linked products automatically get a "Documentation" tab listing them
+
+**Coming soon to Doczur Pro:**
 
 * Multiple documentation projects (multi-KB) + product switcher
 * Product versioning (v1.x / v2.x switcher with version-specific URLs)
-* WooCommerce integration — automatic Documentation tab on product pages
 * Advanced analytics dashboard (health score, no-result searches, exit rate)
 * Access control (role-based, password-protected, buyer-gated docs)
 * Additional templates + visual customizer
@@ -146,6 +177,51 @@ All data is stored in your WordPress database. Doczur creates four custom tables
 6. Dark mode — automatically respects the visitor's system preference with a manual override toggle.
 
 == Changelog ==
+
+= 1.0.0 =
+**Editor**
+
+* Article editing now happens entirely in the native WordPress block editor (Gutenberg) — no HTML tags are ever shown, and every core block (images, tables, lists) is available.
+* Added a "Doczur" panel to the block editor's sidebar for section, version, tags and the "Mark reviewed today" control — no separate metadata form.
+* Added a "Doczur Callout" block (Info / Tip / Warning / Danger) for coloured notes inside an article, insertable from the regular block inserter.
+* The Documentation screen is now a lightweight tree: search, drag-and-drop ordering, bulk actions, and a "+ New" button that opens straight into the editor.
+
+**AI-ready documentation**
+
+* Added `/llms.txt`, an automatically generated map of your documentation following the llmstxt.org convention.
+* Added `/llms-full.txt`, which also includes the full text of every published article.
+* Added a "Copy as Markdown" button to every article.
+* Both routes are cached, exclude unpublished content, and can be disabled with the `itsdz_llms_txt_enabled` filter.
+
+**Glossary**
+
+* Added a glossary: define a term once and the first mention in each article gains a tooltip definition.
+* Alternative spellings are supported, so plurals and abbreviations match too.
+* Auto-highlighting never alters links, headings, code samples or HTML attributes, and can be disabled with the `itsdz_glossary_autolink` filter.
+* Added the `itsdz/glossary` block and `[doczur_glossary]` shortcode.
+
+**New blocks and shortcodes**
+
+* `itsdz/faq` and `[doczur_faq]` — collapsible question lists that also emit FAQPage structured data.
+* `itsdz/popular-docs` and `[doczur_popular_docs]` — rank articles by views or publish date.
+* All blocks now ship an editor interface, so their settings can be configured from the block sidebar.
+
+**Content maintenance**
+
+* Articles can record a review date; anything unreviewed for 90 days is flagged in the article list.
+* Added one-click sample content that publishes a complete demo knowledge base and removes it just as cleanly.
+* Articles now display their author and, when set, the date they were last reviewed.
+
+**UI polish**
+
+* The KB landing page no longer shows a duplicate search box — the top navigation search is now hidden on the landing page in favour of the hero search, and stays visible on article pages.
+* Section cards without a custom icon now show a monogram of the section name instead of a generic "§" placeholder.
+* Improved field spacing and button contrast on the Glossary admin screen.
+
+**Under the hood**
+
+* Added a WordPress integration test suite alongside the existing unit tests.
+* Added a small extension architecture: the `itsdz_services` filter lets an add-on register its own backend services, `itsdz_kb_overview_extra` lets one add data to the Documentation screen's overview panel, and `itsdz_is_pro_active()` is a simple informational check for "is an add-on active" — none of it is used by anything in this free plugin itself.
 
 = 0.1.0 =
 * Initial public release.
