@@ -63,7 +63,7 @@ final class Article_Post_Type implements Service {
 				'show_in_rest'       => true,
 				'has_archive'        => false,
 				'rewrite'            => array(
-					'slug'       => 'docs/article',
+					'slug'       => KB_Post_Type::rewrite_slug() . '/article',
 					'with_front' => false,
 				),
 				'menu_icon'          => 'dashicons-text-page',
@@ -80,8 +80,9 @@ final class Article_Post_Type implements Service {
 		);
 
 		// Keep the article route ahead of the KB attachment rewrite rules.
+		$base = preg_quote( KB_Post_Type::rewrite_slug(), '/' );
 		add_rewrite_rule(
-			'^docs/article/([^/]+)/?$',
+			'^' . $base . '/article/([^/]+)/?$',
 			'index.php?itsdz_doc=$matches[1]',
 			'top'
 		);

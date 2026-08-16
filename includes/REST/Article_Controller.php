@@ -37,6 +37,22 @@ final class Article_Controller extends REST_Controller {
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
 					'permission_callback' => array( $this, 'can_manage' ),
+					'args'                => array(
+						'kb_id'    => array(
+							'type' => 'integer',
+						),
+						'page'     => array(
+							'default' => 1,
+							'minimum' => 1,
+							'type'    => 'integer',
+						),
+						'per_page' => array(
+							'default' => 100,
+							'maximum' => 100,
+							'minimum' => 1,
+							'type'    => 'integer',
+						),
+					),
 				),
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
@@ -98,16 +114,20 @@ final class Article_Controller extends REST_Controller {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_items( $request ) {
-		$args  = array(
+		$page     = max( 1, absint( $request->get_param( 'page' ) ) );
+		$per_page = min( 100, max( 1, absint( $request->get_param( 'per_page' ) ) ) );
+		$args     = array(
+			'no_found_rows'  => false,
 			'orderby'        => array(
 				'menu_order' => 'ASC',
 				'date'       => 'DESC',
 			),
-			'posts_per_page' => 100,
+			'paged'          => $page,
+			'posts_per_page' => $per_page,
 			'post_status'    => array( 'draft', 'publish' ),
 			'post_type'      => Article_Post_Type::POST_TYPE,
 		);
-		$kb_id = absint( $request->get_param( 'kb_id' ) );
+		$kb_id    = absint( $request->get_param( 'kb_id' ) );
 
 		if ( $kb_id ) {
 			$kb = Content_Validator::get_kb( $kb_id );
@@ -120,9 +140,12 @@ final class Article_Controller extends REST_Controller {
 			$args['meta_value'] = $kb_id; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 		}
 
-		$posts = get_posts( $args );
+		$query    = new \WP_Query( $args );
+		$response = rest_ensure_response( array_map( array( $this, 'prepare_item' ), $query->posts ) );
+		$response->header( 'X-WP-Total', (string) (int) $query->found_posts );
+		$response->header( 'X-WP-TotalPages', (string) max( 1, (int) $query->max_num_pages ) );
 
-		return rest_ensure_response( array_map( array( $this, 'prepare_item' ), $posts ) );
+		return $response;
 	}
 
 	/**

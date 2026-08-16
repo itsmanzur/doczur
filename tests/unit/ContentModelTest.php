@@ -7,6 +7,7 @@
 
 namespace ItsDZ\Doczur\Tests\Unit;
 
+use ItsDZ\Doczur\Frontend\Rewrite_Manager;
 use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 use ItsDZ\Doczur\PostTypes\Meta_Fields;
@@ -30,6 +31,7 @@ final class ContentModelTest extends TestCase {
 		$GLOBALS['itsdz_test_taxonomies']    = array();
 		$GLOBALS['itsdz_test_post_meta']     = array();
 		$GLOBALS['itsdz_test_rewrite_rules'] = array();
+		$GLOBALS['itsdz_test_options']       = array();
 	}
 
 	/**
@@ -55,6 +57,67 @@ final class ContentModelTest extends TestCase {
 		$this->assertSame( Capabilities::MANAGE_DOCS, $article['capabilities']['create_posts'] );
 		$this->assertSame( '^docs/article/([^/]+)/?$', $GLOBALS['itsdz_test_rewrite_rules'][0]['regex'] );
 		$this->assertSame( 'top', $GLOBALS['itsdz_test_rewrite_rules'][0]['position'] );
+		$this->assertSame( 'docs', $kb['rewrite']['slug'] );
+		$this->assertSame( 'docs/article', $article['rewrite']['slug'] );
+	}
+
+	/**
+	 * A saved slug base becomes the public documentation URL prefix.
+	 *
+	 * @return void
+	 */
+	public function test_post_types_register_with_configured_slug_base() {
+		$GLOBALS['itsdz_test_options'][ KB_Post_Type::SLUG_OPTION ] = 'help';
+
+		( new KB_Post_Type() )->register_post_type();
+		( new Article_Post_Type() )->register_post_type();
+
+		$kb      = $GLOBALS['itsdz_test_post_types'][ KB_Post_Type::POST_TYPE ];
+		$article = $GLOBALS['itsdz_test_post_types'][ Article_Post_Type::POST_TYPE ];
+
+		$this->assertSame( 'help', $kb['rewrite']['slug'] );
+		$this->assertSame( 'help/article', $article['rewrite']['slug'] );
+		$this->assertSame( '^help/article/([^/]+)/?$', $GLOBALS['itsdz_test_rewrite_rules'][0]['regex'] );
+	}
+
+	/**
+	 * Changing the slug base stores it and requests a rewrite flush.
+	 *
+	 * @return void
+	 */
+	public function test_persist_rewrite_slug_flags_a_flush_when_the_prefix_changes() {
+		KB_Post_Type::persist_rewrite_slug( 'Product Docs' );
+
+		$this->assertSame( 'product-docs', KB_Post_Type::rewrite_slug() );
+		$this->assertSame( '1', $GLOBALS['itsdz_test_options'][ Rewrite_Manager::FLUSH_OPTION ] );
+	}
+
+	/**
+	 * An empty slug base falls back to docs without a needless flush.
+	 *
+	 * @return void
+	 */
+	public function test_persist_rewrite_slug_ignores_empty_values() {
+		KB_Post_Type::persist_rewrite_slug( '' );
+
+		$this->assertSame( 'docs', KB_Post_Type::rewrite_slug() );
+		$this->assertArrayNotHasKey( Rewrite_Manager::FLUSH_OPTION, $GLOBALS['itsdz_test_options'] );
+	}
+
+	/**
+	 * A flagged slug change flushes rules after post types have re-registered.
+	 *
+	 * @return void
+	 */
+	public function test_rewrite_manager_flushes_when_flagged() {
+		$GLOBALS['itsdz_test_options'][ Rewrite_Manager::FLUSH_OPTION ] = '1';
+		$GLOBALS['itsdz_test_rewrite_flushed']                          = false;
+
+		( new Rewrite_Manager() )->maybe_flush();
+
+		$this->assertTrue( $GLOBALS['itsdz_test_rewrite_flushed'] );
+		$this->assertSame( Rewrite_Manager::VERSION, $GLOBALS['itsdz_test_options'][ Rewrite_Manager::VERSION_OPTION ] );
+		$this->assertArrayNotHasKey( Rewrite_Manager::FLUSH_OPTION, $GLOBALS['itsdz_test_options'] );
 	}
 
 	/**

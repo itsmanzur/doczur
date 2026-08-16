@@ -17,6 +17,11 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Documentation {
 	/**
+	 * Default cap for the public navigation query.
+	 */
+	const DEFAULT_MAX_ARTICLES = 2000;
+
+	/**
 	 * Per-request article cache.
 	 *
 	 * @var array<int, \WP_Post[]>
@@ -55,6 +60,14 @@ final class Documentation {
 		$kb_id = absint( $kb_id );
 
 		if ( ! isset( self::$articles[ $kb_id ] ) ) {
+			/**
+			 * Filter the maximum published articles loaded for public navigation.
+			 *
+			 * @param int $limit Maximum articles per project.
+			 */
+			$limit = (int) apply_filters( 'itsdz_max_public_articles', self::DEFAULT_MAX_ARTICLES );
+			$limit = max( 1, $limit );
+
 			self::$articles[ $kb_id ] = get_posts(
 				array(
 					'meta_key'       => '_itsdz_kb_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
@@ -63,7 +76,7 @@ final class Documentation {
 						'menu_order' => 'ASC',
 						'date'       => 'ASC',
 					),
-					'posts_per_page' => 500, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- One cached tree query is required for complete navigation.
+					'posts_per_page' => $limit, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- One cached tree query is required for complete navigation.
 					'post_status'    => 'publish',
 					'post_type'      => Article_Post_Type::POST_TYPE,
 				)

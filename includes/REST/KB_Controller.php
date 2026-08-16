@@ -490,6 +490,10 @@ final class KB_Controller extends REST_Controller {
 				update_post_meta( $post_id, $key, $meta[ $key ] );
 			}
 		}
+
+		if ( array_key_exists( '_itsdz_kb_slug_base', $meta ) ) {
+			KB_Post_Type::persist_rewrite_slug( $meta['_itsdz_kb_slug_base'] );
+		}
 	}
 
 	/**

@@ -18,10 +18,30 @@ export const api = {
 			method: 'PUT',
 			data: payload,
 		} ),
-	listArticles: ( kbId: number ) =>
-		apiFetch< Article[] >( {
-			path: `/itsdz/v1/articles?kb_id=${ kbId }`,
-		} ),
+	async listArticles( kbId: number ) {
+		const perPage = 100;
+		const articles: Article[] = [];
+		let page = 1;
+		let totalPages = 1;
+
+		do {
+			const response = await apiFetch< Response >( {
+				path: `/itsdz/v1/articles?kb_id=${ kbId }&page=${ page }&per_page=${ perPage }`,
+				parse: false,
+			} );
+
+			if ( ! response.ok ) {
+				throw new Error( 'Articles could not be loaded.' );
+			}
+
+			const pagesHeader = response.headers.get( 'X-WP-TotalPages' );
+			totalPages = Math.max( 1, Number.parseInt( pagesHeader || '1', 10 ) || 1 );
+			articles.push( ...( ( await response.json() ) as Article[] ) );
+			page += 1;
+		} while ( page <= totalPages && page <= 50 );
+
+		return articles;
+	},
 	createArticle: ( payload: Record< string, unknown > ) =>
 		apiFetch< Article >( {
 			path: '/itsdz/v1/articles',
