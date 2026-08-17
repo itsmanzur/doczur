@@ -17,6 +17,12 @@ if ( root ) {
 	initReadingProgress( root );
 	initSearchHighlight( root );
 
+	root.querySelectorAll< HTMLButtonElement >( '[data-itsdz-print]' ).forEach(
+		( button ) => {
+			button.addEventListener( 'click', () => window.print() );
+		}
+	);
+
 	let searchController: Promise< { open: () => void } > | null = null;
 	const openSearch = () => {
 		searchController ??= import( './search' ).then( ( module ) =>

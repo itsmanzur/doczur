@@ -187,6 +187,25 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 	margin-left: auto;
 }
 
+.itsdz-header-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	margin-inline-end: 4px;
+}
+
+.itsdz-header-links a {
+	color: var(--itsdz-muted);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.itsdz-header-links a:hover {
+	color: var(--itsdz-text);
+	text-decoration: none;
+}
+
 .itsdz-search-trigger,
 .itsdz-icon-button {
 	min-height: 38px;
@@ -411,6 +430,10 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 	font-size: 18px;
 }
 
+.itsdz-section-card h3 a {
+	color: inherit;
+}
+
 .itsdz-section-card > p {
 	margin: 0 0 14px;
 	color: var(--itsdz-muted);
@@ -562,6 +585,140 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 
 .itsdz-sidebar a[aria-current="page"] {
 	font-weight: 650;
+}
+
+/* Rail: denser, narrower left column. Markup is unchanged. */
+.itsdz-nav-rail .itsdz-article-layout {
+	grid-template-columns: minmax(180px, 220px) minmax(0, 780px) minmax(180px, 230px);
+}
+
+.itsdz-nav-rail .itsdz-sidebar {
+	padding: 18px 12px 36px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar-heading {
+	margin-bottom: 10px;
+	font-size: 11px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar details {
+	margin-bottom: 4px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar summary {
+	gap: 6px;
+	padding: 4px 4px;
+	font-size: 12px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar summary::before {
+	font-size: 8px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar summary span,
+.itsdz-nav-line .itsdz-sidebar summary span {
+	display: none;
+}
+
+.itsdz-nav-rail .itsdz-sidebar ul {
+	margin: 0 0 6px;
+}
+
+.itsdz-nav-rail .itsdz-sidebar a {
+	padding: 4px 6px;
+	font-size: 12px;
+	border-radius: 4px;
+}
+
+/* Line: section labels + a brand bar instead of a filled current row. */
+.itsdz-nav-line .itsdz-sidebar summary {
+	padding: 8px 2px 4px;
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--itsdz-muted);
+	border-radius: 0;
+}
+
+.itsdz-nav-line .itsdz-sidebar summary:hover,
+.itsdz-nav-line .itsdz-sidebar details[open] > summary {
+	color: var(--itsdz-muted);
+	background: transparent;
+}
+
+.itsdz-nav-line .itsdz-sidebar summary::before {
+	font-size: 7px;
+}
+
+.itsdz-nav-line .itsdz-sidebar a {
+	padding: 5px 8px;
+	border-radius: 0;
+	border-inline-start: 2px solid transparent;
+}
+
+.itsdz-nav-line .itsdz-sidebar a:hover,
+.itsdz-nav-line .itsdz-sidebar a[aria-current="page"] {
+	background: transparent;
+	border-inline-start-color: var(--itsdz-brand);
+}
+
+.itsdz-nav-line .itsdz-sidebar a:hover {
+	color: var(--itsdz-text);
+}
+
+.itsdz-nav-line .itsdz-sidebar a[aria-current="page"] {
+	color: var(--itsdz-brand-strong);
+}
+
+.itsdz-nav-tree .itsdz-sidebar details details {
+	margin-inline-start: 12px;
+}
+
+.itsdz-nav-section-link {
+	display: inline-block;
+	margin: 2px 0 4px 22px;
+	color: var(--itsdz-muted);
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.itsdz-docs.itsdz-no-toc .itsdz-article-layout {
+	grid-template-columns: minmax(220px, 280px) minmax(0, 1010px);
+}
+
+.itsdz-section-article-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.itsdz-section-article-list li + li {
+	margin-top: 8px;
+}
+
+.itsdz-section-article-list a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 14px 16px;
+	color: var(--itsdz-text);
+	background: var(--itsdz-surface);
+	border: 1px solid var(--itsdz-border);
+	border-radius: 10px;
+}
+
+.itsdz-section-article-list a:hover {
+	text-decoration: none;
+	border-color: color-mix(in srgb, var(--itsdz-brand) 35%, var(--itsdz-border));
+}
+
+.itsdz-section-article-list span {
+	color: var(--itsdz-muted);
+	font-size: 13px;
 }
 
 .itsdz-article-main {
@@ -1151,6 +1308,17 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 	text-align: center;
 }
 
+.itsdz-search-popular-label,
+.itsdz-search-empty-hint {
+	margin: 8px 12px 4px;
+	color: var(--itsdz-muted);
+	font-size: 12px;
+}
+
+.itsdz-search-empty-hint {
+	padding-bottom: 12px;
+}
+
 .itsdz-modal-open {
 	overflow: hidden;
 }
@@ -1172,6 +1340,10 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 
 	.itsdz-article-layout {
 		grid-template-columns: 250px minmax(0, 780px);
+	}
+
+	.itsdz-nav-rail .itsdz-article-layout {
+		grid-template-columns: 200px minmax(0, 780px);
 	}
 
 	.itsdz-toc {

@@ -37,8 +37,9 @@ final class Rewrite_Manager implements Service {
 	 * 1.1.0 — added the /llms.txt and /llms-full.txt routes.
 	 * 1.2.0 — slug base is read from settings; flush runs on init so the
 	 *         first request after a slug change picks up the new rules.
+	 * 1.3.0 — section archives follow the configured slug base.
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Register WordPress hooks.

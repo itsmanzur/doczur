@@ -153,12 +153,21 @@ final class ContentModelTest extends TestCase {
 		$kb_meta      = $GLOBALS['itsdz_test_post_meta'][ KB_Post_Type::POST_TYPE ];
 		$article_meta = $GLOBALS['itsdz_test_post_meta'][ Article_Post_Type::POST_TYPE ];
 
-		$this->assertCount( 8, $kb_meta );
+		$this->assertCount( 15, $kb_meta );
 		$this->assertCount( 4, $article_meta );
 		$this->assertSame( 'integer', $article_meta['_itsdz_kb_id']['type'] );
 		$this->assertTrue( $article_meta['_itsdz_kb_id']['show_in_rest'] );
 		$this->assertIsCallable( $article_meta['_itsdz_kb_id']['auth_callback'] );
 		$this->assertSame( '', ( new Meta_Fields() )->sanitize_slug( '' ) );
 		$this->assertSame( 'product-docs', ( new Meta_Fields() )->sanitize_slug( 'Product Docs' ) );
+		$this->assertSame( 'rail', ( new Meta_Fields() )->sanitize_nav_style( 'rail' ) );
+		$this->assertSame( 'tree', ( new Meta_Fields() )->sanitize_nav_style( 'tree' ) );
+		$this->assertSame( 'accordion', ( new Meta_Fields() )->sanitize_nav_style( 'unknown' ) );
+		$this->assertSame( '0', ( new Meta_Fields() )->sanitize_on_off( false ) );
+		$this->assertSame( '1', ( new Meta_Fields() )->sanitize_on_off( 'yes' ) );
+		$this->assertStringNotContainsString( 'javascript', ( new Meta_Fields() )->sanitize_custom_css( 'a{background:javascript:alert(1)}' ) );
+		$links = json_decode( ( new Meta_Fields() )->sanitize_header_links( array( array( 'label' => 'GitHub', 'url' => 'https://github.com/example' ) ) ), true );
+		$this->assertSame( 'GitHub', $links[0]['label'] );
+		$this->assertSame( 'https://github.com/example', $links[0]['url'] );
 	}
 }

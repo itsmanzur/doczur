@@ -29,6 +29,12 @@ $itsdz_reviewed   = (string) get_post_meta( $itsdz_article->ID, '_itsdz_last_rev
  */
 $itsdz_show_author = (bool) apply_filters( 'itsdz_show_article_author', true, $itsdz_article );
 
+$itsdz_show_feedback = Documentation::ui_flag( $itsdz_kb->ID, '_itsdz_kb_show_feedback' );
+$itsdz_show_related  = Documentation::ui_flag( $itsdz_kb->ID, '_itsdz_kb_show_related' );
+$itsdz_show_print    = Documentation::ui_flag( $itsdz_kb->ID, '_itsdz_kb_show_print' );
+$itsdz_show_toc      = Documentation::ui_flag( $itsdz_kb->ID, '_itsdz_kb_show_toc' );
+$itsdz_header_links  = Documentation::header_links( $itsdz_kb->ID );
+
 require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 ?>
 <div class="itsdz-article-layout">
@@ -40,13 +46,21 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<a href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>"><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></a>
 				<span aria-hidden="true">/</span>
 				<?php if ( $itsdz_section instanceof WP_Term ) : ?>
-					<span><?php echo esc_html( $itsdz_section->name ); ?></span>
+					<?php
+					$itsdz_section_url = get_term_link( $itsdz_section );
+					if ( ! is_wp_error( $itsdz_section_url ) ) :
+						?>
+						<a href="<?php echo esc_url( $itsdz_section_url ); ?>"><?php echo esc_html( $itsdz_section->name ); ?></a>
+					<?php else : ?>
+						<span><?php echo esc_html( $itsdz_section->name ); ?></span>
+					<?php endif; ?>
 					<span aria-hidden="true">/</span>
 				<?php endif; ?>
 				<span aria-current="page"><?php echo esc_html( get_the_title( $itsdz_article ) ); ?></span>
 			</div>
 			<?php if ( 'theme' === $itsdz_layout_mode ) : ?>
 				<div class="itsdz-breadcrumb-actions">
+					<?php require ITSDZ_PLUGIN_DIR . 'templates/partials/header-links.php'; ?>
 					<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
 						<span class="itsdz-icon-menu" aria-hidden="true"></span>
 						<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'doczur' ); ?></span>
@@ -104,6 +118,9 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 						?>
 					</span>
 					<button type="button" class="itsdz-copy-link" data-itsdz-copy-link><?php esc_html_e( 'Copy link', 'doczur' ); ?></button>
+					<?php if ( $itsdz_show_print ) : ?>
+						<button type="button" class="itsdz-copy-link" data-itsdz-print><?php esc_html_e( 'Print', 'doczur' ); ?></button>
+					<?php endif; ?>
 					<button
 						type="button"
 						class="itsdz-copy-link"
@@ -137,6 +154,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<?php endif; ?>
 			</nav>
 
+			<?php if ( $itsdz_show_feedback ) : ?>
 			<section class="itsdz-feedback" data-itsdz-feedback data-article-id="<?php echo esc_attr( (string) $itsdz_article->ID ); ?>">
 				<div>
 					<strong><?php esc_html_e( 'Was this article helpful?', 'doczur' ); ?></strong>
@@ -148,6 +166,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				</div>
 				<p class="itsdz-feedback-status" role="status" aria-live="polite" data-itsdz-feedback-status></p>
 			</section>
+			<?php endif; ?>
 
 			<div class="itsdz-article-share" aria-label="<?php esc_attr_e( 'Share article', 'doczur' ); ?>">
 				<span><?php esc_html_e( 'Share article:', 'doczur' ); ?></span>
@@ -156,7 +175,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<a href="mailto:?subject=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;body=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" aria-label="<?php esc_attr_e( 'Share via Email', 'doczur' ); ?>">Email</a>
 			</div>
 
-			<?php if ( $itsdz_related ) : ?>
+			<?php if ( $itsdz_show_related && $itsdz_related ) : ?>
 				<section class="itsdz-related" aria-labelledby="itsdz-related-title">
 					<h2 id="itsdz-related-title"><?php esc_html_e( 'Related articles', 'doczur' ); ?></h2>
 					<div>
@@ -172,9 +191,11 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 		</article>
 	</main>
 
+	<?php if ( $itsdz_show_toc ) : ?>
 	<aside class="itsdz-toc" aria-label="<?php esc_attr_e( 'On this page', 'doczur' ); ?>">
 		<strong><?php esc_html_e( 'On this page', 'doczur' ); ?></strong>
 		<nav data-itsdz-toc></nav>
 	</aside>
+	<?php endif; ?>
 </div>
 <?php require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-end.php'; ?>

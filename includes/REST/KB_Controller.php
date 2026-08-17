@@ -503,7 +503,23 @@ final class KB_Controller extends REST_Controller {
 	 * @return array<string, mixed>
 	 */
 	private function get_meta( $post_id ) {
-		$keys = array( '_itsdz_kb_logo', '_itsdz_kb_brand_color', '_itsdz_kb_theme_mode', '_itsdz_kb_template', '_itsdz_kb_doc_type', '_itsdz_kb_slug_base', '_itsdz_kb_layout_mode', '_itsdz_kb_active_version' );
+		$keys = array(
+			'_itsdz_kb_logo',
+			'_itsdz_kb_brand_color',
+			'_itsdz_kb_theme_mode',
+			'_itsdz_kb_template',
+			'_itsdz_kb_doc_type',
+			'_itsdz_kb_slug_base',
+			'_itsdz_kb_layout_mode',
+			'_itsdz_kb_nav_style',
+			'_itsdz_kb_show_toc',
+			'_itsdz_kb_show_feedback',
+			'_itsdz_kb_show_related',
+			'_itsdz_kb_show_print',
+			'_itsdz_kb_custom_css',
+			'_itsdz_kb_header_links',
+			'_itsdz_kb_active_version',
+		);
 		$meta = array();
 
 		foreach ( $keys as $key ) {

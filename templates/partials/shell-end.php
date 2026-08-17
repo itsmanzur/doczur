@@ -5,7 +5,10 @@
  * @package ItsDZ\Doczur
  *
  * @var string $itsdz_layout_mode Template shell mode.
+ * @var int    $itsdz_kb_id       Documentation project ID.
  */
+
+use ItsDZ\Doczur\Frontend\Documentation;
 
 defined( 'ABSPATH' ) || exit;
 ?>
@@ -30,7 +33,11 @@ defined( 'ABSPATH' ) || exit;
 				<button type="button" data-itsdz-search-close aria-label="<?php esc_attr_e( 'Close search', 'doczur' ); ?>">Esc</button>
 			</div>
 			<p class="itsdz-search-status" role="status" aria-live="polite" data-itsdz-search-status><?php esc_html_e( 'Type at least two characters to search.', 'doczur' ); ?></p>
-			<div class="itsdz-search-results" data-itsdz-search-results></div>
+			<div
+				class="itsdz-search-results"
+				data-itsdz-search-results
+				data-itsdz-popular="<?php echo esc_attr( (string) wp_json_encode( Documentation::get_popular_links( $itsdz_kb_id ) ) ); ?>"
+			></div>
 		</section>
 	</div>
 </div>

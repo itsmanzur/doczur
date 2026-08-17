@@ -306,6 +306,18 @@ if ( ! function_exists( 'sanitize_title' ) ) {
 	}
 }
 
+if ( ! function_exists( 'sanitize_key' ) ) {
+	/**
+	 * Keep lowercase alphanumeric keys in isolated tests.
+	 *
+	 * @param mixed $key Source key.
+	 * @return string
+	 */
+	function sanitize_key( $key ) {
+		return strtolower( preg_replace( '/[^a-z0-9_\-]/', '', (string) $key ) );
+	}
+}
+
 if ( ! function_exists( 'sanitize_text_field' ) ) {
 	/**
 	 * Sanitize isolated test text.
@@ -315,6 +327,20 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 	 */
 	function sanitize_text_field( $text ) {
 		return trim( strip_tags( (string) $text ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags
+	}
+}
+
+if ( ! function_exists( 'esc_url_raw' ) ) {
+	/**
+	 * Keep http(s) URLs in isolated tests.
+	 *
+	 * @param mixed $url Source URL.
+	 * @return string
+	 */
+	function esc_url_raw( $url ) {
+		$url = trim( (string) $url );
+
+		return preg_match( '#^https?://#i', $url ) ? $url : '';
 	}
 }
 

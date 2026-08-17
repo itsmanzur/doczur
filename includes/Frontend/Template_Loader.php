@@ -10,6 +10,7 @@ namespace ItsDZ\Doczur\Frontend;
 use ItsDZ\Doczur\Core\Service;
 use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 use ItsDZ\Doczur\PostTypes\KB_Post_Type;
+use ItsDZ\Doczur\Taxonomies\Section_Taxonomy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -99,6 +100,10 @@ final class Template_Loader implements Service {
 			return ITSDZ_PLUGIN_DIR . 'templates/kb.php';
 		}
 
+		if ( is_tax( Section_Taxonomy::TAXONOMY ) && Documentation::get_published_kb() ) {
+			return ITSDZ_PLUGIN_DIR . 'templates/section.php';
+		}
+
 		if ( is_singular( Article_Post_Type::POST_TYPE ) && Documentation::get_article_kb( get_queried_object_id() ) ) {
 			return ITSDZ_PLUGIN_DIR . 'templates/article.php';
 		}
@@ -118,6 +123,15 @@ final class Template_Loader implements Service {
 
 			if ( $kb ) {
 				$parts['site'] = get_the_title( $kb );
+			}
+		}
+
+		if ( is_tax( Section_Taxonomy::TAXONOMY ) ) {
+			$kb = Documentation::get_published_kb();
+
+			if ( $kb ) {
+				$parts['title'] = single_term_title( '', false );
+				$parts['site']  = get_the_title( $kb );
 			}
 		}
 

@@ -55,6 +55,7 @@ export function initSearch( root: HTMLElement ) {
 				query
 			);
 			results.appendChild( empty );
+			renderPopular( results );
 			return;
 		}
 
@@ -156,4 +157,54 @@ export function initSearch( root: HTMLElement ) {
 			input.focus();
 		},
 	};
+}
+
+interface PopularLink {
+	title: string;
+	url: string;
+}
+
+function renderPopular( results: HTMLElement ) {
+	let popular: PopularLink[] = [];
+
+	try {
+		popular = JSON.parse(
+			results.dataset.itsdzPopular || '[]'
+		) as PopularLink[];
+	} catch ( error ) {
+		popular = [];
+	}
+
+	if ( ! Array.isArray( popular ) || ! popular.length ) {
+		appendFeedbackHint( results );
+		return;
+	}
+
+	const heading = document.createElement( 'p' );
+	heading.className = 'itsdz-search-popular-label';
+	heading.textContent = __( 'Popular articles', 'doczur' );
+	results.appendChild( heading );
+
+	popular.slice( 0, 5 ).forEach( ( item ) => {
+		if ( ! item?.title || ! item?.url ) {
+			return;
+		}
+
+		const link = document.createElement( 'a' );
+		link.href = item.url;
+		link.textContent = item.title;
+		results.appendChild( link );
+	} );
+
+	appendFeedbackHint( results );
+}
+
+function appendFeedbackHint( results: HTMLElement ) {
+	const hint = document.createElement( 'p' );
+	hint.className = 'itsdz-search-empty-hint';
+	hint.textContent = __(
+		'Still stuck? Open an article and use “Was this helpful?” so we know what to improve.',
+		'doczur'
+	);
+	results.appendChild( hint );
 }

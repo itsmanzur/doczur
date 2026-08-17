@@ -48,6 +48,13 @@ final class Meta_Fields implements Service {
 		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_doc_type', 'string', array( $this, 'sanitize_doc_type' ), 'blank' );
 		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_slug_base', 'string', array( $this, 'sanitize_slug' ), '' );
 		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_layout_mode', 'string', array( $this, 'sanitize_layout_mode' ), 'canvas' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_nav_style', 'string', array( $this, 'sanitize_nav_style' ), 'accordion' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_show_toc', 'string', array( $this, 'sanitize_on_off' ), '1' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_show_feedback', 'string', array( $this, 'sanitize_on_off' ), '1' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_show_related', 'string', array( $this, 'sanitize_on_off' ), '1' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_show_print', 'string', array( $this, 'sanitize_on_off' ), '1' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_custom_css', 'string', array( $this, 'sanitize_custom_css' ), '' );
+		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_header_links', 'string', array( $this, 'sanitize_header_links' ), '[]' );
 		$this->register_field( KB_Post_Type::POST_TYPE, '_itsdz_kb_active_version', 'integer', 'absint', 0 );
 	}
 
@@ -154,6 +161,105 @@ final class Meta_Fields implements Service {
 	 */
 	public function sanitize_layout_mode( $value ) {
 		return $this->sanitize_choice( $value, array( 'canvas', 'theme' ), 'canvas' );
+	}
+
+	/**
+	 * Sanitize the public left-nav skin.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	public function sanitize_nav_style( $value ) {
+		return $this->sanitize_choice( $value, array( 'accordion', 'rail', 'line', 'tree' ), 'accordion' );
+	}
+
+	/**
+	 * Sanitize an on/off toggle stored as "1" or "0".
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	public function sanitize_on_off( $value ) {
+		if ( is_bool( $value ) ) {
+			return $value ? '1' : '0';
+		}
+
+		if ( ! is_scalar( $value ) ) {
+			return '1';
+		}
+
+		$normalized = strtolower( (string) $value );
+
+		if ( in_array( $normalized, array( '0', 'false', 'off', 'no' ), true ) ) {
+			return '0';
+		}
+
+		return '1';
+	}
+
+	/**
+	 * Strip executable bits from a custom CSS snippet.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	public function sanitize_custom_css( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return '';
+		}
+
+		$css = wp_strip_all_tags( (string) $value );
+		$css = (string) preg_replace( '/expression\s*\(/i', '', $css );
+		$css = (string) preg_replace( '/javascript\s*:/i', '', $css );
+		$css = (string) preg_replace( '/@import/i', '', $css );
+		$css = (string) preg_replace( '/behavior\s*:/i', '', $css );
+		$css = (string) preg_replace( '/-moz-binding/i', '', $css );
+
+		return substr( $css, 0, 8000 );
+	}
+
+	/**
+	 * Keep a small list of labelled header links.
+	 *
+	 * @param mixed $value Raw JSON string or array.
+	 * @return string JSON object list.
+	 */
+	public function sanitize_header_links( $value ) {
+		if ( is_string( $value ) ) {
+			$decoded = json_decode( $value, true );
+		} elseif ( is_array( $value ) ) {
+			$decoded = $value;
+		} else {
+			return '[]';
+		}
+
+		if ( ! is_array( $decoded ) ) {
+			return '[]';
+		}
+
+		$links = array();
+
+		foreach ( array_slice( $decoded, 0, 4 ) as $item ) {
+			if ( ! is_array( $item ) ) {
+				continue;
+			}
+
+			$label = isset( $item['label'] ) ? sanitize_text_field( (string) $item['label'] ) : '';
+			$url   = isset( $item['url'] ) ? esc_url_raw( (string) $item['url'] ) : '';
+
+			if ( '' === $label || '' === $url ) {
+				continue;
+			}
+
+			$links[] = array(
+				'label' => $label,
+				'url'   => $url,
+			);
+		}
+
+		$encoded = wp_json_encode( $links );
+
+		return is_string( $encoded ) ? $encoded : '[]';
 	}
 
 	/**

@@ -7,21 +7,37 @@
  * @var WP_Post $itsdz_kb Documentation project.
  */
 
+use ItsDZ\Doczur\Frontend\Documentation;
+
 defined( 'ABSPATH' ) || exit;
 
 $itsdz_kb_id = $itsdz_kb->ID;
 // The landing page's queried object is the KB itself; article pages query
 // the article and resolve $itsdz_kb separately — this tells them apart
 // without a post-type check.
-$itsdz_is_landing  = get_queried_object_id() === $itsdz_kb_id;
-$itsdz_layout_mode = get_post_meta( $itsdz_kb_id, '_itsdz_kb_layout_mode', true );
-$itsdz_theme_mode  = get_post_meta( $itsdz_kb_id, '_itsdz_kb_theme_mode', true );
-$itsdz_template    = get_post_meta( $itsdz_kb_id, '_itsdz_kb_template', true );
-$itsdz_logo_id     = absint( get_post_meta( $itsdz_kb_id, '_itsdz_kb_logo', true ) );
+$itsdz_is_landing    = get_queried_object_id() === $itsdz_kb_id;
+$itsdz_layout_mode   = get_post_meta( $itsdz_kb_id, '_itsdz_kb_layout_mode', true );
+$itsdz_theme_mode    = get_post_meta( $itsdz_kb_id, '_itsdz_kb_theme_mode', true );
+$itsdz_template      = get_post_meta( $itsdz_kb_id, '_itsdz_kb_template', true );
+$itsdz_nav_style     = get_post_meta( $itsdz_kb_id, '_itsdz_kb_nav_style', true );
+$itsdz_logo_id       = absint( get_post_meta( $itsdz_kb_id, '_itsdz_kb_logo', true ) );
+$itsdz_header_links = Documentation::header_links( $itsdz_kb_id );
+$itsdz_show_toc     = Documentation::ui_flag( $itsdz_kb_id, '_itsdz_kb_show_toc' );
 
 $itsdz_layout_mode = in_array( $itsdz_layout_mode, array( 'canvas', 'theme' ), true ) ? $itsdz_layout_mode : 'canvas';
 $itsdz_theme_mode  = in_array( $itsdz_theme_mode, array( 'light', 'dark', 'system' ), true ) ? $itsdz_theme_mode : 'system';
 $itsdz_template    = in_array( $itsdz_template, array( 'clean', 'modern', 'compact' ), true ) ? $itsdz_template : 'clean';
+$itsdz_nav_style   = in_array( $itsdz_nav_style, array( 'accordion', 'rail', 'line', 'tree' ), true ) ? $itsdz_nav_style : 'accordion';
+
+$itsdz_docs_classes = array(
+	'itsdz-docs',
+	'itsdz-template-' . $itsdz_template,
+	'itsdz-nav-' . $itsdz_nav_style,
+);
+
+if ( ! $itsdz_show_toc ) {
+	$itsdz_docs_classes[] = 'itsdz-no-toc';
+}
 
 if ( 'theme' === $itsdz_layout_mode ) {
 	get_header();
@@ -40,7 +56,7 @@ if ( 'theme' === $itsdz_layout_mode ) {
 }
 ?>
 <div
-	class="itsdz-docs itsdz-template-<?php echo esc_attr( $itsdz_template ); ?>"
+	class="<?php echo esc_attr( implode( ' ', $itsdz_docs_classes ) ); ?>"
 	data-kb-id="<?php echo esc_attr( (string) $itsdz_kb_id ); ?>"
 	data-rest-url="<?php echo esc_url( rest_url( 'itsdz/v1/' ) ); ?>"
 	data-theme="<?php echo esc_attr( $itsdz_theme_mode ); ?>"
@@ -83,6 +99,7 @@ if ( 'theme' === $itsdz_layout_mode ) {
 					</div>
 				<?php endif; ?>
 				<div class="itsdz-header-actions">
+					<?php require ITSDZ_PLUGIN_DIR . 'templates/partials/header-links.php'; ?>
 					<?php if ( ! $itsdz_is_landing ) : ?>
 						<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
 							<span class="itsdz-icon-menu" aria-hidden="true"></span>

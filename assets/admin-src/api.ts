@@ -74,13 +74,28 @@ export const api = {
 		} ),
 	listSections: () =>
 		apiFetch< Section[] >( {
-			path: '/wp/v2/itsdz_section?per_page=100&orderby=name&order=asc',
+			path: '/wp/v2/itsdz_section?per_page=100&orderby=name&order=asc&context=edit',
 		} ),
-	createSection: ( name: string, parent = 0 ) =>
+	createSection: (
+		name: string,
+		parent = 0,
+		extra: Record< string, unknown > = {}
+	) =>
 		apiFetch< Section >( {
 			path: '/wp/v2/itsdz_section',
 			method: 'POST',
-			data: { name, parent },
+			data: { name, parent, ...extra },
+		} ),
+	updateSection: ( id: number, data: Record< string, unknown > ) =>
+		apiFetch< Section >( {
+			path: `/wp/v2/itsdz_section/${ id }`,
+			method: 'POST',
+			data,
+		} ),
+	deleteSection: ( id: number ) =>
+		apiFetch< { deleted: boolean } >( {
+			path: `/wp/v2/itsdz_section/${ id }?force=true`,
+			method: 'DELETE',
 		} ),
 	getSampleDataStatus: ( kbId: number ) =>
 		apiFetch< { exists: boolean } >( {
