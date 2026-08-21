@@ -70,13 +70,13 @@ final class Feedback_Controller extends REST_Controller {
 		$kb_id      = absint( get_post_meta( $article_id, '_itsdz_kb_id', true ) );
 
 		if ( ! $article || Article_Post_Type::POST_TYPE !== $article->post_type || 'publish' !== $article->post_status || is_wp_error( Content_Validator::get_kb( $kb_id, true ) ) ) {
-			return new \WP_Error( 'itsdz_feedback_article_not_found', __( 'The article is not publicly available.', 'doczur' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'itsdz_feedback_article_not_found', __( 'The article is not publicly available.', 'itsmanzur-docs' ), array( 'status' => 404 ) );
 		}
 
 		$duplicate_key = 'itsdz_feedback_' . md5( $article_id . '|' . $limiter->get_ip_hash() );
 
 		if ( get_transient( $duplicate_key ) ) {
-			return new \WP_Error( 'itsdz_feedback_duplicate', __( 'Feedback has already been submitted for this article.', 'doczur' ), array( 'status' => 409 ) );
+			return new \WP_Error( 'itsdz_feedback_duplicate', __( 'Feedback has already been submitted for this article.', 'itsmanzur-docs' ), array( 'status' => 409 ) );
 		}
 
 		$comment = sanitize_textarea_field( $request->get_param( 'comment' ) );
@@ -97,7 +97,7 @@ final class Feedback_Controller extends REST_Controller {
 		$inserted = $wpdb->query( $sql );
 
 		if ( false === $inserted ) {
-			return new \WP_Error( 'itsdz_feedback_failed', __( 'Feedback could not be saved.', 'doczur' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'itsdz_feedback_failed', __( 'Feedback could not be saved.', 'itsmanzur-docs' ), array( 'status' => 500 ) );
 		}
 
 		set_transient( $duplicate_key, '1', 12 * HOUR_IN_SECONDS );

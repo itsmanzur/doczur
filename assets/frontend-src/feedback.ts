@@ -20,7 +20,7 @@ export function initFeedback( root: HTMLElement ) {
 		button.addEventListener( 'click', async () => {
 			buttons.forEach( ( item ) => ( item.disabled = true ) );
 			if ( status ) {
-				status.textContent = __( 'Sending feedback…', 'doczur' );
+				status.textContent = __( 'Sending feedback…', 'itsmanzur-docs' );
 			}
 
 			try {
@@ -40,14 +40,14 @@ export function initFeedback( root: HTMLElement ) {
 				if ( status ) {
 					status.textContent = __(
 						'Thank you for your feedback.',
-						'doczur'
+						'itsmanzur-docs'
 					);
 				}
 			} catch {
 				if ( status ) {
 					status.textContent = __(
 						'Feedback could not be sent. Please try again.',
-						'doczur'
+						'itsmanzur-docs'
 					);
 				}
 				buttons.forEach( ( item ) => ( item.disabled = false ) );

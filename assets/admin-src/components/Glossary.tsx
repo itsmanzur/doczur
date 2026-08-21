@@ -74,8 +74,8 @@ export function Glossary() {
 			setNotice( {
 				status: 'success',
 				message: editingId
-					? __( 'Glossary term updated.', 'doczur' )
-					: __( 'Glossary term added.', 'doczur' ),
+					? __( 'Glossary term updated.', 'itsmanzur-docs' )
+					: __( 'Glossary term added.', 'itsmanzur-docs' ),
 			} );
 			reset();
 			await load();
@@ -85,7 +85,7 @@ export function Glossary() {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'The glossary term could not be saved.', 'doczur' ),
+						: __( 'The glossary term could not be saved.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBusy( false );
@@ -94,7 +94,7 @@ export function Glossary() {
 
 	const remove = async ( term: GlossaryTerm ) => {
 		// eslint-disable-next-line no-alert
-		if ( ! window.confirm( __( 'Delete this glossary term?', 'doczur' ) ) ) {
+		if ( ! window.confirm( __( 'Delete this glossary term?', 'itsmanzur-docs' ) ) ) {
 			return;
 		}
 
@@ -104,7 +104,7 @@ export function Glossary() {
 				path: `/wp/v2/itsdz_glossary/${ term.id }?force=true`,
 				method: 'DELETE',
 			} );
-			setNotice( { status: 'success', message: __( 'Glossary term deleted.', 'doczur' ) } );
+			setNotice( { status: 'success', message: __( 'Glossary term deleted.', 'itsmanzur-docs' ) } );
 
 			if ( editingId === term.id ) {
 				reset();
@@ -117,7 +117,7 @@ export function Glossary() {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'The glossary term could not be deleted.', 'doczur' ),
+						: __( 'The glossary term could not be deleted.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBusy( false );
@@ -137,11 +137,11 @@ export function Glossary() {
 		<div className="itsdz-settings-container">
 			<div className="itsdz-settings-header">
 				<div>
-					<h1>{ __( 'Glossary', 'doczur' ) }</h1>
+					<h1>{ __( 'Glossary', 'itsmanzur-docs' ) }</h1>
 					<p>
 						{ __(
 							'Define the terms your product uses. The first mention of each term in an article is highlighted with its definition.',
-							'doczur'
+							'itsmanzur-docs'
 						) }
 					</p>
 				</div>
@@ -154,34 +154,34 @@ export function Glossary() {
 							<span className="dashicons dashicons-plus-alt" aria-hidden="true" />
 							<h2>
 								{ editingId
-									? __( 'Edit term', 'doczur' )
-									: __( 'Add a term', 'doczur' ) }
+									? __( 'Edit term', 'itsmanzur-docs' )
+									: __( 'Add a term', 'itsmanzur-docs' ) }
 							</h2>
 						</div>
 
 						<TextControl
-							label={ __( 'TERM', 'doczur' ) }
+							label={ __( 'TERM', 'itsmanzur-docs' ) }
 							value={ draft.name }
 							onChange={ ( value: string ) => setDraft( { ...draft, name: value } ) }
-							placeholder={ __( 'API key', 'doczur' ) }
+							placeholder={ __( 'API key', 'itsmanzur-docs' ) }
 						/>
 						<TextareaControl
-							label={ __( 'DEFINITION', 'doczur' ) }
+							label={ __( 'DEFINITION', 'itsmanzur-docs' ) }
 							value={ draft.description }
 							rows={ 3 }
 							onChange={ ( value: string ) =>
 								setDraft( { ...draft, description: value } )
 							}
-							placeholder={ __( 'A secret string used to authenticate requests.', 'doczur' ) }
+							placeholder={ __( 'A secret string used to authenticate requests.', 'itsmanzur-docs' ) }
 						/>
 						<TextControl
-							label={ __( 'ALTERNATIVE SPELLINGS', 'doczur' ) }
+							label={ __( 'ALTERNATIVE SPELLINGS', 'itsmanzur-docs' ) }
 							value={ draft.aliases }
 							onChange={ ( value: string ) => setDraft( { ...draft, aliases: value } ) }
-							placeholder={ __( 'API keys, api-key', 'doczur' ) }
+							placeholder={ __( 'API keys, api-key', 'itsmanzur-docs' ) }
 							help={ __(
 								'Comma separated. These are highlighted as well as the main term.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						/>
 
@@ -193,12 +193,12 @@ export function Glossary() {
 							>
 								{ busy && <Spinner /> }{ ' ' }
 								{ editingId
-									? __( 'Update term', 'doczur' )
-									: __( 'Add term', 'doczur' ) }
+									? __( 'Update term', 'itsmanzur-docs' )
+									: __( 'Add term', 'itsmanzur-docs' ) }
 							</Button>
 							{ editingId && (
 								<Button variant="tertiary" onClick={ reset } disabled={ busy }>
-									{ __( 'Cancel', 'doczur' ) }
+									{ __( 'Cancel', 'itsmanzur-docs' ) }
 								</Button>
 							) }
 						</div>
@@ -210,7 +210,7 @@ export function Glossary() {
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-book-alt" aria-hidden="true" />
 							<h2>
-								{ __( 'All terms', 'doczur' ) } ({ terms.length })
+								{ __( 'All terms', 'itsmanzur-docs' ) } ({ terms.length })
 							</h2>
 						</div>
 
@@ -218,7 +218,7 @@ export function Glossary() {
 
 						{ ! loading && terms.length === 0 && (
 							<p className="itsdz-settings-card-intro">
-								{ __( 'No glossary terms yet. Add your first one above.', 'doczur' ) }
+								{ __( 'No glossary terms yet. Add your first one above.', 'itsmanzur-docs' ) }
 							</p>
 						) }
 
@@ -226,10 +226,10 @@ export function Glossary() {
 							<div className="itsdz-glossary-row" key={ term.id }>
 								<div>
 									<strong>{ term.name }</strong>
-									<p>{ term.description || __( '(no definition yet)', 'doczur' ) }</p>
+									<p>{ term.description || __( '(no definition yet)', 'itsmanzur-docs' ) }</p>
 									{ term.meta?.itsdz_glossary_aliases && (
 										<span className="itsdz-glossary-row-aliases">
-											{ __( 'Also:', 'doczur' ) }{ ' ' }
+											{ __( 'Also:', 'itsmanzur-docs' ) }{ ' ' }
 											{ term.meta.itsdz_glossary_aliases }
 										</span>
 									) }
@@ -240,7 +240,7 @@ export function Glossary() {
 										onClick={ () => edit( term ) }
 										disabled={ busy }
 									>
-										{ __( 'Edit', 'doczur' ) }
+										{ __( 'Edit', 'itsmanzur-docs' ) }
 									</Button>
 									<Button
 										variant="tertiary"
@@ -248,7 +248,7 @@ export function Glossary() {
 										onClick={ () => void remove( term ) }
 										disabled={ busy }
 									>
-										{ __( 'Delete', 'doczur' ) }
+										{ __( 'Delete', 'itsmanzur-docs' ) }
 									</Button>
 								</div>
 							</div>

@@ -37,19 +37,19 @@ final class KB_Post_Type implements Service {
 	 */
 	public function register_post_type() {
 		$labels = array(
-			'name'               => _x( 'Documentation Projects', 'post type general name', 'doczur' ),
-			'singular_name'      => _x( 'Documentation Project', 'post type singular name', 'doczur' ),
-			'menu_name'          => _x( 'Doczur', 'admin menu', 'doczur' ),
-			'name_admin_bar'     => _x( 'Documentation Project', 'add new from admin bar', 'doczur' ),
-			'add_new'            => __( 'Add New', 'doczur' ),
-			'add_new_item'       => __( 'Add New Documentation Project', 'doczur' ),
-			'new_item'           => __( 'New Documentation Project', 'doczur' ),
-			'edit_item'          => __( 'Edit Documentation Project', 'doczur' ),
-			'view_item'          => __( 'View Documentation Project', 'doczur' ),
-			'all_items'          => __( 'All Documentation Projects', 'doczur' ),
-			'search_items'       => __( 'Search Documentation Projects', 'doczur' ),
-			'not_found'          => __( 'No documentation projects found.', 'doczur' ),
-			'not_found_in_trash' => __( 'No documentation projects found in Trash.', 'doczur' ),
+			'name'               => _x( 'Documentation Projects', 'post type general name', 'itsmanzur-docs' ),
+			'singular_name'      => _x( 'Documentation Project', 'post type singular name', 'itsmanzur-docs' ),
+			'menu_name'          => _x( 'Nirdeshio', 'admin menu', 'itsmanzur-docs' ),
+			'name_admin_bar'     => _x( 'Documentation Project', 'add new from admin bar', 'itsmanzur-docs' ),
+			'add_new'            => __( 'Add New', 'itsmanzur-docs' ),
+			'add_new_item'       => __( 'Add New Documentation Project', 'itsmanzur-docs' ),
+			'new_item'           => __( 'New Documentation Project', 'itsmanzur-docs' ),
+			'edit_item'          => __( 'Edit Documentation Project', 'itsmanzur-docs' ),
+			'view_item'          => __( 'View Documentation Project', 'itsmanzur-docs' ),
+			'all_items'          => __( 'All Documentation Projects', 'itsmanzur-docs' ),
+			'search_items'       => __( 'Search Documentation Projects', 'itsmanzur-docs' ),
+			'not_found'          => __( 'No documentation projects found.', 'itsmanzur-docs' ),
+			'not_found_in_trash' => __( 'No documentation projects found in Trash.', 'itsmanzur-docs' ),
 		);
 
 		register_post_type(

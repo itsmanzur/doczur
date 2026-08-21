@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur capability management.
+ * Nirdeshio capability management.
  *
  * @package ItsDZ\Doczur\Security
  */
@@ -12,7 +12,7 @@ use ItsDZ\Doczur\Core\Service;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Defines and installs Doczur capabilities.
+ * Defines and installs Nirdeshio capabilities.
  */
 final class Capabilities implements Service {
 	/**
@@ -51,7 +51,7 @@ final class Capabilities implements Service {
 	}
 
 	/**
-	 * Grant Doczur management to roles that can manage site options.
+	 * Grant Nirdeshio management to roles that can manage site options.
 	 *
 	 * @return void
 	 */

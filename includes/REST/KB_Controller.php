@@ -198,28 +198,50 @@ final class KB_Controller extends REST_Controller {
 	}
 
 	/**
-	 * Create the single Free project.
+	 * Create a documentation project.
 	 *
 	 * @param \WP_REST_Request $request Request object.
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function create_item( $request ) {
-		$maximum  = (int) apply_filters( 'itsdz_max_documentation_projects', 1 );
-		$existing = get_posts(
-			array(
-				'fields'         => 'ids',
-				'posts_per_page' => $maximum > 0 ? $maximum : 1,
-				'post_status'    => array( 'draft', 'publish', 'pending', 'private' ),
-				'post_type'      => KB_Post_Type::POST_TYPE,
-			)
-		);
+		/**
+		 * Cap the number of documentation projects a site may create.
+		 *
+		 * 0 (the default) means no cap. This is not a Free/Pro gate — it
+		 * exists so a site owner (or another plugin) can impose a limit of
+		 * their own if they want one; nothing in Nirdeshio itself ever sets
+		 * this away from unlimited.
+		 *
+		 * @param int $maximum Maximum number of projects, 0 for unlimited.
+		 */
+		$maximum = (int) apply_filters( 'itsdz_max_documentation_projects', 0 );
 
-		if ( $maximum > 0 && count( $existing ) >= $maximum ) {
-			return new \WP_Error(
-				'itsdz_kb_limit_reached',
-				__( 'The Free version supports one documentation project.', 'doczur' ),
-				array( 'status' => 403 )
+		if ( $maximum > 0 ) {
+			$existing = get_posts(
+				array(
+					'fields'         => 'ids',
+					'posts_per_page' => $maximum,
+					'post_status'    => array( 'draft', 'publish', 'pending', 'private' ),
+					'post_type'      => KB_Post_Type::POST_TYPE,
+				)
 			);
+
+			if ( count( $existing ) >= $maximum ) {
+				return new \WP_Error(
+					'itsdz_kb_limit_reached',
+					sprintf(
+						/* translators: %d: maximum number of documentation projects allowed. */
+						_n(
+							'A maximum of %d documentation project is allowed.',
+							'A maximum of %d documentation projects are allowed.',
+							$maximum,
+							'itsmanzur-docs'
+						),
+						$maximum
+					),
+					array( 'status' => 403 )
+				);
+			}
 		}
 
 		$post_id = wp_insert_post( $this->post_data( $request ), true );
@@ -279,7 +301,7 @@ final class KB_Controller extends REST_Controller {
 		$deleted = $force ? wp_delete_post( $post->ID, true ) : wp_trash_post( $post->ID );
 
 		if ( ! $deleted ) {
-			return new \WP_Error( 'itsdz_delete_failed', __( 'The documentation project could not be deleted.', 'doczur' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'itsdz_delete_failed', __( 'The documentation project could not be deleted.', 'itsmanzur-docs' ), array( 'status' => 500 ) );
 		}
 
 		return rest_ensure_response(
@@ -396,7 +418,7 @@ final class KB_Controller extends REST_Controller {
 			'counts'    => $counts,
 			'attention' => $attention,
 			'recent'    => $recent,
-			// A generic extension point: Doczur Pro (or any other add-on)
+			// A generic extension point: Nirdeshio Pro (or any other add-on)
 			// hooks this to add its own data — analytics today, whatever
 			// else later — without Free ever needing to know the shape, or
 			// even that "analytics" is a concept that exists.

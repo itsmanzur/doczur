@@ -45,15 +45,15 @@ export function getStaleness( article: Pick< Article, 'last_reviewed' | 'modifie
 	if ( inferred ) {
 		label = sprintf(
 			/* translators: %d: number of days since the article was last edited. */
-			_n( 'Not reviewed — edited %d day ago', 'Not reviewed — edited %d days ago', days, 'doczur' ),
+			_n( 'Not reviewed — edited %d day ago', 'Not reviewed — edited %d days ago', days, 'itsmanzur-docs' ),
 			days
 		);
 	} else if ( days === 0 ) {
-		label = __( 'Reviewed today', 'doczur' );
+		label = __( 'Reviewed today', 'itsmanzur-docs' );
 	} else {
 		label = sprintf(
 			/* translators: %d: number of days since the article was last reviewed. */
-			_n( 'Reviewed %d day ago', 'Reviewed %d days ago', days, 'doczur' ),
+			_n( 'Reviewed %d day ago', 'Reviewed %d days ago', days, 'itsmanzur-docs' ),
 			days
 		);
 	}

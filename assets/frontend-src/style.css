@@ -100,7 +100,7 @@
 }
 
 /* In `theme` layout mode the active theme already renders its own sticky
-   site header above this one — this bar only needs to carry Doczur's own
+   site header above this one — this bar only needs to carry Nirdeshio's own
    search/nav/theme controls, so it stays a plain, non-sticky, low-height
    toolbar rather than a second full header. */
 body:not(.itsdz-canvas-page) .itsdz-site-header {

@@ -35,7 +35,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 	<?php require ITSDZ_PLUGIN_DIR . 'templates/partials/navigation.php'; ?>
 
 	<main class="itsdz-article-main" id="itsdz-main">
-		<nav class="itsdz-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'doczur' ); ?>">
+		<nav class="itsdz-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'itsmanzur-docs' ); ?>">
 			<div class="itsdz-breadcrumb-trail">
 				<a href="<?php echo esc_url( get_permalink( $itsdz_kb ) ); ?>"><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></a>
 				<span aria-hidden="true">/</span>
@@ -49,12 +49,12 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				<div class="itsdz-breadcrumb-actions">
 					<button class="itsdz-icon-button itsdz-mobile-nav-button" type="button" data-itsdz-nav-toggle aria-controls="itsdz-sidebar" aria-expanded="false">
 						<span class="itsdz-icon-menu" aria-hidden="true"></span>
-						<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'doczur' ); ?></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Open documentation navigation', 'itsmanzur-docs' ); ?></span>
 					</button>
-					<button class="itsdz-icon-button" type="button" data-itsdz-search-open aria-label="<?php esc_attr_e( 'Search documentation', 'doczur' ); ?>">
+					<button class="itsdz-icon-button" type="button" data-itsdz-search-open aria-label="<?php esc_attr_e( 'Search documentation', 'itsmanzur-docs' ); ?>">
 						<span class="itsdz-icon-search" aria-hidden="true"></span>
 					</button>
-					<button class="itsdz-icon-button" type="button" data-itsdz-theme-toggle aria-label="<?php esc_attr_e( 'Toggle color mode', 'doczur' ); ?>">
+					<button class="itsdz-icon-button" type="button" data-itsdz-theme-toggle aria-label="<?php esc_attr_e( 'Toggle color mode', 'itsmanzur-docs' ); ?>">
 						<span class="itsdz-icon-contrast" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -76,7 +76,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 						<?php
 						printf(
 							/* translators: %s: article modified date. */
-							esc_html__( 'Updated %s', 'doczur' ),
+							esc_html__( 'Updated %s', 'itsmanzur-docs' ),
 							esc_html( get_the_modified_date( get_option( 'date_format' ), $itsdz_article ) )
 						);
 						?>
@@ -87,7 +87,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 							<?php
 							printf(
 								/* translators: %s: date the article was last reviewed for accuracy. */
-								esc_html__( 'Reviewed %s', 'doczur' ),
+								esc_html__( 'Reviewed %s', 'itsmanzur-docs' ),
 								esc_html( wp_date( (string) get_option( 'date_format' ), (int) strtotime( $itsdz_reviewed . ' UTC' ) ) )
 							);
 							?>
@@ -98,19 +98,19 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 						<?php
 						printf(
 							/* translators: %d: estimated reading time in minutes. */
-							esc_html( _n( '%d minute read', '%d minutes read', $itsdz_reading, 'doczur' ) ),
+							esc_html( _n( '%d minute read', '%d minutes read', $itsdz_reading, 'itsmanzur-docs' ) ),
 							esc_html( (string) $itsdz_reading )
 						);
 						?>
 					</span>
-					<button type="button" class="itsdz-copy-link" data-itsdz-copy-link><?php esc_html_e( 'Copy link', 'doczur' ); ?></button>
+					<button type="button" class="itsdz-copy-link" data-itsdz-copy-link><?php esc_html_e( 'Copy link', 'itsmanzur-docs' ); ?></button>
 					<button
 						type="button"
 						class="itsdz-copy-link"
 						data-itsdz-copy-markdown
 						data-itsdz-title="<?php echo esc_attr( get_the_title( $itsdz_article ) ); ?>"
-						title="<?php esc_attr_e( 'Copy this article as Markdown, ready to paste into an AI assistant', 'doczur' ); ?>"
-					><?php esc_html_e( 'Copy as Markdown', 'doczur' ); ?></button>
+						title="<?php esc_attr_e( 'Copy this article as Markdown, ready to paste into an AI assistant', 'itsmanzur-docs' ); ?>"
+					><?php esc_html_e( 'Copy as Markdown', 'itsmanzur-docs' ); ?></button>
 				</div>
 			</header>
 
@@ -122,16 +122,16 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 				?>
 			</div>
 
-			<nav class="itsdz-adjacent" aria-label="<?php esc_attr_e( 'Previous and next articles', 'doczur' ); ?>">
+			<nav class="itsdz-adjacent" aria-label="<?php esc_attr_e( 'Previous and next articles', 'itsmanzur-docs' ); ?>">
 				<?php if ( $itsdz_adjacent['previous'] ) : ?>
 					<a rel="prev" href="<?php echo esc_url( get_permalink( $itsdz_adjacent['previous'] ) ); ?>">
-						<span><?php esc_html_e( 'Previous', 'doczur' ); ?></span>
+						<span><?php esc_html_e( 'Previous', 'itsmanzur-docs' ); ?></span>
 						<strong>← <?php echo esc_html( get_the_title( $itsdz_adjacent['previous'] ) ); ?></strong>
 					</a>
 				<?php endif; ?>
 				<?php if ( $itsdz_adjacent['next'] ) : ?>
 					<a rel="next" href="<?php echo esc_url( get_permalink( $itsdz_adjacent['next'] ) ); ?>">
-						<span><?php esc_html_e( 'Next', 'doczur' ); ?></span>
+						<span><?php esc_html_e( 'Next', 'itsmanzur-docs' ); ?></span>
 						<strong><?php echo esc_html( get_the_title( $itsdz_adjacent['next'] ) ); ?> →</strong>
 					</a>
 				<?php endif; ?>
@@ -139,31 +139,31 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 
 			<section class="itsdz-feedback" data-itsdz-feedback data-article-id="<?php echo esc_attr( (string) $itsdz_article->ID ); ?>">
 				<div>
-					<strong><?php esc_html_e( 'Was this article helpful?', 'doczur' ); ?></strong>
-					<p><?php esc_html_e( 'Your feedback helps improve this documentation.', 'doczur' ); ?></p>
+					<strong><?php esc_html_e( 'Was this article helpful?', 'itsmanzur-docs' ); ?></strong>
+					<p><?php esc_html_e( 'Your feedback helps improve this documentation.', 'itsmanzur-docs' ); ?></p>
 				</div>
 				<div class="itsdz-feedback-actions">
-					<button type="button" data-helpful="true"><?php esc_html_e( 'Yes', 'doczur' ); ?></button>
-					<button type="button" data-helpful="false"><?php esc_html_e( 'Not yet', 'doczur' ); ?></button>
+					<button type="button" data-helpful="true"><?php esc_html_e( 'Yes', 'itsmanzur-docs' ); ?></button>
+					<button type="button" data-helpful="false"><?php esc_html_e( 'Not yet', 'itsmanzur-docs' ); ?></button>
 				</div>
 				<p class="itsdz-feedback-status" role="status" aria-live="polite" data-itsdz-feedback-status></p>
 			</section>
 
-			<div class="itsdz-article-share" aria-label="<?php esc_attr_e( 'Share article', 'doczur' ); ?>">
-				<span><?php esc_html_e( 'Share article:', 'doczur' ); ?></span>
-				<a href="https://twitter.com/intent/tweet?text=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on Twitter or X', 'doczur' ); ?>">X / Twitter</a>
-				<a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on LinkedIn', 'doczur' ); ?>">LinkedIn</a>
-				<a href="mailto:?subject=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;body=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" aria-label="<?php esc_attr_e( 'Share via Email', 'doczur' ); ?>">Email</a>
+			<div class="itsdz-article-share" aria-label="<?php esc_attr_e( 'Share article', 'itsmanzur-docs' ); ?>">
+				<span><?php esc_html_e( 'Share article:', 'itsmanzur-docs' ); ?></span>
+				<a href="https://twitter.com/intent/tweet?text=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on Twitter or X', 'itsmanzur-docs' ); ?>">X / Twitter</a>
+				<a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Share on LinkedIn', 'itsmanzur-docs' ); ?>">LinkedIn</a>
+				<a href="mailto:?subject=<?php echo rawurlencode( get_the_title( $itsdz_article ) ); ?>&amp;body=<?php echo rawurlencode( get_permalink( $itsdz_article ) ); ?>" aria-label="<?php esc_attr_e( 'Share via Email', 'itsmanzur-docs' ); ?>">Email</a>
 			</div>
 
 			<?php if ( $itsdz_related ) : ?>
 				<section class="itsdz-related" aria-labelledby="itsdz-related-title">
-					<h2 id="itsdz-related-title"><?php esc_html_e( 'Related articles', 'doczur' ); ?></h2>
+					<h2 id="itsdz-related-title"><?php esc_html_e( 'Related articles', 'itsmanzur-docs' ); ?></h2>
 					<div>
 						<?php foreach ( $itsdz_related as $itsdz_related_article ) : ?>
 							<a href="<?php echo esc_url( get_permalink( $itsdz_related_article ) ); ?>">
 								<strong><?php echo esc_html( get_the_title( $itsdz_related_article ) ); ?></strong>
-								<span><?php esc_html_e( 'Read article', 'doczur' ); ?> →</span>
+								<span><?php esc_html_e( 'Read article', 'itsmanzur-docs' ); ?> →</span>
 							</a>
 						<?php endforeach; ?>
 					</div>
@@ -172,8 +172,8 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 		</article>
 	</main>
 
-	<aside class="itsdz-toc" aria-label="<?php esc_attr_e( 'On this page', 'doczur' ); ?>">
-		<strong><?php esc_html_e( 'On this page', 'doczur' ); ?></strong>
+	<aside class="itsdz-toc" aria-label="<?php esc_attr_e( 'On this page', 'itsmanzur-docs' ); ?>">
+		<strong><?php esc_html_e( 'On this page', 'itsmanzur-docs' ); ?></strong>
 		<nav data-itsdz-toc></nav>
 	</aside>
 </div>

@@ -98,7 +98,7 @@ final class KbOverviewIntegrationTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A logged-in user without the Doczur capability is rejected.
+	 * A logged-in user without the Nirdeshio capability is rejected.
 	 *
 	 * @return void
 	 */

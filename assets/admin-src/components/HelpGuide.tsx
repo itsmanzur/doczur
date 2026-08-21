@@ -31,19 +31,19 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 	const [ activeLesson, setActiveLesson ] = useState( initialLesson );
 	const checklist = [
 		{
-			label: __( 'Documentation portal created', 'doczur' ),
+			label: __( 'Documentation portal created', 'itsmanzur-docs' ),
 			done: true,
 		},
 		{
-			label: __( 'First article added', 'doczur' ),
+			label: __( 'First article added', 'itsmanzur-docs' ),
 			done: articles.length > 0,
 		},
 		{
-			label: __( 'At least one article published', 'doczur' ),
+			label: __( 'At least one article published', 'itsmanzur-docs' ),
 			done: publishedArticles > 0,
 		},
 		{
-			label: __( 'Help center ready to share', 'doczur' ),
+			label: __( 'Help center ready to share', 'itsmanzur-docs' ),
 			done: project.status === 'publish' && publishedArticles > 0,
 		},
 	];
@@ -54,209 +54,209 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 		{
 			id: 'structure',
 			number: '01',
-			title: __( 'Understand the basics', 'doczur' ),
-			summary: __( 'Learn the three simple building blocks.', 'doczur' ),
+			title: __( 'Understand the basics', 'itsmanzur-docs' ),
+			summary: __( 'Learn the three simple building blocks.', 'itsmanzur-docs' ),
 			heading: __(
-				'Think of Doczur as an organized help center',
-				'doczur'
+				'Think of Nirdeshio as an organized help center',
+				'itsmanzur-docs'
 			),
 			description: __(
 				'Your documentation project is the whole help center. Sections work like folders, and articles are the helpful answers inside those folders.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			steps: [
-				__( 'Project: the complete documentation website.', 'doczur' ),
-				__( 'Section: a group such as Installation or FAQ.', 'doczur' ),
+				__( 'Project: the complete documentation website.', 'itsmanzur-docs' ),
+				__( 'Section: a group such as Installation or FAQ.', 'itsmanzur-docs' ),
 				__(
 					'Article: one clear answer to one customer question.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Open documentation builder', 'doczur' ),
+			action: __( 'Open documentation builder', 'itsmanzur-docs' ),
 			destination: 'docs',
 		},
 		{
 			id: 'write',
 			number: '02',
-			title: __( 'Write and publish', 'doczur' ),
+			title: __( 'Write and publish', 'itsmanzur-docs' ),
 			summary: __(
 				'Create a useful article without technical work.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			heading: __(
 				'Start with the question customers ask most',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			description: __(
-				'Clicking "+ New" opens the article straight in the WordPress block editor. Write your steps there, then set the section, tags and version in the "Doczur" panel on the right before publishing.',
-				'doczur'
+				'Clicking "+ New" opens the article straight in the WordPress block editor. Write your steps there, then set the section, tags and version in the "Nirdeshio" panel on the right before publishing.',
+				'itsmanzur-docs'
 			),
 			steps: [
 				__(
 					'Click "+ New" in the Documentation screen — it opens the editor immediately.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Use a title that matches the customer question.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
-					'Open the "Doczur" panel in the sidebar to set the section, tags and version.',
-					'doczur'
+					'Open the "Nirdeshio" panel in the sidebar to set the section, tags and version.',
+					'itsmanzur-docs'
 				),
 				__(
 					'Save as Draft while writing, then choose Publish when it is ready.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Write an article', 'doczur' ),
+			action: __( 'Write an article', 'itsmanzur-docs' ),
 			destination: 'docs',
 		},
 		{
 			id: 'format',
 			number: '03',
-			title: __( 'Format with confidence', 'doczur' ),
-			summary: __( 'Write visually — you never see a tag.', 'doczur' ),
-			heading: __( 'Article content is written in the WordPress block editor', 'doczur' ),
+			title: __( 'Format with confidence', 'itsmanzur-docs' ),
+			summary: __( 'Write visually — you never see a tag.', 'itsmanzur-docs' ),
+			heading: __( 'Article content is written in the WordPress block editor', 'itsmanzur-docs' ),
 			description: __(
 				'Click "Edit content in Gutenberg" on any article to open the same visual, block-based editor you already use for posts and pages. Every block you add — paragraphs, images, tables, lists — is fully WYSIWYG.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			steps: [
 				__(
 					'On the Documentation screen, click "Edit content in Gutenberg" for any article.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
-					'Add the "Doczur Callout" block for coloured notes, tips, warnings and cautions.',
-					'doczur'
+					'Add the "Nirdeshio Callout" block for coloured notes, tips, warnings and cautions.',
+					'itsmanzur-docs'
 				),
 				__(
 					'Use core WordPress blocks for images, tables and collapsible lists.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
-					'Save or publish, then return to Doczur — the preview updates automatically.',
-					'doczur'
+					'Save or publish, then return to Nirdeshio — the preview updates automatically.',
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Open the documentation tree', 'doczur' ),
+			action: __( 'Open the documentation tree', 'itsmanzur-docs' ),
 			destination: 'docs',
 		},
 		{
 			id: 'glossary',
 			number: '04',
-			title: __( 'Explain your jargon', 'doczur' ),
-			summary: __( 'Define a term once, everywhere.', 'doczur' ),
-			heading: __( 'Readers hover, and the definition appears', 'doczur' ),
+			title: __( 'Explain your jargon', 'itsmanzur-docs' ),
+			summary: __( 'Define a term once, everywhere.', 'itsmanzur-docs' ),
+			heading: __( 'Readers hover, and the definition appears', 'itsmanzur-docs' ),
 			description: __(
 				'Add the words your product uses to the glossary. The first time each term appears in an article it gets a dotted underline, and the definition shows on hover or keyboard focus. Links, headings and code samples are never touched.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			steps: [
-				__( 'Open Glossary and add a term with its definition.', 'doczur' ),
+				__( 'Open Glossary and add a term with its definition.', 'itsmanzur-docs' ),
 				__(
 					'Add alternative spellings so plurals and abbreviations match too.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
-					'Use the Doczur Glossary block to publish the full list on its own page.',
-					'doczur'
+					'Use the Nirdeshio Glossary block to publish the full list on its own page.',
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Manage the glossary', 'doczur' ),
+			action: __( 'Manage the glossary', 'itsmanzur-docs' ),
 			destination: 'glossary',
 		},
 		{
 			id: 'design',
 			number: '05',
-			title: __( 'Make it yours', 'doczur' ),
-			summary: __( 'Match the help center to your brand.', 'doczur' ),
+			title: __( 'Make it yours', 'itsmanzur-docs' ),
+			summary: __( 'Match the help center to your brand.', 'itsmanzur-docs' ),
 			heading: __(
-				'Choose the look—Doczur handles the layout',
-				'doczur'
+				'Choose the look—Nirdeshio handles the layout',
+				'itsmanzur-docs'
 			),
 			description: __(
 				'Add your project name, URL, brand color, color mode, and template. You can use the clean standalone canvas or keep your WordPress theme around the content.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			steps: [
 				__(
 					'Open Settings and confirm the project name and URL.',
-					'doczur'
+					'itsmanzur-docs'
 				),
-				__( 'Choose a brand color with good text contrast.', 'doczur' ),
-				__( 'Save, then preview the visitor-facing page.', 'doczur' ),
+				__( 'Choose a brand color with good text contrast.', 'itsmanzur-docs' ),
+				__( 'Save, then preview the visitor-facing page.', 'itsmanzur-docs' ),
 			],
-			action: __( 'Customize the design', 'doczur' ),
+			action: __( 'Customize the design', 'itsmanzur-docs' ),
 			destination: 'settings',
 		},
 		{
 			id: 'maintain',
 			number: '06',
-			title: __( 'Share and maintain', 'doczur' ),
-			summary: __( 'Keep documentation useful over time.', 'doczur' ),
+			title: __( 'Share and maintain', 'itsmanzur-docs' ),
+			summary: __( 'Keep documentation useful over time.', 'itsmanzur-docs' ),
 			heading: __(
 				'Share one link and improve answers as you learn',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			description: __(
 				'Send customers to your documentation home page. Mark articles as reviewed when you check them, so anything drifting out of date is easy to spot, and download a JSON backup before large edits.',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			steps: [
 				__(
 					'Copy the live documentation URL and add it to your menu.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Use "Mark reviewed today" after checking an article is still accurate.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Articles left unreviewed for 90 days show a "Needs review" badge.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Download an export before major content changes.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Open Import / Export', 'doczur' ),
+			action: __( 'Open Import / Export', 'itsmanzur-docs' ),
 			destination: 'transfer',
 		},
 		{
 			id: 'ai',
 			number: '07',
-			title: __( 'Be readable by AI', 'doczur' ),
-			summary: __( 'Help assistants answer from your docs.', 'doczur' ),
+			title: __( 'Be readable by AI', 'itsmanzur-docs' ),
+			summary: __( 'Help assistants answer from your docs.', 'itsmanzur-docs' ),
 			heading: __(
 				'Your documentation already speaks to AI assistants',
-				'doczur'
+				'itsmanzur-docs'
 			),
 			description: __(
-				'Customers increasingly ask ChatGPT, Claude or Perplexity instead of searching your site. Doczur publishes a machine-readable map of your documentation automatically, so those answers come from your actual content rather than guesswork.',
-				'doczur'
+				'Customers increasingly ask ChatGPT, Claude or Perplexity instead of searching your site. Nirdeshio publishes a machine-readable map of your documentation automatically, so those answers come from your actual content rather than guesswork.',
+				'itsmanzur-docs'
 			),
 			steps: [
 				__(
 					'Visit /llms.txt on your site to see the generated index.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'/llms-full.txt adds the complete text of every published article.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Readers can use "Copy as Markdown" on any article to paste it into a chat.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 				__(
 					'Only published articles in published projects are ever included.',
-					'doczur'
+					'itsmanzur-docs'
 				),
 			],
-			action: __( 'Review your articles', 'doczur' ),
+			action: __( 'Review your articles', 'itsmanzur-docs' ),
 			destination: 'docs',
 		},
 	];
@@ -272,18 +272,18 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 			>
 				<div className="itsdz-guide-hero-copy">
 					<span className="itsdz-guide-kicker">
-						{ __( 'Welcome to Doczur', 'doczur' ) }
+						{ __( 'Welcome to Nirdeshio', 'itsmanzur-docs' ) }
 					</span>
 					<h1 id="itsdz-guide-title">
 						{ __(
 							'Documentation made simple—for you and your customers.',
-							'doczur'
+							'itsmanzur-docs'
 						) }
 					</h1>
 					<p>
 						{ __(
-							'Doczur turns your WordPress site into a clean, searchable help center. You organize answers, publish them, and share one easy link. No coding is required.',
-							'doczur'
+							'Nirdeshio turns your WordPress site into a clean, searchable help center. You organize answers, publish them, and share one easy link. No coding is required.',
+							'itsmanzur-docs'
 						) }
 					</p>
 					<div className="itsdz-guide-actions">
@@ -292,8 +292,8 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 							onClick={ () => onNavigate( 'docs' ) }
 						>
 							{ isReady
-								? __( 'Manage documentation', 'doczur' )
-								: __( 'Continue building', 'doczur' ) }
+								? __( 'Manage documentation', 'itsmanzur-docs' )
+								: __( 'Continue building', 'itsmanzur-docs' ) }
 						</Button>
 						{ project.url && (
 							<Button
@@ -302,30 +302,30 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 								target="_blank"
 								rel="noreferrer"
 							>
-								{ __( 'View live documentation', 'doczur' ) }
+								{ __( 'View live documentation', 'itsmanzur-docs' ) }
 							</Button>
 						) }
 					</div>
 					<ul
 						className="itsdz-guide-benefits"
-						aria-label={ __( 'Doczur benefits', 'doczur' ) }
+						aria-label={ __( 'Nirdeshio benefits', 'itsmanzur-docs' ) }
 					>
-						<li>{ __( 'No coding required', 'doczur' ) }</li>
-						<li>{ __( 'Fast visitor search', 'doczur' ) }</li>
-						<li>{ __( 'Mobile friendly', 'doczur' ) }</li>
-						<li>{ __( 'Article tags & versions', 'doczur' ) }</li>
-						<li>{ __( 'View analytics built-in', 'doczur' ) }</li>
+						<li>{ __( 'No coding required', 'itsmanzur-docs' ) }</li>
+						<li>{ __( 'Fast visitor search', 'itsmanzur-docs' ) }</li>
+						<li>{ __( 'Mobile friendly', 'itsmanzur-docs' ) }</li>
+						<li>{ __( 'Article tags & versions', 'itsmanzur-docs' ) }</li>
+						<li>{ __( 'View analytics built-in', 'itsmanzur-docs' ) }</li>
 					</ul>
 				</div>
 
 				<aside
 					className="itsdz-guide-progress"
-					aria-label={ __( 'Launch progress', 'doczur' ) }
+					aria-label={ __( 'Launch progress', 'itsmanzur-docs' ) }
 				>
 					<div className="itsdz-progress-heading">
 						<div>
 							<span>
-								{ __( 'Your launch progress', 'doczur' ) }
+								{ __( 'Your launch progress', 'itsmanzur-docs' ) }
 							</span>
 							<strong>{ progress }%</strong>
 						</div>
@@ -347,7 +347,7 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<p className="itsdz-progress-success" role="status">
 							{ __(
 								'Your help center is ready to share!',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					) }
@@ -372,14 +372,14 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				aria-labelledby="itsdz-model-title"
 			>
 				<div className="itsdz-guide-section-heading">
-					<span>{ __( 'The simple idea', 'doczur' ) }</span>
+					<span>{ __( 'The simple idea', 'itsmanzur-docs' ) }</span>
 					<h2 id="itsdz-model-title">
-						{ __( 'How Doczur is organized', 'doczur' ) }
+						{ __( 'How Nirdeshio is organized', 'itsmanzur-docs' ) }
 					</h2>
 					<p>
 						{ __(
 							'Three building blocks are all you need to remember.',
-							'doczur'
+							'itsmanzur-docs'
 						) }
 					</p>
 				</div>
@@ -387,26 +387,26 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 					{ [
 						[
 							'1',
-							__( 'Project', 'doczur' ),
+							__( 'Project', 'itsmanzur-docs' ),
 							__(
 								'Your complete help center—for example, “Acme App Help”.',
-								'doczur'
+								'itsmanzur-docs'
 							),
 						],
 						[
 							'2',
-							__( 'Section', 'doczur' ),
+							__( 'Section', 'itsmanzur-docs' ),
 							__(
 								'A folder that groups similar answers, such as Getting Started.',
-								'doczur'
+								'itsmanzur-docs'
 							),
 						],
 						[
 							'3',
-							__( 'Article', 'doczur' ),
+							__( 'Article', 'itsmanzur-docs' ),
 							__(
 								'One useful answer, such as “How to install the app”.',
-								'doczur'
+								'itsmanzur-docs'
 							),
 						],
 					].map( ( [ number, title, description ] ) => (
@@ -426,14 +426,14 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				aria-labelledby="itsdz-lessons-title"
 			>
 				<div className="itsdz-guide-section-heading">
-					<span>{ __( 'Guided walkthrough', 'doczur' ) }</span>
+					<span>{ __( 'Guided walkthrough', 'itsmanzur-docs' ) }</span>
 					<h2 id="itsdz-lessons-title">
-						{ __( 'Choose what you want to do', 'doczur' ) }
+						{ __( 'Choose what you want to do', 'itsmanzur-docs' ) }
 					</h2>
 					<p>
 						{ __(
 							'Select a step to see clear instructions and the right next action.',
-							'doczur'
+							'itsmanzur-docs'
 						) }
 					</p>
 				</div>
@@ -441,7 +441,7 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 					<div
 						className="itsdz-lesson-tabs"
 						role="tablist"
-						aria-label={ __( 'Doczur lessons', 'doczur' ) }
+						aria-label={ __( 'Nirdeshio lessons', 'itsmanzur-docs' ) }
 					>
 						{ lessons.map( ( lesson ) => (
 							<button
@@ -500,14 +500,14 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				aria-labelledby="itsdz-features-title"
 			>
 				<div className="itsdz-guide-section-heading">
-					<span>{ __( "What's new", 'doczur' ) }</span>
+					<span>{ __( "What's new", 'itsmanzur-docs' ) }</span>
 					<h2 id="itsdz-features-title">
-						{ __( 'Recently added features', 'doczur' ) }
+						{ __( 'Recently added features', 'itsmanzur-docs' ) }
 					</h2>
 					<p>
 						{ __(
 							'Everything below is available in the free version.',
-							'doczur'
+							'itsmanzur-docs'
 						) }
 					</p>
 				</div>
@@ -516,66 +516,66 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						[
 							[
 								'🏷️',
-								__( 'Article Tags', 'doczur' ),
+								__( 'Article Tags', 'itsmanzur-docs' ),
 								__(
 									'Assign tags to articles from the editor. Tags group related articles and display as clickable pills on the frontend.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'🔖',
-								__( 'Version Selector', 'doczur' ),
+								__( 'Version Selector', 'itsmanzur-docs' ),
 								__(
 									'Tag articles with a version label such as v1.0. Create new versions instantly using the + New version button in the editor.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'👁',
-								__( 'View Analytics', 'doczur' ),
+								__( 'View Analytics', 'itsmanzur-docs' ),
 								__(
 									'See how many times each article has been read. View counts appear next to articles in the tree panel and inside the editor toolbar.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'📋',
-								__( 'Code Copy Button', 'doczur' ),
+								__( 'Code Copy Button', 'itsmanzur-docs' ),
 								__(
 									'Every code block on the frontend shows a Copy button on hover. Visitors can copy code to the clipboard in one click.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'💬',
-								__( 'Callout Variants', 'doczur' ),
+								__( 'Callout Variants', 'itsmanzur-docs' ),
 								__(
 									'Four callout styles—Info ℹ️, Warning ⚠️, Danger 🚫, and Tip 💡—available from the toolbar. Each has a distinct color and icon.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'📖',
-								__( 'Reading Progress Bar', 'doczur' ),
+								__( 'Reading Progress Bar', 'itsmanzur-docs' ),
 								__(
 									'A thin gradient bar at the top of the page shows visitors how far through an article they have scrolled.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'🔍',
-								__( 'Search Highlight', 'doczur' ),
+								__( 'Search Highlight', 'itsmanzur-docs' ),
 								__(
 									'When a visitor arrives from the search modal, matching keywords are highlighted inside the article content automatically.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 							[
 								'🗂️',
-								__( 'Rich Content Toolbar', 'doczur' ),
+								__( 'Rich Content Toolbar', 'itsmanzur-docs' ),
 								__(
 									'Insert images from the Media Library, embed YouTube or Vimeo videos, add tables with custom headers, and create animated accordion blocks—all from toolbar buttons.',
-									'doczur'
+									'itsmanzur-docs'
 								),
 							],
 						] as [ string, string, string ][]
@@ -598,20 +598,20 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				aria-labelledby="itsdz-faq-title"
 			>
 				<div className="itsdz-guide-section-heading">
-					<span>{ __( 'Quick answers', 'doczur' ) }</span>
+					<span>{ __( 'Quick answers', 'itsmanzur-docs' ) }</span>
 					<h2 id="itsdz-faq-title">
-						{ __( 'Questions new users often ask', 'doczur' ) }
+						{ __( 'Questions new users often ask', 'itsmanzur-docs' ) }
 					</h2>
 				</div>
 				<div>
 					<details>
 						<summary>
-							{ __( 'Do I need to know code?', 'doczur' ) }
+							{ __( 'Do I need to know code?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
-								'No. Creating and organizing documentation happens inside the Doczur screens in WordPress.',
-								'doczur'
+								'No. Creating and organizing documentation happens inside the Nirdeshio screens in WordPress.',
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
@@ -619,13 +619,13 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<summary>
 							{ __(
 								'Can visitors search my articles?',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</summary>
 						<p>
 							{ __(
 								'Yes. Published articles appear in the fast search on your visitor-facing documentation page.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
@@ -633,13 +633,13 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<summary>
 							{ __(
 								'What is the difference between Draft and Published?',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</summary>
 						<p>
 							{ __(
 								'A draft is private while you work on it. A published article can be read and searched by visitors.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
@@ -647,68 +647,68 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 						<summary>
 							{ __(
 								'How do I back up my documentation?',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</summary>
 						<p>
 							{ __(
 								'Open Import / Export and download a JSON backup. The file includes articles, tags, and the full section hierarchy.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
 					<details>
 						<summary>
-							{ __( 'How do I add tags to an article?', 'doczur' ) }
+							{ __( 'How do I add tags to an article?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
 								'Open the article editor and scroll below the Status and Section fields. You will see a tag selector showing all available tags. Click any pill to toggle it. Tags are saved with the article automatically.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
 					<details>
 						<summary>
-							{ __( 'How do I create a version label?', 'doczur' ) }
+							{ __( 'How do I create a version label?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
 								'In the article editor, find the Version dropdown next to the section selector. Click + New version, type the label such as v2.0, and it will be created and selected instantly.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
 					<details>
 						<summary>
-							{ __( 'Where can I see article view counts?', 'doczur' ) }
+							{ __( 'Where can I see article view counts?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
 								'View counts are shown in two places: as a small badge next to the article title in the tree panel, and as an eye icon counter inside the editor toolbar when you open an article.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
 					<details>
 						<summary>
-							{ __( 'How do I insert a callout box?', 'doczur' ) }
+							{ __( 'How do I insert a callout box?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
 								'In the article content editor, use the four emoji buttons in the toolbar: ℹ️ for Info, ⚠️ for Warning, 🚫 for Danger, and 💡 for Tip. Each inserts a styled callout block with the correct color and icon.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>
 					<details>
 						<summary>
-							{ __( 'Does the frontend show a reading progress bar?', 'doczur' ) }
+							{ __( 'Does the frontend show a reading progress bar?', 'itsmanzur-docs' ) }
 						</summary>
 						<p>
 							{ __(
 								'Yes. When a visitor reads an article, a thin gradient bar at the very top of the browser window fills as they scroll through the content.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</details>

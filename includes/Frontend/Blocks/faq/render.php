@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur FAQ block — server-side render callback.
+ * Nirdeshio FAQ block — server-side render callback.
  *
  * Available variables injected by register_block_type():
  *

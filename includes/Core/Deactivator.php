@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Deactivator {
 	/**
-	 * Deactivate Doczur.
+	 * Deactivate Nirdeshio.
 	 *
 	 * @return void
 	 */

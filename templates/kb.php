@@ -18,16 +18,16 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 <main class="itsdz-landing" id="itsdz-main">
 	<section class="itsdz-hero">
 		<div class="itsdz-hero-inner">
-			<p class="itsdz-eyebrow"><?php esc_html_e( 'Knowledge base', 'doczur' ); ?></p>
+			<p class="itsdz-eyebrow"><?php esc_html_e( 'Knowledge base', 'itsmanzur-docs' ); ?></p>
 			<h1><?php echo esc_html( get_the_title( $itsdz_kb ) ); ?></h1>
 			<?php if ( $itsdz_kb->post_content ) : ?>
 				<div class="itsdz-hero-copy"><?php echo wp_kses_post( wpautop( $itsdz_kb->post_content ) ); ?></div>
 			<?php else : ?>
-				<p class="itsdz-hero-copy"><?php esc_html_e( 'Find answers, setup guidance, and detailed product information.', 'doczur' ); ?></p>
+				<p class="itsdz-hero-copy"><?php esc_html_e( 'Find answers, setup guidance, and detailed product information.', 'itsmanzur-docs' ); ?></p>
 			<?php endif; ?>
 			<button class="itsdz-hero-search" type="button" data-itsdz-search-open>
 				<span class="itsdz-icon-search itsdz-icon-lg" aria-hidden="true"></span>
-				<span><?php esc_html_e( 'Search for an answer…', 'doczur' ); ?></span>
+				<span><?php esc_html_e( 'Search for an answer…', 'itsmanzur-docs' ); ?></span>
 				<kbd>Ctrl K</kbd>
 			</button>
 		</div>
@@ -36,15 +36,15 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 	<section class="itsdz-section-grid" aria-labelledby="itsdz-sections-title">
 		<div class="itsdz-section-grid-heading">
 			<div>
-				<p class="itsdz-eyebrow"><?php esc_html_e( 'Browse documentation', 'doczur' ); ?></p>
-				<h2 id="itsdz-sections-title"><?php esc_html_e( 'Explore by section', 'doczur' ); ?></h2>
+				<p class="itsdz-eyebrow"><?php esc_html_e( 'Browse documentation', 'itsmanzur-docs' ); ?></p>
+				<h2 id="itsdz-sections-title"><?php esc_html_e( 'Explore by section', 'itsmanzur-docs' ); ?></h2>
 			</div>
 			<span>
 				<?php
 				$itsdz_total = count( Documentation::get_articles( $itsdz_kb->ID ) );
 				printf(
 					/* translators: %d: published article count. */
-					esc_html( _n( '%d published article', '%d published articles', $itsdz_total, 'doczur' ) ),
+					esc_html( _n( '%d published article', '%d published articles', $itsdz_total, 'itsmanzur-docs' ) ),
 					absint( $itsdz_total )
 				);
 				?>
@@ -55,7 +55,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 			<div class="itsdz-cards">
 				<?php foreach ( $itsdz_groups as $itsdz_group ) : ?>
 					<?php
-					$itsdz_group_name = $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'doczur' );
+					$itsdz_group_name = $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'itsmanzur-docs' );
 					$itsdz_icon       = $itsdz_group['term'] ? get_term_meta( $itsdz_group['term']->term_id, '_itsdz_section_icon', true ) : '';
 					?>
 					<article class="itsdz-section-card">
@@ -80,7 +80,7 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 								<?php
 								printf(
 									/* translators: %d: number of additional articles. */
-									esc_html__( '+ %d more articles', 'doczur' ),
+									esc_html__( '+ %d more articles', 'itsmanzur-docs' ),
 									absint( count( $itsdz_group['articles'] ) - 5 )
 								);
 								?>
@@ -91,8 +91,8 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 			</div>
 		<?php else : ?>
 			<div class="itsdz-empty-state">
-				<h2><?php esc_html_e( 'Documentation is being prepared', 'doczur' ); ?></h2>
-				<p><?php esc_html_e( 'Published articles will appear here.', 'doczur' ); ?></p>
+				<h2><?php esc_html_e( 'Documentation is being prepared', 'itsmanzur-docs' ); ?></h2>
+				<p><?php esc_html_e( 'Published articles will appear here.', 'itsmanzur-docs' ); ?></p>
 			</div>
 		<?php endif; ?>
 	</section>

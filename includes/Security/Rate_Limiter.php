@@ -37,7 +37,7 @@ final class Rate_Limiter {
 		if ( (int) $bucket['count'] >= $limit ) {
 			return new \WP_Error(
 				'itsdz_rate_limited',
-				__( 'Too many requests. Please try again shortly.', 'doczur' ),
+				__( 'Too many requests. Please try again shortly.', 'itsmanzur-docs' ),
 				array(
 					'status'      => 429,
 					'retry_after' => max( 1, (int) $bucket['reset'] - time() ),

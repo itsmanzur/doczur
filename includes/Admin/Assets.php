@@ -1,6 +1,6 @@
 <?php
 /**
- * Conditional Doczur admin assets.
+ * Conditional Nirdeshio admin assets.
  *
  * @package ItsDZ\Doczur\Admin
  */
@@ -12,7 +12,7 @@ use ItsDZ\Doczur\Core\Service;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Loads the React bundle only on the dedicated Doczur screen.
+ * Loads the React bundle only on the dedicated Nirdeshio screen.
  */
 final class Assets implements Service {
 	/**
@@ -78,7 +78,7 @@ final class Assets implements Service {
 			'window.itsdzAdmin = ' . wp_json_encode( $this->configuration() ) . ';',
 			'before'
 		);
-		wp_set_script_translations( self::HANDLE, 'doczur', ITSDZ_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::HANDLE, 'itsmanzur-docs', ITSDZ_PLUGIN_DIR . 'languages' );
 	}
 
 	/**

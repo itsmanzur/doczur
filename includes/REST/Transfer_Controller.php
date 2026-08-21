@@ -117,7 +117,7 @@ final class Transfer_Controller extends REST_Controller {
 				'articles'    => $articles,
 			)
 		);
-		$response->header( 'Content-Disposition', 'attachment; filename="doczur-export-' . $kb_id . '.json"' );
+		$response->header( 'Content-Disposition', 'attachment; filename="itsmanzur-docs-export-' . $kb_id . '.json"' );
 
 		return $response;
 	}
@@ -138,20 +138,20 @@ final class Transfer_Controller extends REST_Controller {
 		}
 
 		if ( ! is_array( $articles ) || count( $articles ) > 500 ) {
-			return new \WP_Error( 'itsdz_import_invalid', __( 'The import must contain no more than 500 articles.', 'doczur' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'itsdz_import_invalid', __( 'The import must contain no more than 500 articles.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 		}
 
 		$section_paths = array();
 
 		foreach ( $articles as $index => $article ) {
 			if ( ! is_array( $article ) || empty( $article['title'] ) || ! is_scalar( $article['title'] ) ) {
-				return new \WP_Error( 'itsdz_import_invalid_article', __( 'Every imported article must have a title.', 'doczur' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'itsdz_import_invalid_article', __( 'Every imported article must have a title.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 			}
 
 			$paths = $this->normalize_section_paths( isset( $article['sections'] ) ? $article['sections'] : array() );
 
 			if ( null === $paths ) {
-				return new \WP_Error( 'itsdz_import_invalid_section', __( 'Every section path must contain between one and three valid levels.', 'doczur' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'itsdz_import_invalid_section', __( 'Every section path must contain between one and three valid levels.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 			}
 
 			$section_paths[ $index ] = $paths;

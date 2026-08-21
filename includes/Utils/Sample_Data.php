@@ -242,16 +242,16 @@ final class Sample_Data {
 	 */
 	public static function sections() {
 		return array(
-			'start'   => __( 'Getting Started', 'doczur' ),
-			'writing' => __( 'Writing Docs', 'doczur' ),
-			'help'    => __( 'Troubleshooting', 'doczur' ),
+			'start'   => __( 'Getting Started', 'itsmanzur-docs' ),
+			'writing' => __( 'Writing Docs', 'itsmanzur-docs' ),
+			'help'    => __( 'Troubleshooting', 'itsmanzur-docs' ),
 		);
 	}
 
 	/**
 	 * The sample articles.
 	 *
-	 * Content deliberately exercises every formatting feature Doczur ships —
+	 * Content deliberately exercises every formatting feature Nirdeshio ships —
 	 * callouts, tables, accordions and code blocks — so the demo doubles as a
 	 * live reference for what the editor can produce.
 	 *
@@ -263,104 +263,104 @@ final class Sample_Data {
 	public static function articles() {
 		return array(
 			array(
-				'title'   => __( 'Welcome to your documentation', 'doczur' ),
+				'title'   => __( 'Welcome to your documentation', 'itsmanzur-docs' ),
 				'section' => 'start',
-				'tags'    => array( __( 'intro', 'doczur' ) ),
-				'content' => '<p>' . __( 'This is sample content created by Doczur so you can see a finished documentation site straight away. Explore it, edit anything you like, and remove it in one click from the Doczur settings screen when you are ready to publish your own articles.', 'doczur' ) . '</p>
-<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Every article here is real, editable content. Nothing is locked.', 'doczur' ) . '</p></div>
-<h2>' . __( 'What to try first', 'doczur' ) . '</h2>
+				'tags'    => array( __( 'intro', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'This is sample content created by Nirdeshio so you can see a finished documentation site straight away. Explore it, edit anything you like, and remove it in one click from the Nirdeshio settings screen when you are ready to publish your own articles.', 'itsmanzur-docs' ) . '</p>
+<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Every article here is real, editable content. Nothing is locked.', 'itsmanzur-docs' ) . '</p></div>
+<h2>' . __( 'What to try first', 'itsmanzur-docs' ) . '</h2>
 <ul>
-<li>' . __( 'Use the search box at the top — it is instant, and powered by a dedicated index.', 'doczur' ) . '</li>
-<li>' . __( 'Open this article on a phone to see the slide-out navigation.', 'doczur' ) . '</li>
-<li>' . __( 'Scroll down and answer "Was this article helpful?" to see feedback collection.', 'doczur' ) . '</li>
+<li>' . __( 'Use the search box at the top — it is instant, and powered by a dedicated index.', 'itsmanzur-docs' ) . '</li>
+<li>' . __( 'Open this article on a phone to see the slide-out navigation.', 'itsmanzur-docs' ) . '</li>
+<li>' . __( 'Scroll down and answer "Was this article helpful?" to see feedback collection.', 'itsmanzur-docs' ) . '</li>
 </ul>',
 			),
 			array(
-				'title'   => __( 'Installing the plugin', 'doczur' ),
+				'title'   => __( 'Installing the plugin', 'itsmanzur-docs' ),
 				'section' => 'start',
-				'tags'    => array( __( 'setup', 'doczur' ) ),
-				'content' => '<p>' . __( 'Doczur installs like any other WordPress plugin. Once activated, the setup wizard creates your first documentation project.', 'doczur' ) . '</p>
-<h2>' . __( 'Install with WP-CLI', 'doczur' ) . '</h2>
-<pre><code>wp plugin install doczur --activate</code></pre>
-<div class="itsdz-callout itsdz-callout-info"><p>' . __( 'Doczur requires WordPress 6.5 or newer and PHP 8.0 or newer.', 'doczur' ) . '</p></div>',
+				'tags'    => array( __( 'setup', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'Nirdeshio installs like any other WordPress plugin. Once activated, the setup wizard creates your first documentation project.', 'itsmanzur-docs' ) . '</p>
+<h2>' . __( 'Install with WP-CLI', 'itsmanzur-docs' ) . '</h2>
+<pre><code>wp plugin install itsmanzur-docs --activate</code></pre>
+<div class="itsdz-callout itsdz-callout-info"><p>' . __( 'Nirdeshio requires WordPress 6.5 or newer and PHP 8.0 or newer.', 'itsmanzur-docs' ) . '</p></div>',
 			),
 			array(
-				'title'   => __( 'Your first article in five minutes', 'doczur' ),
+				'title'   => __( 'Your first article in five minutes', 'itsmanzur-docs' ),
 				'section' => 'start',
-				'tags'    => array( __( 'setup', 'doczur' ), __( 'intro', 'doczur' ) ),
-				'content' => '<p>' . __( 'Here is the shortest possible path from a blank install to a published article.', 'doczur' ) . '</p>
+				'tags'    => array( __( 'setup', 'itsmanzur-docs' ), __( 'intro', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'Here is the shortest possible path from a blank install to a published article.', 'itsmanzur-docs' ) . '</p>
 <ol>
-<li>' . __( 'Open Doczur in the admin sidebar.', 'doczur' ) . '</li>
-<li>' . __( 'Click "New article" and give it a title.', 'doczur' ) . '</li>
-<li>' . __( 'Write your content — the editor saves automatically as you type.', 'doczur' ) . '</li>
-<li>' . __( 'Switch the status to Published, then hit Preview.', 'doczur' ) . '</li>
+<li>' . __( 'Open Nirdeshio in the admin sidebar.', 'itsmanzur-docs' ) . '</li>
+<li>' . __( 'Click "New article" and give it a title.', 'itsmanzur-docs' ) . '</li>
+<li>' . __( 'Write your content — the editor saves automatically as you type.', 'itsmanzur-docs' ) . '</li>
+<li>' . __( 'Switch the status to Published, then hit Preview.', 'itsmanzur-docs' ) . '</li>
 </ol>
-<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Drag articles in the left-hand tree to change the order they appear in your documentation.', 'doczur' ) . '</p></div>',
+<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Drag articles in the left-hand tree to change the order they appear in your documentation.', 'itsmanzur-docs' ) . '</p></div>',
 			),
 			array(
-				'title'   => __( 'Formatting: callouts, tables and code', 'doczur' ),
+				'title'   => __( 'Formatting: callouts, tables and code', 'itsmanzur-docs' ),
 				'section' => 'writing',
-				'tags'    => array( __( 'formatting', 'doczur' ) ),
-				'content' => '<p>' . __( 'The editor toolbar inserts every element below. You never need to write HTML by hand.', 'doczur' ) . '</p>
-<h2>' . __( 'Callouts', 'doczur' ) . '</h2>
-<div class="itsdz-callout itsdz-callout-info"><p>' . __( 'Info — background detail that helps but is not critical.', 'doczur' ) . '</p></div>
-<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Tip — a shortcut or best practice.', 'doczur' ) . '</p></div>
-<div class="itsdz-callout itsdz-callout-warning"><p>' . __( 'Warning — something that often trips people up.', 'doczur' ) . '</p></div>
-<div class="itsdz-callout itsdz-callout-danger"><p>' . __( 'Danger — an action that loses data or cannot be undone.', 'doczur' ) . '</p></div>
-<h2>' . __( 'Tables', 'doczur' ) . '</h2>
+				'tags'    => array( __( 'formatting', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'The editor toolbar inserts every element below. You never need to write HTML by hand.', 'itsmanzur-docs' ) . '</p>
+<h2>' . __( 'Callouts', 'itsmanzur-docs' ) . '</h2>
+<div class="itsdz-callout itsdz-callout-info"><p>' . __( 'Info — background detail that helps but is not critical.', 'itsmanzur-docs' ) . '</p></div>
+<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Tip — a shortcut or best practice.', 'itsmanzur-docs' ) . '</p></div>
+<div class="itsdz-callout itsdz-callout-warning"><p>' . __( 'Warning — something that often trips people up.', 'itsmanzur-docs' ) . '</p></div>
+<div class="itsdz-callout itsdz-callout-danger"><p>' . __( 'Danger — an action that loses data or cannot be undone.', 'itsmanzur-docs' ) . '</p></div>
+<h2>' . __( 'Tables', 'itsmanzur-docs' ) . '</h2>
 <table class="itsdz-article-table">
-<thead><tr><th>' . __( 'Plan', 'doczur' ) . '</th><th>' . __( 'Projects', 'doczur' ) . '</th><th>' . __( 'Support', 'doczur' ) . '</th></tr></thead>
+<thead><tr><th>' . __( 'Plan', 'itsmanzur-docs' ) . '</th><th>' . __( 'Projects', 'itsmanzur-docs' ) . '</th><th>' . __( 'Support', 'itsmanzur-docs' ) . '</th></tr></thead>
 <tbody>
-<tr><td>' . __( 'Free', 'doczur' ) . '</td><td>1</td><td>' . __( 'Community forum', 'doczur' ) . '</td></tr>
-<tr><td>' . __( 'Personal', 'doczur' ) . '</td><td>' . __( 'Unlimited', 'doczur' ) . '</td><td>' . __( 'Email', 'doczur' ) . '</td></tr>
-<tr><td>' . __( 'Agency', 'doczur' ) . '</td><td>' . __( 'Unlimited', 'doczur' ) . '</td><td>' . __( 'Priority email', 'doczur' ) . '</td></tr>
+<tr><td>' . __( 'Free', 'itsmanzur-docs' ) . '</td><td>1</td><td>' . __( 'Community forum', 'itsmanzur-docs' ) . '</td></tr>
+<tr><td>' . __( 'Personal', 'itsmanzur-docs' ) . '</td><td>' . __( 'Unlimited', 'itsmanzur-docs' ) . '</td><td>' . __( 'Email', 'itsmanzur-docs' ) . '</td></tr>
+<tr><td>' . __( 'Agency', 'itsmanzur-docs' ) . '</td><td>' . __( 'Unlimited', 'itsmanzur-docs' ) . '</td><td>' . __( 'Priority email', 'itsmanzur-docs' ) . '</td></tr>
 </tbody>
 </table>
-<h2>' . __( 'Code', 'doczur' ) . '</h2>
+<h2>' . __( 'Code', 'itsmanzur-docs' ) . '</h2>
 <pre><code>add_filter( \'itsdz_show_article_author\', \'__return_false\' );</code></pre>',
 			),
 			array(
-				'title'   => __( 'Organising sections, tags and versions', 'doczur' ),
+				'title'   => __( 'Organising sections, tags and versions', 'itsmanzur-docs' ),
 				'section' => 'writing',
-				'tags'    => array( __( 'formatting', 'doczur' ) ),
-				'content' => '<p>' . __( 'Three different tools decide where an article shows up. Use the right one and your navigation stays clean as the documentation grows.', 'doczur' ) . '</p>
+				'tags'    => array( __( 'formatting', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'Three different tools decide where an article shows up. Use the right one and your navigation stays clean as the documentation grows.', 'itsmanzur-docs' ) . '</p>
 <table class="itsdz-article-table">
-<thead><tr><th>' . __( 'Tool', 'doczur' ) . '</th><th>' . __( 'Use it for', 'doczur' ) . '</th></tr></thead>
+<thead><tr><th>' . __( 'Tool', 'itsmanzur-docs' ) . '</th><th>' . __( 'Use it for', 'itsmanzur-docs' ) . '</th></tr></thead>
 <tbody>
-<tr><td>' . __( 'Section', 'doczur' ) . '</td><td>' . __( 'The single place an article lives in the sidebar.', 'doczur' ) . '</td></tr>
-<tr><td>' . __( 'Tag', 'doczur' ) . '</td><td>' . __( 'Cross-cutting topics that span several sections.', 'doczur' ) . '</td></tr>
-<tr><td>' . __( 'Version', 'doczur' ) . '</td><td>' . __( 'Marking which release an article applies to.', 'doczur' ) . '</td></tr>
+<tr><td>' . __( 'Section', 'itsmanzur-docs' ) . '</td><td>' . __( 'The single place an article lives in the sidebar.', 'itsmanzur-docs' ) . '</td></tr>
+<tr><td>' . __( 'Tag', 'itsmanzur-docs' ) . '</td><td>' . __( 'Cross-cutting topics that span several sections.', 'itsmanzur-docs' ) . '</td></tr>
+<tr><td>' . __( 'Version', 'itsmanzur-docs' ) . '</td><td>' . __( 'Marking which release an article applies to.', 'itsmanzur-docs' ) . '</td></tr>
 </tbody>
 </table>
-<div class="itsdz-callout itsdz-callout-warning"><p>' . __( 'An article belongs to exactly one section. Reach for tags when you want it to appear in more than one place.', 'doczur' ) . '</p></div>',
+<div class="itsdz-callout itsdz-callout-warning"><p>' . __( 'An article belongs to exactly one section. Reach for tags when you want it to appear in more than one place.', 'itsmanzur-docs' ) . '</p></div>',
 			),
 			array(
-				'title'   => __( 'Keeping documentation up to date', 'doczur' ),
+				'title'   => __( 'Keeping documentation up to date', 'itsmanzur-docs' ),
 				'section' => 'writing',
-				'tags'    => array( __( 'maintenance', 'doczur' ) ),
-				'content' => '<p>' . __( 'Stale documentation costs more support time than missing documentation. Doczur tracks a review date for every article.', 'doczur' ) . '</p>
-<p>' . __( 'Open any article in the editor and use "Mark reviewed today" once you have checked it is still accurate. Articles that go 90 days without a review get a "Needs review" badge in the article list, so nothing quietly rots.', 'doczur' ) . '</p>
-<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Pair the review date with the "Was this helpful?" results to decide what to rewrite first.', 'doczur' ) . '</p></div>',
+				'tags'    => array( __( 'maintenance', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'Stale documentation costs more support time than missing documentation. Nirdeshio tracks a review date for every article.', 'itsmanzur-docs' ) . '</p>
+<p>' . __( 'Open any article in the editor and use "Mark reviewed today" once you have checked it is still accurate. Articles that go 90 days without a review get a "Needs review" badge in the article list, so nothing quietly rots.', 'itsmanzur-docs' ) . '</p>
+<div class="itsdz-callout itsdz-callout-tip"><p>' . __( 'Pair the review date with the "Was this helpful?" results to decide what to rewrite first.', 'itsmanzur-docs' ) . '</p></div>',
 			),
 			array(
-				'title'   => __( 'Frequently asked questions', 'doczur' ),
+				'title'   => __( 'Frequently asked questions', 'itsmanzur-docs' ),
 				'section' => 'help',
-				'tags'    => array( __( 'faq', 'doczur' ) ),
-				'content' => '<p>' . __( 'The answers below use collapsible blocks — handy whenever a page has many short answers.', 'doczur' ) . '</p>
-<details class="itsdz-accordion"><summary>' . __( 'Will Doczur slow down my site?', 'doczur' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'No. Scripts and styles load only on documentation pages, and view counts are written in batches rather than on every page load.', 'doczur' ) . '</p></div></details>
-<details class="itsdz-accordion"><summary>' . __( 'Does it work with my theme?', 'doczur' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'Yes. Every style is scoped so it cannot leak into your theme, and you can choose between a full-page canvas layout or one that keeps your header and footer.', 'doczur' ) . '</p></div></details>
-<details class="itsdz-accordion"><summary>' . __( 'Can I move my content in from another plugin?', 'doczur' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'You can import and export your whole project as JSON from the Import / Export screen.', 'doczur' ) . '</p></div></details>',
+				'tags'    => array( __( 'faq', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'The answers below use collapsible blocks — handy whenever a page has many short answers.', 'itsmanzur-docs' ) . '</p>
+<details class="itsdz-accordion"><summary>' . __( 'Will Nirdeshio slow down my site?', 'itsmanzur-docs' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'No. Scripts and styles load only on documentation pages, and view counts are written in batches rather than on every page load.', 'itsmanzur-docs' ) . '</p></div></details>
+<details class="itsdz-accordion"><summary>' . __( 'Does it work with my theme?', 'itsmanzur-docs' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'Yes. Every style is scoped so it cannot leak into your theme, and you can choose between a full-page canvas layout or one that keeps your header and footer.', 'itsmanzur-docs' ) . '</p></div></details>
+<details class="itsdz-accordion"><summary>' . __( 'Can I move my content in from another plugin?', 'itsmanzur-docs' ) . '</summary><div class="itsdz-accordion-body"><p>' . __( 'You can import and export your whole project as JSON from the Import / Export screen.', 'itsmanzur-docs' ) . '</p></div></details>',
 			),
 			array(
-				'title'   => __( 'Troubleshooting checklist', 'doczur' ),
+				'title'   => __( 'Troubleshooting checklist', 'itsmanzur-docs' ),
 				'section' => 'help',
-				'tags'    => array( __( 'faq', 'doczur' ), __( 'maintenance', 'doczur' ) ),
-				'content' => '<p>' . __( 'Work through these in order — they resolve the large majority of reports.', 'doczur' ) . '</p>
-<h2>' . __( 'Documentation pages return a 404', 'doczur' ) . '</h2>
-<p>' . __( 'Visit Settings → Permalinks and save once. That rebuilds the URL rules WordPress uses for documentation pages.', 'doczur' ) . '</p>
-<h2>' . __( 'Search returns nothing', 'doczur' ) . '</h2>
-<p>' . __( 'Only published articles are indexed. Open a draft, publish it, and try again.', 'doczur' ) . '</p>
-<div class="itsdz-callout itsdz-callout-danger"><p>' . __( 'Removing sample content deletes those articles permanently. Any edits you made to them go too, so copy anything worth keeping first.', 'doczur' ) . '</p></div>',
+				'tags'    => array( __( 'faq', 'itsmanzur-docs' ), __( 'maintenance', 'itsmanzur-docs' ) ),
+				'content' => '<p>' . __( 'Work through these in order — they resolve the large majority of reports.', 'itsmanzur-docs' ) . '</p>
+<h2>' . __( 'Documentation pages return a 404', 'itsmanzur-docs' ) . '</h2>
+<p>' . __( 'Visit Settings → Permalinks and save once. That rebuilds the URL rules WordPress uses for documentation pages.', 'itsmanzur-docs' ) . '</p>
+<h2>' . __( 'Search returns nothing', 'itsmanzur-docs' ) . '</h2>
+<p>' . __( 'Only published articles are indexed. Open a draft, publish it, and try again.', 'itsmanzur-docs' ) . '</p>
+<div class="itsdz-callout itsdz-callout-danger"><p>' . __( 'Removing sample content deletes those articles permanently. Any edits you made to them go too, so copy anything worth keeping first.', 'itsmanzur-docs' ) . '</p></div>',
 			),
 		);
 	}

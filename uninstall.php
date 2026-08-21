@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur uninstall handler.
+ * Nirdeshio uninstall handler.
  *
  * Data is intentionally preserved unless the site owner explicitly opts in to
  * deletion. The cleanup implementation will be introduced with the data model.

@@ -41,7 +41,7 @@ use ItsDZ\Doczur\Taxonomies\Version_Taxonomy;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Coordinates all Doczur services from one place.
+ * Coordinates all Nirdeshio services from one place.
  */
 final class Plugin {
 	/**
@@ -142,10 +142,10 @@ final class Plugin {
 		);
 
 		/**
-		 * Let add-on plugins (Doczur Pro, or any third party) register their
+		 * Let add-on plugins (Nirdeshio Pro, or any third party) register their
 		 * own Service instances, without Free ever needing to know who is
 		 * using this filter or why. This is the one and only extension
-		 * point for adding backend behavior to Doczur.
+		 * point for adding backend behavior to Nirdeshio.
 		 *
 		 * @param Service[] $services Registered services.
 		 */

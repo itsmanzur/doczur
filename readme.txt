@@ -1,8 +1,8 @@
-=== Doczur ===
+=== Nirdeshio – Documentation, Knowledge Base & Help Center for WordPress ===
 Contributors: itsmanzur
 Tags: documentation, knowledge base, docs, help center, product docs
 Requires at least: 6.5
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 1.0.0
 Requires PHP: 8.0
 License: GPLv2 or later
@@ -12,21 +12,21 @@ Product documentation, knowledge base, and help center for WordPress — fast, t
 
 == Description ==
 
-**Doczur** is a product documentation and knowledge base plugin built for WordPress. It helps software companies, plugin/theme developers, SaaS founders, WooCommerce sellers, and agencies publish beautiful, fast-loading documentation without slowing down their sites.
+**Nirdeshio** is a product documentation and knowledge base plugin built for WordPress. It helps software companies, plugin/theme developers, SaaS founders, WooCommerce sellers, and agencies publish beautiful, fast-loading documentation without slowing down their sites.
 
-= Why Doczur? =
+= Why Nirdeshio? =
 
-Most documentation plugins load heavy JavaScript, conflict with popular themes, or require dozens of settings before your first article appears. Doczur is different:
+Most documentation plugins load heavy JavaScript, conflict with popular themes, or require dozens of settings before your first article appears. Nirdeshio is different:
 
 * **5-minute setup** — A built-in wizard creates your first documentation portal and publishes it before your coffee gets cold.
-* **Zero theme conflict** — Every frontend element is scoped under `.itsdz-docs`, so Doczur never leaks styles into your theme.
+* **Zero theme conflict** — Every frontend element is scoped under `.itsdz-docs`, so Nirdeshio never leaks styles into your theme.
 * **Ultra-light frontend** — Less than 30 KB of JavaScript (gzipped). The search modal loads on-demand only when the user opens it.
 * **No jQuery** — Built with modern Vanilla TypeScript and React for the admin.
 * **Performance-first** — Views are buffered and written to the database in batches every 5 minutes, not on every page load.
 
 = Free Features =
 
-* **One documentation project** (one knowledge base)
+* Documentation projects (knowledge bases) — no cap, create as many as you need
 * Unlimited sections (3 levels deep), unlimited articles
 * Drag-and-drop article ordering
 * Gutenberg block editor support + shortcodes
@@ -51,7 +51,7 @@ Most documentation plugins load heavy JavaScript, conflict with popular themes, 
 
 = AI-Ready Documentation =
 
-Assistants like ChatGPT, Claude and Perplexity increasingly read documentation on behalf of your users. Doczur makes that work properly instead of leaving them to guess from rendered HTML.
+Assistants like ChatGPT, Claude and Perplexity increasingly read documentation on behalf of your users. Nirdeshio makes that work properly instead of leaving them to guess from rendered HTML.
 
 * **`/llms.txt`** — an automatically generated, always up-to-date map of your documentation following the [llmstxt.org](https://llmstxt.org/) convention. One line per article with a short summary, grouped by project.
 * **`/llms-full.txt`** — the same index plus the complete plain-text body of every article, for assistants that can ingest the whole corpus.
@@ -63,12 +63,12 @@ Only published articles in published projects are ever included. Both routes are
 
 = Gutenberg Blocks =
 
-* **Doczur Search** — Embed a search box anywhere on your site. Submits to your KB page and auto-opens the search modal with the entered query pre-filled.
-* **Doczur Article List** — Display a linked list of articles from any KB. Ideal for sidebars, landing pages, or related-content widgets.
-* **Doczur Popular Articles** — Rank articles by view count or publish date. Great for "Top questions" sections on a support landing page.
-* **Doczur FAQ** — Build a collapsible question-and-answer list. Automatically outputs FAQPage structured data so your questions can appear directly in search results.
-* **Doczur Glossary** — Display every defined term with its definition, sorted alphabetically.
-* **Doczur Callout** — A coloured note, tip, warning, or danger box inside an article. Insert it from the block inserter while writing.
+* **Nirdeshio Search** — Embed a search box anywhere on your site. Submits to your KB page and auto-opens the search modal with the entered query pre-filled.
+* **Nirdeshio Article List** — Display a linked list of articles from any KB. Ideal for sidebars, landing pages, or related-content widgets.
+* **Nirdeshio Popular Articles** — Rank articles by view count or publish date. Great for "Top questions" sections on a support landing page.
+* **Nirdeshio FAQ** — Build a collapsible question-and-answer list. Automatically outputs FAQPage structured data so your questions can appear directly in search results.
+* **Nirdeshio Glossary** — Display every defined term with its definition, sorted alphabetically.
+* **Nirdeshio Callout** — A coloured note, tip, warning, or danger box inside an article. Insert it from the block inserter while writing.
 
 = Shortcodes =
 
@@ -82,15 +82,15 @@ Glossary auto-highlighting never touches links, headings or code samples, and ca
 
 `add_filter( 'itsdz_glossary_autolink', '__return_false' );`
 
-= Doczur Pro =
+= Nirdeshio Pro =
 
 **Available now**, as a separate add-on plugin (requires this free plugin to be active):
 
 * WooCommerce integration — link articles to products; linked products automatically get a "Documentation" tab listing them
 
-**Coming soon to Doczur Pro:**
+**Coming soon to Nirdeshio Pro:**
 
-* Multiple documentation projects (multi-KB) + product switcher
+* Knowledge base switcher UI for managing many projects at once
 * Product versioning (v1.x / v2.x switcher with version-specific URLs)
 * Advanced analytics dashboard (health score, no-result searches, exit rate)
 * Access control (role-based, password-protected, buyer-gated docs)
@@ -101,16 +101,20 @@ Glossary auto-highlighting never touches links, headings or code samples, and ca
 
 = Privacy =
 
-Doczur does not send any data to external servers. The "Was this helpful?" feedback and view counts are stored locally in your WordPress database. IP addresses are stored as irreversible hashes (SHA-256) for rate-limiting purposes only.
+Nirdeshio does not send any data to external servers. The "Was this helpful?" feedback and view counts are stored locally in your WordPress database. IP addresses are stored as irreversible hashes (SHA-256) for rate-limiting purposes only.
 
 When uninstalling, data is deleted only if you opt in to data removal in the plugin settings. By default, your content and settings are preserved.
+
+= Source Code =
+
+Source code and build instructions: https://github.com/itsmanzur/itsmanzur-docs/
 
 == Installation ==
 
 **Automatic installation (recommended)**
 
 1. Log in to your WordPress admin panel and go to **Plugins → Add New**.
-2. Search for **Doczur**.
+2. Search for **Nirdeshio**.
 3. Click **Install Now**, then **Activate**.
 
 **Manual installation**
@@ -121,51 +125,51 @@ When uninstalling, data is deleted only if you opt in to data removal in the plu
 
 **After activation**
 
-1. Go to **Doczur** in your admin sidebar.
+1. Go to **Nirdeshio** in your admin sidebar.
 2. The Setup Wizard launches automatically — follow the 5 steps to publish your first documentation portal.
 
 == Frequently Asked Questions ==
 
-= Will Doczur conflict with my theme? =
+= Will Nirdeshio conflict with my theme? =
 
-No. Doczur uses two layout modes. In **canvas mode** (the default), it renders a fully independent page that bypasses your theme entirely. In **theme mode**, it integrates with your theme's header and footer, and all CSS is scoped under `.itsdz-docs` so it cannot affect other parts of your site.
+No. Nirdeshio uses two layout modes. In **canvas mode** (the default), it renders a fully independent page that bypasses your theme entirely. In **theme mode**, it integrates with your theme's header and footer, and all CSS is scoped under `.itsdz-docs` so it cannot affect other parts of your site.
 
-= Does Doczur slow down my site? =
+= Does Nirdeshio slow down my site? =
 
-No — in fact, we designed Doczur specifically to avoid the performance problems common in other documentation plugins:
+No — in fact, we designed Nirdeshio specifically to avoid the performance problems common in other documentation plugins:
 
 * Assets load **only on documentation pages** (conditional enqueue).
 * The search modal JavaScript is loaded **on-demand**, only when the user opens the search.
 * Page views are written to the database in **5-minute batches**, never on every request.
 * The frontend bundle is under **30 KB gzipped**.
 
-= How is Doczur search different from the built-in WordPress search? =
+= How is Nirdeshio search different from the built-in WordPress search? =
 
-Doczur uses a dedicated search index table with MySQL **FULLTEXT** indexing. It never runs `LIKE %keyword%` queries against `wp_posts`, which are slow and load your entire database. Searches are also cached in the object cache (Redis / Memcached if available, transients otherwise).
+Nirdeshio uses a dedicated search index table with MySQL **FULLTEXT** indexing. It never runs `LIKE %keyword%` queries against `wp_posts`, which are slow and load your entire database. Searches are also cached in the object cache (Redis / Memcached if available, transients otherwise).
 
-= Can I use Doczur with the Classic Editor? =
+= Can I use Nirdeshio with the Classic Editor? =
 
 Yes. Both `[doczur_search]` and `[doczur_docs_list]` shortcodes work in any editor, widget, or page builder that supports shortcodes.
 
-= Is Doczur compatible with page caching plugins? =
+= Is Nirdeshio compatible with page caching plugins? =
 
 Yes. The feedback ("Was this helpful?") system uses JavaScript + REST API instead of PHP sessions, so it works correctly behind WP Rocket, LiteSpeed Cache, W3 Total Cache, and similar caching plugins.
 
-= Can I translate Doczur? =
+= Can I translate Nirdeshio? =
 
-Yes. Doczur is fully internationalized (i18n). All strings use the `doczur` text domain. Translations can be contributed on translate.wordpress.org.
+Yes. Nirdeshio is fully internationalized (i18n). All strings use the `itsmanzur-docs` text domain. Translations can be contributed on translate.wordpress.org.
 
-= Does Doczur work with RTL languages? =
+= Does Nirdeshio work with RTL languages? =
 
 Yes. The compiled CSS includes an automatically generated RTL stylesheet (`style-frontend-rtl.css`) loaded by WordPress when an RTL language is active.
 
 = How many knowledge bases can I have in the free version? =
 
-One. If you need multiple knowledge bases for different products, that is a Pro feature.
+As many as you like — there is no limit in the free version.
 
 = Where is my data stored? =
 
-All data is stored in your WordPress database. Doczur creates four custom tables: `{prefix}itsdz_search_index`, `{prefix}itsdz_search_log`, `{prefix}itsdz_feedback`, and `{prefix}itsdz_views`. Articles and knowledge bases are stored as standard WordPress custom post types and can be exported like any other post type.
+All data is stored in your WordPress database. Nirdeshio creates four custom tables: `{prefix}itsdz_search_index`, `{prefix}itsdz_search_log`, `{prefix}itsdz_feedback`, and `{prefix}itsdz_views`. Articles and knowledge bases are stored as standard WordPress custom post types and can be exported like any other post type.
 
 == Screenshots ==
 
@@ -182,8 +186,8 @@ All data is stored in your WordPress database. Doczur creates four custom tables
 **Editor**
 
 * Article editing now happens entirely in the native WordPress block editor (Gutenberg) — no HTML tags are ever shown, and every core block (images, tables, lists) is available.
-* Added a "Doczur" panel to the block editor's sidebar for section, version, tags and the "Mark reviewed today" control — no separate metadata form.
-* Added a "Doczur Callout" block (Info / Tip / Warning / Danger) for coloured notes inside an article, insertable from the regular block inserter.
+* Added a "Nirdeshio" panel to the block editor's sidebar for section, version, tags and the "Mark reviewed today" control — no separate metadata form.
+* Added a "Nirdeshio Callout" block (Info / Tip / Warning / Danger) for coloured notes inside an article, insertable from the regular block inserter.
 * The Documentation screen is now a lightweight tree: search, drag-and-drop ordering, bulk actions, and a "+ New" button that opens straight into the editor.
 
 **AI-ready documentation**

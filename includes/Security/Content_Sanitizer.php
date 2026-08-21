@@ -16,11 +16,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Enforces Content_Validator::sanitize_content() on every article save.
  *
- * The Doczur REST API already sanitizes article content on the way in, but
- * that only covers articles saved through Doczur's own admin screen. An
+ * The Nirdeshio REST API already sanitizes article content on the way in, but
+ * that only covers articles saved through Nirdeshio's own admin screen. An
  * article can also be edited through the native WordPress block editor
  * (`post.php?action=edit`), the core REST API, WP-CLI, or an import script —
- * none of which pass through Doczur's controller. On a single-site install
+ * none of which pass through Nirdeshio's controller. On a single-site install
  * Administrators hold `unfiltered_html` by default, so any of those other
  * paths would otherwise save raw, unrestricted HTML: the iframe host
  * allowlist and every other rule in Content_Validator would simply not

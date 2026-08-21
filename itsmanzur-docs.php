@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin Name:       Doczur
- * Plugin URI:        https://doczur.com/
+ * Plugin Name:       Nirdeshio
  * Description:       Product documentation, knowledge base, and help center for WordPress.
  * Version:           1.0.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            ItsDZ
- * Text Domain:       doczur
+ * Text Domain:       itsmanzur-docs
  * Domain Path:       /languages
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,7 +36,7 @@ if ( ! is_readable( $itsdz_autoloader ) ) {
 
 			printf(
 				'<div class="notice notice-error"><p>%s</p></div>',
-				esc_html__( 'Doczur could not start because its Composer dependencies are missing. Run composer install in the plugin directory.', 'doczur' )
+				esc_html__( 'Nirdeshio could not start because its Composer dependencies are missing. Run composer install in the plugin directory.', 'itsmanzur-docs' )
 			);
 		}
 	);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur metadata panel for the native block editor.
+ * Nirdeshio metadata panel for the native block editor.
  *
  * @package ItsDZ\Doczur\Admin
  */
@@ -13,7 +13,7 @@ use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Loads the Doczur sidebar panel only on the article edit screen.
+ * Loads the Nirdeshio sidebar panel only on the article edit screen.
  */
 final class Editor_Panel_Assets implements Service {
 	/**
@@ -64,6 +64,6 @@ final class Editor_Panel_Assets implements Service {
 			true
 		);
 
-		wp_set_script_translations( self::HANDLE, 'doczur', ITSDZ_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::HANDLE, 'itsmanzur-docs', ITSDZ_PLUGIN_DIR . 'languages' );
 	}
 }

@@ -33,6 +33,7 @@ final class SettingsControllerTest extends WP_UnitTestCase {
 		wp_set_current_user( $admin_id );
 
 		delete_option( Settings_Controller::DELETE_DATA_OPTION );
+		delete_option( Settings_Controller::SHOW_POWERED_BY_OPTION );
 
 		do_action( 'rest_api_init' );
 	}
@@ -47,6 +48,26 @@ final class SettingsControllerTest extends WP_UnitTestCase {
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertFalse( $response->get_data()['delete_data_on_uninstall'] );
+		$this->assertFalse( $response->get_data()['show_powered_by'] );
+	}
+
+	/**
+	 * Turning the "Powered by Nirdeshio" credit on persists it independently of
+	 * the uninstall opt-in, and it round-trips through GET.
+	 *
+	 * @return void
+	 */
+	public function test_update_settings_persists_show_powered_by_independently() {
+		$request = new WP_REST_Request( 'PUT', '/itsdz/v1/settings' );
+		$request->set_param( 'show_powered_by', true );
+
+		$response = rest_get_server()->dispatch( $request );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertTrue( $response->get_data()['show_powered_by'] );
+		$this->assertFalse( $response->get_data()['delete_data_on_uninstall'] );
+		$this->assertTrue( (bool) get_option( Settings_Controller::SHOW_POWERED_BY_OPTION ) );
+		$this->assertFalse( (bool) get_option( Settings_Controller::DELETE_DATA_OPTION ) );
 	}
 
 	/**

@@ -41,6 +41,8 @@ export function Settings( { project }: { project: Project } ) {
 	const [ deleteDataOnUninstall, setDeleteDataOnUninstall ] =
 		useState( false );
 	const [ deleteDataSaving, setDeleteDataSaving ] = useState( false );
+	const [ showPoweredBy, setShowPoweredBy ] = useState( false );
+	const [ showPoweredBySaving, setShowPoweredBySaving ] = useState( false );
 
 	useEffect( () => {
 		let cancelled = false;
@@ -67,6 +69,7 @@ export function Settings( { project }: { project: Project } ) {
 			.then( ( result ) => {
 				if ( ! cancelled ) {
 					setDeleteDataOnUninstall( result.delete_data_on_uninstall );
+					setShowPoweredBy( result.show_powered_by );
 				}
 			} )
 			.catch( () => {
@@ -90,10 +93,29 @@ export function Settings( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'This setting could not be saved.', 'doczur' ),
+						: __( 'This setting could not be saved.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setDeleteDataSaving( false );
+		}
+	};
+
+	const toggleShowPoweredBy = async ( checked: boolean ) => {
+		setShowPoweredBy( checked );
+		setShowPoweredBySaving( true );
+		try {
+			await api.updateSettings( { show_powered_by: checked } );
+		} catch ( error ) {
+			setShowPoweredBy( ! checked );
+			setNotice( {
+				status: 'error',
+				message:
+					error instanceof Error
+						? error.message
+						: __( 'This setting could not be saved.', 'itsmanzur-docs' ),
+			} );
+		} finally {
+			setShowPoweredBySaving( false );
 		}
 	};
 
@@ -106,7 +128,7 @@ export function Settings( { project }: { project: Project } ) {
 				status: 'success',
 				message: sprintf(
 					/* translators: 1: number of articles, 2: number of sections. */
-					__( 'Added %1$d sample articles across %2$d sections.', 'doczur' ),
+					__( 'Added %1$d sample articles across %2$d sections.', 'itsmanzur-docs' ),
 					result.articles,
 					result.sections
 				),
@@ -117,7 +139,7 @@ export function Settings( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Sample content could not be created.', 'doczur' ),
+						: __( 'Sample content could not be created.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setSampleBusy( false );
@@ -129,7 +151,7 @@ export function Settings( { project }: { project: Project } ) {
 		const confirmed = window.confirm(
 			__(
 				'This permanently deletes the sample articles, including any edits you made to them. Continue?',
-				'doczur'
+				'itsmanzur-docs'
 			)
 		);
 
@@ -145,7 +167,7 @@ export function Settings( { project }: { project: Project } ) {
 				status: 'success',
 				message: sprintf(
 					/* translators: %d: number of removed articles. */
-					__( 'Removed %d sample articles.', 'doczur' ),
+					__( 'Removed %d sample articles.', 'itsmanzur-docs' ),
 					result.articles
 				),
 			} );
@@ -155,7 +177,7 @@ export function Settings( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Sample content could not be removed.', 'doczur' ),
+						: __( 'Sample content could not be removed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setSampleBusy( false );
@@ -182,7 +204,7 @@ export function Settings( { project }: { project: Project } ) {
 			);
 			setNotice( {
 				status: 'success',
-				message: __( 'Documentation settings saved.', 'doczur' ),
+				message: __( 'Documentation settings saved.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -190,7 +212,7 @@ export function Settings( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Settings could not be saved.', 'doczur' ),
+						: __( 'Settings could not be saved.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setSaving( false );
@@ -203,8 +225,8 @@ export function Settings( { project }: { project: Project } ) {
 		<div className="itsdz-settings-container">
 			<div className="itsdz-settings-header">
 				<div>
-					<h1>{ __( 'Documentation Settings', 'doczur' ) }</h1>
-					<p>{ __( 'Customize identity, layout, colors, and global display preferences.', 'doczur' ) }</p>
+					<h1>{ __( 'Documentation Settings', 'itsmanzur-docs' ) }</h1>
+					<p>{ __( 'Customize identity, layout, colors, and global display preferences.', 'itsmanzur-docs' ) }</p>
 				</div>
 				<Button
 					variant="primary"
@@ -212,7 +234,7 @@ export function Settings( { project }: { project: Project } ) {
 					disabled={ saving || ! name.trim() }
 				>
 					{ saving && <Spinner /> }{ ' ' }
-					{ __( 'Save Settings', 'doczur' ) }
+					{ __( 'Save Settings', 'itsmanzur-docs' ) }
 				</Button>
 			</div>
 
@@ -222,24 +244,24 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-admin-generic" aria-hidden="true" />
-							<h2>{ __( 'Identity & Permalinks', 'doczur' ) }</h2>
+							<h2>{ __( 'Identity & Permalinks', 'itsmanzur-docs' ) }</h2>
 						</div>
 						<div className="itsdz-form-grid-2">
 							<TextControl
-								label={ __( 'PROJECT NAME', 'doczur' ) }
+								label={ __( 'PROJECT NAME', 'itsmanzur-docs' ) }
 								value={ name }
 								onChange={ setName }
-								placeholder={ __( 'Documentation project title', 'doczur' ) }
+								placeholder={ __( 'Documentation project title', 'itsmanzur-docs' ) }
 							/>
 							<div>
 								<TextControl
-									label={ __( 'URL SLUG BASE', 'doczur' ) }
+									label={ __( 'URL SLUG BASE', 'itsmanzur-docs' ) }
 									value={ slug }
 									onChange={ setSlug }
-									placeholder={ __( 'docs', 'doczur' ) }
+									placeholder={ __( 'docs', 'itsmanzur-docs' ) }
 								/>
 								<div className="itsdz-setting-permalink-hint">
-									<span>{ __( 'Base URL:', 'doczur' ) } <code>{ window.location.origin }/{ slug || 'docs' }/</code></span>
+									<span>{ __( 'Base URL:', 'itsmanzur-docs' ) } <code>{ window.location.origin }/{ slug || 'docs' }/</code></span>
 								</div>
 							</div>
 						</div>
@@ -251,11 +273,11 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-art" aria-hidden="true" />
-							<h2>{ __( 'Branding & Color Accent', 'doczur' ) }</h2>
+							<h2>{ __( 'Branding & Color Accent', 'itsmanzur-docs' ) }</h2>
 						</div>
 						<div className="itsdz-color-picker-box">
 							<label className="itsdz-field-label" htmlFor="itsdz-settings-color-input">
-								{ __( 'PRIMARY BRAND COLOR', 'doczur' ) }
+								{ __( 'PRIMARY BRAND COLOR', 'itsmanzur-docs' ) }
 							</label>
 							<div className="itsdz-color-picker-controls">
 								<input
@@ -294,10 +316,10 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-desktop" aria-hidden="true" />
-							<h2>{ __( 'Appearance & Color Mode', 'doczur' ) }</h2>
+							<h2>{ __( 'Appearance & Color Mode', 'itsmanzur-docs' ) }</h2>
 						</div>
 						<div className="itsdz-visual-choice-group">
-							<label className="itsdz-field-label">{ __( 'COLOR MODE PREFERENCE', 'doczur' ) }</label>
+							<label className="itsdz-field-label">{ __( 'COLOR MODE PREFERENCE', 'itsmanzur-docs' ) }</label>
 							<div className="itsdz-visual-grid-3">
 								<button
 									type="button"
@@ -305,8 +327,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setThemeMode( 'system' ) }
 								>
 									<span className="dashicons dashicons-admin-settings" aria-hidden="true" />
-									<strong>{ __( 'System Auto', 'doczur' ) }</strong>
-									<span>{ __( 'Matches visitor’s OS setting', 'doczur' ) }</span>
+									<strong>{ __( 'System Auto', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Matches visitor’s OS setting', 'itsmanzur-docs' ) }</span>
 								</button>
 								<button
 									type="button"
@@ -314,8 +336,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setThemeMode( 'light' ) }
 								>
 									<span className="dashicons dashicons-day" aria-hidden="true" />
-									<strong>{ __( 'Light Mode', 'doczur' ) }</strong>
-									<span>{ __( 'Always clean light theme', 'doczur' ) }</span>
+									<strong>{ __( 'Light Mode', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Always clean light theme', 'itsmanzur-docs' ) }</span>
 								</button>
 								<button
 									type="button"
@@ -323,8 +345,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setThemeMode( 'dark' ) }
 								>
 									<span className="dashicons dashicons-night" aria-hidden="true" />
-									<strong>{ __( 'Dark Mode', 'doczur' ) }</strong>
-									<span>{ __( 'Always sleek dark theme', 'doczur' ) }</span>
+									<strong>{ __( 'Dark Mode', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Always sleek dark theme', 'itsmanzur-docs' ) }</span>
 								</button>
 							</div>
 						</div>
@@ -336,11 +358,11 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-layout" aria-hidden="true" />
-							<h2>{ __( 'Layout & Template Style', 'doczur' ) }</h2>
+							<h2>{ __( 'Layout & Template Style', 'itsmanzur-docs' ) }</h2>
 						</div>
 
 						<div className="itsdz-visual-choice-group">
-							<label className="itsdz-field-label">{ __( 'PAGE SHELL LAYOUT', 'doczur' ) }</label>
+							<label className="itsdz-field-label">{ __( 'PAGE SHELL LAYOUT', 'itsmanzur-docs' ) }</label>
 							<div className="itsdz-visual-grid-2">
 								<button
 									type="button"
@@ -348,8 +370,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setLayoutMode( 'canvas' ) }
 								>
 									<span className="dashicons dashicons-welcome-view-site" aria-hidden="true" />
-									<strong>{ __( 'Doczur Canvas', 'doczur' ) }</strong>
-									<span>{ __( 'Standalone full-screen portal, zero theme conflicts', 'doczur' ) }</span>
+									<strong>{ __( 'Nirdeshio Canvas', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Standalone full-screen portal, zero theme conflicts', 'itsmanzur-docs' ) }</span>
 								</button>
 								<button
 									type="button"
@@ -357,14 +379,14 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setLayoutMode( 'theme' ) }
 								>
 									<span className="dashicons dashicons-align-center" aria-hidden="true" />
-									<strong>{ __( 'Active Theme Integration', 'doczur' ) }</strong>
-									<span>{ __( 'Integrates inside your active WordPress theme header & footer', 'doczur' ) }</span>
+									<strong>{ __( 'Active Theme Integration', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Integrates inside your active WordPress theme header & footer', 'itsmanzur-docs' ) }</span>
 								</button>
 							</div>
 						</div>
 
 						<div className="itsdz-visual-choice-group" style={ { marginTop: '22px' } }>
-							<label className="itsdz-field-label">{ __( 'TEMPLATE STYLE', 'doczur' ) }</label>
+							<label className="itsdz-field-label">{ __( 'TEMPLATE STYLE', 'itsmanzur-docs' ) }</label>
 							<div className="itsdz-visual-grid-3">
 								<button
 									type="button"
@@ -372,8 +394,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setTemplate( 'clean' ) }
 								>
 									<span className="dashicons dashicons-category" aria-hidden="true" />
-									<strong>{ __( 'Clean', 'doczur' ) }</strong>
-									<span>{ __( 'Minimalist, content-focused layout', 'doczur' ) }</span>
+									<strong>{ __( 'Clean', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Minimalist, content-focused layout', 'itsmanzur-docs' ) }</span>
 								</button>
 								<button
 									type="button"
@@ -381,8 +403,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setTemplate( 'modern' ) }
 								>
 									<span className="dashicons dashicons-superhero" aria-hidden="true" />
-									<strong>{ __( 'Modern', 'doczur' ) }</strong>
-									<span>{ __( 'Vibrant hero header & rich cards', 'doczur' ) }</span>
+									<strong>{ __( 'Modern', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Vibrant hero header & rich cards', 'itsmanzur-docs' ) }</span>
 								</button>
 								<button
 									type="button"
@@ -390,8 +412,8 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => setTemplate( 'compact' ) }
 								>
 									<span className="dashicons dashicons-excerpt-view" aria-hidden="true" />
-									<strong>{ __( 'Compact', 'doczur' ) }</strong>
-									<span>{ __( 'Dense sidebar layout for large docs', 'doczur' ) }</span>
+									<strong>{ __( 'Compact', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Dense sidebar layout for large docs', 'itsmanzur-docs' ) }</span>
 								</button>
 							</div>
 						</div>
@@ -403,22 +425,38 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-privacy" aria-hidden="true" />
-							<h2>{ __( 'Data & Privacy', 'doczur' ) }</h2>
+							<h2>{ __( 'Data & Privacy', 'itsmanzur-docs' ) }</h2>
 						</div>
 
 						<CheckboxControl
 							label={ __(
-								'Delete all Doczur data when the plugin is uninstalled',
-								'doczur'
+								'Delete all Nirdeshio data when the plugin is uninstalled',
+								'itsmanzur-docs'
 							) }
 							help={ __(
 								'Off by default. Removes your documentation projects, articles, and settings only when you actually delete the plugin — not on deactivation.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 							checked={ deleteDataOnUninstall }
 							disabled={ deleteDataSaving }
 							onChange={ ( checked: boolean ) =>
 								void toggleDeleteDataOnUninstall( checked )
+							}
+						/>
+
+						<CheckboxControl
+							label={ __(
+								'Show "Powered by Nirdeshio" credit',
+								'itsmanzur-docs'
+							) }
+							help={ __(
+								'Off by default. Adds a small attribution line to the bottom of your public documentation pages.',
+								'itsmanzur-docs'
+							) }
+							checked={ showPoweredBy }
+							disabled={ showPoweredBySaving }
+							onChange={ ( checked: boolean ) =>
+								void toggleShowPoweredBy( checked )
 							}
 						/>
 					</CardBody>
@@ -429,18 +467,18 @@ export function Settings( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-welcome-add-page" aria-hidden="true" />
-							<h2>{ __( 'Sample Content', 'doczur' ) }</h2>
+							<h2>{ __( 'Sample Content', 'itsmanzur-docs' ) }</h2>
 						</div>
 
 						<p className="itsdz-settings-card-intro">
 							{ sampleExists
 								? __(
 										'This project contains generated sample articles. Remove them once you have finished exploring — your own articles are never touched.',
-										'doczur'
+										'itsmanzur-docs'
 								  )
 								: __(
 										'Publishes eight ready-made articles across three sections so you can see a finished documentation site immediately. Every formatting feature is demonstrated, and you can delete it all in one click.',
-										'doczur'
+										'itsmanzur-docs'
 								  ) }
 						</p>
 
@@ -452,8 +490,8 @@ export function Settings( { project }: { project: Project } ) {
 							>
 								{ sampleBusy && <Spinner /> }{ ' ' }
 								{ sampleExists
-									? __( 'Regenerate sample content', 'doczur' )
-									: __( 'Generate sample content', 'doczur' ) }
+									? __( 'Regenerate sample content', 'itsmanzur-docs' )
+									: __( 'Generate sample content', 'itsmanzur-docs' ) }
 							</Button>
 							{ sampleExists && (
 								<Button
@@ -462,7 +500,7 @@ export function Settings( { project }: { project: Project } ) {
 									onClick={ () => void removeSample() }
 									disabled={ sampleBusy }
 								>
-									{ __( 'Remove sample content', 'doczur' ) }
+									{ __( 'Remove sample content', 'itsmanzur-docs' ) }
 								</Button>
 							) }
 						</div>
@@ -476,7 +514,7 @@ export function Settings( { project }: { project: Project } ) {
 						disabled={ saving || ! name.trim() }
 					>
 						{ saving && <Spinner /> }{ ' ' }
-						{ __( 'Save Settings', 'doczur' ) }
+						{ __( 'Save Settings', 'itsmanzur-docs' ) }
 					</Button>
 				</div>
 			</div>

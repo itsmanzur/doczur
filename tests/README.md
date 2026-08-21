@@ -1,4 +1,4 @@
-# Doczur test suites
+# Nirdeshio test suites
 
 There are two suites with different jobs.
 

@@ -13,7 +13,7 @@ use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 use WP_UnitTestCase;
 
 /**
- * Proves WordPress boots with Doczur fully registered.
+ * Proves WordPress boots with Nirdeshio fully registered.
  */
 final class BootstrapTest extends WP_UnitTestCase {
 

@@ -3,11 +3,11 @@
   "apiVersion": 3,
   "name": "itsdz/popular-docs",
   "version": "0.1.0",
-  "title": "Doczur Popular Articles",
+  "title": "Nirdeshio Popular Articles",
   "category": "widgets",
   "icon": "chart-bar",
   "description": "Show the most viewed or most recently published articles from a knowledge base.",
-  "keywords": [ "popular", "recent", "trending", "documentation", "doczur" ],
+  "keywords": [ "popular", "recent", "trending", "documentation", "itsmanzur-docs" ],
   "supports": {
     "html": false,
     "color": false,
@@ -34,5 +34,5 @@
   "editorScript": "itsdz-blocks",
   "style": "itsdz-frontend",
   "render": "file:./render.php",
-  "textdomain": "doczur"
+  "textdomain": "itsmanzur-docs"
 }

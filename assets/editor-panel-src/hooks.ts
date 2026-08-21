@@ -1,5 +1,5 @@
 /**
- * Data fetching for the Doczur sidebar panel.
+ * Data fetching for the Nirdeshio sidebar panel.
  *
  * A separate, minimal set of hooks rather than importing from admin-src or
  * blocks-src: each is its own webpack entry / bundle, so sharing code across
@@ -26,10 +26,10 @@ export interface Term {
 }
 
 /**
- * Fetch Doczur projects for the "Knowledge base" dropdown.
+ * Fetch Nirdeshio projects for the "Knowledge base" dropdown.
  */
 export function useKnowledgeBases(): SelectOption[] {
-	const placeholder = __( 'Select a knowledge base…', 'doczur' );
+	const placeholder = __( 'Select a knowledge base…', 'itsmanzur-docs' );
 	const [ options, setOptions ] = useState< SelectOption[] >( [
 		{ label: placeholder, value: '0' },
 	] );
@@ -45,7 +45,7 @@ export function useKnowledgeBases(): SelectOption[] {
 				setOptions( [
 					{ label: placeholder, value: '0' },
 					...items.map( ( kb ) => ( {
-						label: kb.title || __( '(untitled)', 'doczur' ),
+						label: kb.title || __( '(untitled)', 'itsmanzur-docs' ),
 						value: String( kb.id ),
 					} ) ),
 				] );
@@ -109,7 +109,7 @@ function useTermOptions(
 export function useSections(): SelectOption[] {
 	return useTermOptions(
 		'/wp/v2/itsdz_section',
-		__( 'Unsectioned', 'doczur' )
+		__( 'Unsectioned', 'itsmanzur-docs' )
 	);
 }
 
@@ -123,7 +123,7 @@ export function useVersions(): {
 	createVersion: ( name: string ) => Promise< Term >;
 } {
 	const [ terms, setTerms ] = useState< Term[] >( [] );
-	const noneLabel = __( 'No version', 'doczur' );
+	const noneLabel = __( 'No version', 'itsmanzur-docs' );
 
 	useEffect( () => {
 		let cancelled = false;

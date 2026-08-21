@@ -41,7 +41,7 @@ final class Search_Service {
 		if ( mb_strlen( $query ) < 2 ) {
 			return new \WP_Error(
 				'itsdz_search_query_too_short',
-				__( 'Enter at least two characters to search.', 'doczur' ),
+				__( 'Enter at least two characters to search.', 'itsmanzur-docs' ),
 				array( 'status' => 400 )
 			);
 		}

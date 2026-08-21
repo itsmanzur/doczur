@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur cache wrapper.
+ * Nirdeshio cache wrapper.
  *
  * @package ItsDZ\Doczur\Utils
  */

@@ -137,11 +137,11 @@ function DoczurPanelFields() {
 	return (
 		<PluginDocumentSettingPanel
 			name="doczur-metadata"
-			title={ __( 'Doczur', 'doczur' ) }
+			title={ __( 'Nirdeshio', 'itsmanzur-docs' ) }
 			className="itsdz-editor-panel"
 		>
 			<SelectControl
-				label={ __( 'Knowledge base', 'doczur' ) }
+				label={ __( 'Knowledge base', 'itsmanzur-docs' ) }
 				value={ String( meta?._itsdz_kb_id ?? 0 ) }
 				options={ kbOptions }
 				onChange={ ( value: string ) =>
@@ -150,7 +150,7 @@ function DoczurPanelFields() {
 			/>
 
 			<SelectControl
-				label={ __( 'Section', 'doczur' ) }
+				label={ __( 'Section', 'itsmanzur-docs' ) }
 				value={ String( sectionIds?.[ 0 ] ?? 0 ) }
 				options={ sectionOptions }
 				onChange={ ( value: string ) =>
@@ -160,7 +160,7 @@ function DoczurPanelFields() {
 
 			<div style={ versionRowStyle }>
 				<SelectControl
-					label={ __( 'Version', 'doczur' ) }
+					label={ __( 'Version', 'itsmanzur-docs' ) }
 					value={ String( versionIds?.[ 0 ] ?? 0 ) }
 					options={ versionOptions }
 					onChange={ ( value: string ) =>
@@ -173,19 +173,19 @@ function DoczurPanelFields() {
 					variant="tertiary"
 					onClick={ () => setVersionModalOpen( true ) }
 				>
-					+ { __( 'New version', 'doczur' ) }
+					+ { __( 'New version', 'itsmanzur-docs' ) }
 				</Button>
 			</div>
 
 			{ isVersionModalOpen && (
 				<Modal
-					title={ __( 'New version', 'doczur' ) }
+					title={ __( 'New version', 'itsmanzur-docs' ) }
 					onRequestClose={ closeVersionModal }
 					size="small"
 				>
 					<TextControl
-						label={ __( 'Version name', 'doczur' ) }
-						placeholder={ __( 'e.g. v1.0', 'doczur' ) }
+						label={ __( 'Version name', 'itsmanzur-docs' ) }
+						placeholder={ __( 'e.g. v1.0', 'itsmanzur-docs' ) }
 						value={ newVersionName }
 						onChange={ setNewVersionName }
 						onKeyDown={ ( event: React.KeyboardEvent ) => {
@@ -201,7 +201,7 @@ function DoczurPanelFields() {
 							onClick={ closeVersionModal }
 							disabled={ creatingVersion }
 						>
-							{ __( 'Cancel', 'doczur' ) }
+							{ __( 'Cancel', 'itsmanzur-docs' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -210,14 +210,14 @@ function DoczurPanelFields() {
 								creatingVersion || ! newVersionName.trim()
 							}
 						>
-							{ __( 'Create version', 'doczur' ) }
+							{ __( 'Create version', 'itsmanzur-docs' ) }
 						</Button>
 					</div>
 				</Modal>
 			) }
 
 			<FormTokenField
-				label={ __( 'Tags', 'doczur' ) }
+				label={ __( 'Tags', 'itsmanzur-docs' ) }
 				value={ tagNames }
 				suggestions={ tagTerms.map( ( term ) => term.name ) }
 				onChange={ ( tokens ) => {
@@ -229,11 +229,11 @@ function DoczurPanelFields() {
 
 			<div style={ reviewedRowStyle }>
 				<span style={ reviewedLabelStyle }>
-					{ __( 'Last reviewed', 'doczur' ) }
+					{ __( 'Last reviewed', 'itsmanzur-docs' ) }
 				</span>
 				<span style={ reviewedValueStyle }>
 					{ meta?._itsdz_last_reviewed ||
-						__( 'Never reviewed', 'doczur' ) }
+						__( 'Never reviewed', 'itsmanzur-docs' ) }
 				</span>
 				<Button
 					variant="secondary"
@@ -246,7 +246,7 @@ function DoczurPanelFields() {
 						} )
 					}
 				>
-					{ __( 'Mark reviewed today', 'doczur' ) }
+					{ __( 'Mark reviewed today', 'itsmanzur-docs' ) }
 				</Button>
 			</div>
 		</PluginDocumentSettingPanel>

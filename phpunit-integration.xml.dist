@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="tests/integration/bootstrap.php" colors="true" failOnRisky="true" failOnWarning="true">
 	<testsuites>
-		<testsuite name="Doczur Integration">
+		<testsuite name="Nirdeshio Integration">
 			<directory suffix="Test.php">tests/integration</directory>
 		</testsuite>
 	</testsuites>

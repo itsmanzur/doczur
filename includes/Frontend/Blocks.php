@@ -17,7 +17,7 @@ use ItsDZ\Doczur\Core\Service;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers Gutenberg blocks provided by Doczur.
+ * Registers Gutenberg blocks provided by Nirdeshio.
  */
 final class Blocks implements Service {
 
@@ -66,7 +66,7 @@ final class Blocks implements Service {
 	 *
 	 * Every block.json points its `editorScript` at this handle, so the edit
 	 * components ship as one chunk instead of one per block. Registering (not
-	 * enqueuing) means WordPress only loads it when a Doczur block is used.
+	 * enqueuing) means WordPress only loads it when a Nirdeshio block is used.
 	 *
 	 * @return void
 	 */
@@ -88,11 +88,11 @@ final class Blocks implements Service {
 			true
 		);
 
-		wp_set_script_translations( self::EDITOR_HANDLE, 'doczur', ITSDZ_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::EDITOR_HANDLE, 'itsmanzur-docs', ITSDZ_PLUGIN_DIR . 'languages' );
 	}
 
 	/**
-	 * Register the frontend stylesheet under the shared Doczur handle.
+	 * Register the frontend stylesheet under the shared Nirdeshio handle.
 	 *
 	 * Blocks can be placed on ordinary pages where Frontend\Assets does not
 	 * run, so each block.json declares this handle as its `style`. WordPress

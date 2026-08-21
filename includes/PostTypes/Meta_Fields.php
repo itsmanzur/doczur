@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur content meta registration.
+ * Nirdeshio content meta registration.
  *
  * @package ItsDZ\Doczur\PostTypes
  */

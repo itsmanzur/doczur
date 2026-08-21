@@ -12,7 +12,7 @@ use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Validates Doczur object relationships.
+ * Validates Nirdeshio object relationships.
  */
 final class Content_Validator {
 	/**
@@ -28,7 +28,7 @@ final class Content_Validator {
 		if ( ! $kb || KB_Post_Type::POST_TYPE !== $kb->post_type || 'trash' === $kb->post_status ) {
 			return new \WP_Error(
 				'itsdz_invalid_kb',
-				__( 'The documentation project does not exist.', 'doczur' ),
+				__( 'The documentation project does not exist.', 'itsmanzur-docs' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -36,7 +36,7 @@ final class Content_Validator {
 		if ( $public_only && 'publish' !== $kb->post_status ) {
 			return new \WP_Error(
 				'itsdz_kb_not_public',
-				__( 'The documentation project is not publicly available.', 'doczur' ),
+				__( 'The documentation project is not publicly available.', 'itsmanzur-docs' ),
 				array( 'status' => 404 )
 			);
 		}
