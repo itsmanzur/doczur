@@ -8,15 +8,24 @@ import { DocsManager } from '../components/DocsManager';
 import { Glossary } from '../components/Glossary';
 import { HelpGuide } from '../components/HelpGuide';
 import { ImportExport } from '../components/ImportExport';
+import { Sections } from '../components/Sections';
 import { Settings } from '../components/Settings';
 import { SetupWizard } from '../components/SetupWizard';
 
-type View = 'docs' | 'glossary' | 'settings' | 'transfer' | 'guide' | 'wizard';
+type View =
+	| 'docs'
+	| 'sections'
+	| 'glossary'
+	| 'settings'
+	| 'transfer'
+	| 'guide'
+	| 'wizard';
 
 const viewFromHash = (): View => {
 	const hash = window.location.hash.replace( '#/', '' );
 	return [
 		'docs',
+		'sections',
 		'glossary',
 		'settings',
 		'transfer',
@@ -164,6 +173,11 @@ export function App() {
 								'dashicons-media-document',
 							],
 							[
+								'sections',
+								__( 'Sections', 'itsmanzur-docs' ),
+								'dashicons-category',
+							],
+							[
 								'glossary',
 								__( 'Glossary', 'itsmanzur-docs' ),
 								'dashicons-book-alt',
@@ -233,6 +247,7 @@ export function App() {
 					{ view === 'docs' && (
 						<DocsManager project={ selectedProject } />
 					) }
+					{ view === 'sections' && <Sections /> }
 					{ view === 'glossary' && <Glossary /> }
 					{ view === 'settings' && (
 						<Settings project={ selectedProject } />

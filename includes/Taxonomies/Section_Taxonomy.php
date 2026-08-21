@@ -9,6 +9,7 @@ namespace ItsDZ\Doczur\Taxonomies;
 
 use ItsDZ\Doczur\Core\Service;
 use ItsDZ\Doczur\PostTypes\Article_Post_Type;
+use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 use ItsDZ\Doczur\Security\Capabilities;
 
 defined( 'ABSPATH' ) || exit;
@@ -140,7 +141,7 @@ final class Section_Taxonomy implements Service {
 				'show_in_rest'      => true,
 				'capabilities'      => Capabilities::taxonomy_map(),
 				'rewrite'           => array(
-					'slug'       => 'docs/section',
+					'slug'       => KB_Post_Type::rewrite_slug() . '/section',
 					'with_front' => false,
 				),
 			)

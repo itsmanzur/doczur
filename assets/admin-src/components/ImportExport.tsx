@@ -1,13 +1,22 @@
 import { Button, Card, CardBody, Spinner } from '@wordpress/components';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { api } from '../api';
+import {
+	bodyFromMarkdown,
+	markdownToHtml,
+	titleFromMarkdown,
+} from '../markdownImport';
 import { store } from '../store';
 import type { Project } from '../types';
 
 export function ImportExport( { project }: { project: Project } ) {
-	const { setNotice } = useDispatch( store );
+	const { setArticles, setNotice } = useDispatch( store );
+	const articles = useSelect(
+		( select ) => select( store ).getArticles(),
+		[]
+	);
 	const [ busy, setBusy ] = useState( false );
 
 	const exportJson = async () => {
@@ -60,6 +69,41 @@ export function ImportExport( { project }: { project: Project } ) {
 					error instanceof Error
 						? error.message
 						: __( 'Import failed.', 'itsmanzur-docs' ),
+			} );
+		} finally {
+			setBusy( false );
+		}
+	};
+
+	const importMarkdown = async ( file: File ) => {
+		setBusy( true );
+		try {
+			const markdown = await file.text();
+			const title = titleFromMarkdown( markdown, file.name );
+			const html = markdownToHtml( bodyFromMarkdown( markdown ) );
+			const article = await api.createArticle( {
+				kb_id: project.id,
+				title,
+				content: html,
+				status: 'draft',
+				menu_order: articles.length,
+			} );
+			setArticles( [ ...articles, article ] );
+			setNotice( {
+				status: 'success',
+				message: sprintf(
+					/* translators: %s: imported article title. */
+					__( 'Imported “%s” as a draft.', 'itsmanzur-docs' ),
+					article.title
+				),
+			} );
+		} catch ( error ) {
+			setNotice( {
+				status: 'error',
+				message:
+					error instanceof Error
+						? error.message
+						: __( 'Markdown import failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBusy( false );
@@ -134,6 +178,46 @@ export function ImportExport( { project }: { project: Project } ) {
 										const file = event.target.files?.[ 0 ];
 										if ( file ) {
 											void importJson( file );
+										}
+									} }
+								/>
+							</label>
+						</div>
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-media-text" aria-hidden="true" />
+							<h2>{ __( 'Import Markdown', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<p className="itsdz-transfer-desc">
+							{ __(
+								'Turn one .md file into a draft article. The first heading becomes the title. Nested docs importers stay in Pro.',
+								'itsmanzur-docs'
+							) }
+						</p>
+						<div className="itsdz-transfer-action">
+							<label
+								className="itsdz-file-button"
+								htmlFor="itsdz-import-markdown"
+							>
+								<span className="dashicons dashicons-media-code" aria-hidden="true" style={ { marginInlineEnd: '6px' } } />
+								<span>
+									{ busy
+										? __( 'Importing…', 'itsmanzur-docs' )
+										: __( 'Choose Markdown file', 'itsmanzur-docs' ) }
+								</span>
+								<input
+									id="itsdz-import-markdown"
+									type="file"
+									accept=".md,text/markdown"
+									disabled={ busy }
+									onChange={ ( event ) => {
+										const file = event.target.files?.[ 0 ];
+										if ( file ) {
+											void importMarkdown( file );
 										}
 									} }
 								/>
