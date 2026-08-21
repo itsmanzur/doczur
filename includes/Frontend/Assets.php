@@ -14,7 +14,7 @@ use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Loads the small frontend bundle only on Doczur pages.
+ * Loads the small frontend bundle only on Nirdeshio pages.
  */
 final class Assets implements Service {
 	/**
@@ -75,6 +75,6 @@ final class Assets implements Service {
 			);
 		}
 
-		wp_set_script_translations( self::HANDLE, 'doczur', ITSDZ_PLUGIN_DIR . 'languages' );
+		wp_set_script_translations( self::HANDLE, 'itsmanzur-docs', ITSDZ_PLUGIN_DIR . 'languages' );
 	}
 }

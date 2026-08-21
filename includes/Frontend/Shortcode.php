@@ -21,7 +21,7 @@ use ItsDZ\Doczur\PostTypes\KB_Post_Type;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers and renders Doczur shortcodes.
+ * Registers and renders Nirdeshio shortcodes.
  */
 final class Shortcode implements Service {
 
@@ -35,7 +35,7 @@ final class Shortcode implements Service {
 	}
 
 	/**
-	 * Register all Doczur shortcodes.
+	 * Register all Nirdeshio shortcodes.
 	 *
 	 * @return void
 	 */
@@ -183,17 +183,17 @@ final class Shortcode implements Service {
 		$button_text = sanitize_text_field( $atts['button_text'] );
 
 		if ( ! $placeholder ) {
-			$placeholder = __( 'Search documentation…', 'doczur' );
+			$placeholder = __( 'Search documentation…', 'itsmanzur-docs' );
 		}
 
 		if ( ! $button_text ) {
-			$button_text = __( 'Search', 'doczur' );
+			$button_text = __( 'Search', 'itsmanzur-docs' );
 		}
 
 		$kb_url = $this->get_kb_url( $kb_id );
 
 		if ( ! $kb_url ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'Doczur: please set a valid kb_id for the doczur_search shortcode.', 'doczur' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the doczur_search shortcode.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		$this->maybe_enqueue_frontend_assets();
@@ -250,14 +250,14 @@ final class Shortcode implements Service {
 		$show_section = in_array( strtolower( (string) $atts['show_section'] ), array( 'true', '1', 'yes' ), true );
 
 		if ( ! $kb_id ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'Doczur: please set a valid kb_id for the doczur_docs_list shortcode.', 'doczur' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the doczur_docs_list shortcode.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		$kb    = get_post( $kb_id );
 		$kb_ok = $kb instanceof \WP_Post && KB_Post_Type::POST_TYPE === $kb->post_type && 'publish' === $kb->post_status;
 
 		if ( ! $kb_ok ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'Doczur: knowledge base not found or not published.', 'doczur' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: knowledge base not found or not published.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		$all_articles = Documentation::get_articles( $kb_id );
@@ -265,7 +265,7 @@ final class Shortcode implements Service {
 		$has_more     = count( $all_articles ) > $limit;
 
 		if ( empty( $articles ) ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'No published articles found.', 'doczur' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'No published articles found.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		ob_start();
@@ -298,7 +298,7 @@ final class Shortcode implements Service {
 			</ul>
 			<?php if ( $has_more ) : ?>
 				<a class="itsdz-docs-list-block-more" href="<?php echo esc_url( (string) get_permalink( $kb ) ); ?>">
-					<?php esc_html_e( 'View all articles →', 'doczur' ); ?>
+					<?php esc_html_e( 'View all articles →', 'itsmanzur-docs' ); ?>
 				</a>
 			<?php endif; ?>
 		</div>

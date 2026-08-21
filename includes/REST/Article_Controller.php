@@ -231,7 +231,7 @@ final class Article_Controller extends REST_Controller {
 		$deleted = $force ? wp_delete_post( $post->ID, true ) : wp_trash_post( $post->ID );
 
 		if ( ! $deleted ) {
-			return new \WP_Error( 'itsdz_delete_failed', __( 'The article could not be deleted.', 'doczur' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'itsdz_delete_failed', __( 'The article could not be deleted.', 'itsmanzur-docs' ), array( 'status' => 500 ) );
 		}
 
 		return rest_ensure_response(
@@ -253,7 +253,7 @@ final class Article_Controller extends REST_Controller {
 		$items = $request->get_param( 'items' );
 
 		if ( is_wp_error( Content_Validator::get_kb( $kb_id ) ) || ! is_array( $items ) || count( $items ) > 500 ) {
-			return new \WP_Error( 'itsdz_invalid_reorder', __( 'The reorder payload is invalid.', 'doczur' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'itsdz_invalid_reorder', __( 'The reorder payload is invalid.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 		}
 
 		$validated = array();
@@ -264,7 +264,7 @@ final class Article_Controller extends REST_Controller {
 			$section_id = isset( $item['section_id'] ) ? absint( $item['section_id'] ) : 0;
 
 			if ( is_wp_error( $article ) || absint( get_post_meta( $article_id, '_itsdz_kb_id', true ) ) !== $kb_id || ( $section_id && ! $this->valid_section( $section_id ) ) ) {
-				return new \WP_Error( 'itsdz_invalid_reorder_item', __( 'One or more reorder items are invalid.', 'doczur' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'itsdz_invalid_reorder_item', __( 'One or more reorder items are invalid.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 			}
 
 			$validated[] = array(
@@ -392,7 +392,7 @@ final class Article_Controller extends REST_Controller {
 		if ( is_array( $sections ) ) {
 			foreach ( $sections as $section_id ) {
 				if ( ! $this->valid_section( absint( $section_id ) ) ) {
-					return new \WP_Error( 'itsdz_invalid_section', __( 'One or more sections are invalid or exceed three levels.', 'doczur' ), array( 'status' => 400 ) );
+					return new \WP_Error( 'itsdz_invalid_section', __( 'One or more sections are invalid or exceed three levels.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 				}
 			}
 		}
@@ -400,14 +400,14 @@ final class Article_Controller extends REST_Controller {
 		if ( is_array( $tags ) ) {
 			foreach ( $tags as $tag_id ) {
 				if ( ! term_exists( absint( $tag_id ), 'itsdz_tag' ) ) {
-					return new \WP_Error( 'itsdz_invalid_tag', __( 'One or more documentation tags are invalid.', 'doczur' ), array( 'status' => 400 ) );
+					return new \WP_Error( 'itsdz_invalid_tag', __( 'One or more documentation tags are invalid.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 				}
 			}
 		}
 
 		$version_id = $request->get_param( 'version_id' );
 		if ( $version_id && ! term_exists( absint( $version_id ), 'itsdz_version' ) ) {
-			return new \WP_Error( 'itsdz_invalid_version', __( 'The selected version is invalid.', 'doczur' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'itsdz_invalid_version', __( 'The selected version is invalid.', 'itsmanzur-docs' ), array( 'status' => 400 ) );
 		}
 
 		return true;
@@ -482,7 +482,7 @@ final class Article_Controller extends REST_Controller {
 				'type' => 'integer',
 			),
 			'last_reviewed' => array(
-				'description' => __( 'ISO 8601 date (YYYY-MM-DD) the article was last reviewed for accuracy.', 'doczur' ),
+				'description' => __( 'ISO 8601 date (YYYY-MM-DD) the article was last reviewed for accuracy.', 'itsmanzur-docs' ),
 				'type'        => 'string',
 			),
 		);

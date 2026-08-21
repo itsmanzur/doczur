@@ -74,7 +74,7 @@ final class Analytics_Controller extends REST_Controller {
 		if ( ! $article_id && ! $kb_id ) {
 			return new \WP_Error(
 				'itsdz_analytics_missing_param',
-				__( 'Provide either article_id or kb_id.', 'doczur' ),
+				__( 'Provide either article_id or kb_id.', 'itsmanzur-docs' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -126,14 +126,14 @@ final class Analytics_Controller extends REST_Controller {
 	private function get_views_args() {
 		return array(
 			'article_id' => array(
-				'description'       => __( 'Article post ID to fetch views for.', 'doczur' ),
+				'description'       => __( 'Article post ID to fetch views for.', 'itsmanzur-docs' ),
 				'type'              => 'integer',
 				'minimum'           => 1,
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'kb_id'      => array(
-				'description'       => __( 'Knowledge base ID to fetch aggregated views for.', 'doczur' ),
+				'description'       => __( 'Knowledge base ID to fetch aggregated views for.', 'itsmanzur-docs' ),
 				'type'              => 'integer',
 				'minimum'           => 1,
 				'sanitize_callback' => 'absint',
@@ -154,25 +154,25 @@ final class Analytics_Controller extends REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'article_id' => array(
-					'description' => __( 'Article post ID (single-article response only).', 'doczur' ),
+					'description' => __( 'Article post ID (single-article response only).', 'itsmanzur-docs' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'total'      => array(
-					'description' => __( 'Total recorded views for the article.', 'doczur' ),
+					'description' => __( 'Total recorded views for the article.', 'itsmanzur-docs' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'kb_id'      => array(
-					'description' => __( 'Knowledge base ID (KB response only).', 'doczur' ),
+					'description' => __( 'Knowledge base ID (KB response only).', 'itsmanzur-docs' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'articles'   => array(
-					'description'          => __( 'Map of article_id to total view count.', 'doczur' ),
+					'description'          => __( 'Map of article_id to total view count.', 'itsmanzur-docs' ),
 					'type'                 => 'object',
 					'context'              => array( 'view' ),
 					'additionalProperties' => array( 'type' => 'integer' ),

@@ -2,12 +2,12 @@
 /**
  * Save-path-independent content sanitization tests.
  *
- * The Doczur REST API sanitizes article content on its own, but that only
- * covers saves made through Doczur's admin screen. Since article content is
+ * The Nirdeshio REST API sanitizes article content on its own, but that only
+ * covers saves made through Nirdeshio's admin screen. Since article content is
  * now edited through the native WordPress block editor, these tests prove
  * the same rules apply when a post is saved by calling wp_insert_post() /
  * wp_update_post() directly — the exact code path Gutenberg, WP-CLI, and any
- * importer ultimately go through, none of which touch Doczur's REST
+ * importer ultimately go through, none of which touch Nirdeshio's REST
  * controller at all.
  *
  * @package ItsDZ\Doczur\Tests\Integration
@@ -127,7 +127,7 @@ final class ContentSanitizerTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The filter only touches Doczur articles — other post types are untouched.
+	 * The filter only touches Nirdeshio articles — other post types are untouched.
 	 *
 	 * @return void
 	 */

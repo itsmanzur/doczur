@@ -40,12 +40,12 @@ if ( ! is_readable( $itsdz_tests_dir . '/includes/functions.php' ) ) {
 require_once $itsdz_tests_dir . '/includes/functions.php';
 
 /**
- * Load Doczur before WordPress finishes booting so its hooks are in place.
+ * Load Nirdeshio before WordPress finishes booting so its hooks are in place.
  */
 tests_add_filter(
 	'muplugins_loaded',
 	static function () use ( $itsdz_plugin_dir ) {
-		require $itsdz_plugin_dir . '/doczur.php';
+		require $itsdz_plugin_dir . '/itsmanzur-docs.php';
 	}
 );
 

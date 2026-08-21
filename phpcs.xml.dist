@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<ruleset name="Doczur">
-	<description>WordPress coding standards for Doczur.</description>
+<ruleset name="Nirdeshio">
+	<description>WordPress coding standards for Nirdeshio.</description>
 
-	<file>doczur.php</file>
+	<file>itsmanzur-docs.php</file>
 	<file>uninstall.php</file>
 	<file>includes</file>
 	<file>templates</file>
@@ -28,5 +28,5 @@
 	<rule ref="PHPCompatibilityWP" />
 
 	<config name="minimum_supported_wp_version" value="6.5" />
-	<config name="text_domain" value="doczur" />
+	<config name="text_domain" value="itsmanzur-docs" />
 </ruleset>

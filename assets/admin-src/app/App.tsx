@@ -77,8 +77,8 @@ export function App() {
 					error instanceof Error
 						? error.message
 						: __(
-								'Doczur could not load the workspace.',
-								'doczur'
+								'Nirdeshio could not load the workspace.',
+								'itsmanzur-docs'
 						  ),
 			} );
 		} finally {
@@ -114,7 +114,7 @@ export function App() {
 		return (
 			<div className="itsdz-loading" role="status">
 				<Spinner />
-				<span>{ __( 'Loading Doczur…', 'doczur' ) }</span>
+				<span>{ __( 'Loading Nirdeshio…', 'itsmanzur-docs' ) }</span>
 			</div>
 		);
 	}
@@ -142,9 +142,9 @@ export function App() {
 			<header className="itsdz-topbar">
 				<div>
 					<span className="itsdz-brand-mark" aria-hidden="true">
-						D
+						N
 					</span>
-					<strong>Doczur</strong>
+					<strong>Nirdeshio</strong>
 					<span className="itsdz-version">
 						v{ window.itsdzAdmin.pluginVersion }
 					</span>
@@ -154,33 +154,33 @@ export function App() {
 			<div className="itsdz-workspace">
 				<nav
 					className="itsdz-app-nav"
-					aria-label={ __( 'Doczur navigation', 'doczur' ) }
+					aria-label={ __( 'Nirdeshio navigation', 'itsmanzur-docs' ) }
 				>
 					{ (
 						[
 							[
 								'docs',
-								__( 'Documentation', 'doczur' ),
+								__( 'Documentation', 'itsmanzur-docs' ),
 								'dashicons-media-document',
 							],
 							[
 								'glossary',
-								__( 'Glossary', 'doczur' ),
+								__( 'Glossary', 'itsmanzur-docs' ),
 								'dashicons-book-alt',
 							],
 							[
 								'settings',
-								__( 'Settings', 'doczur' ),
+								__( 'Settings', 'itsmanzur-docs' ),
 								'dashicons-admin-settings',
 							],
 							[
 								'transfer',
-								__( 'Import / Export', 'doczur' ),
+								__( 'Import / Export', 'itsmanzur-docs' ),
 								'dashicons-database-export',
 							],
 							[
 								'guide',
-								__( 'Help & Guide', 'doczur' ),
+								__( 'Help & Guide', 'itsmanzur-docs' ),
 								'dashicons-editor-help',
 							],
 						] as [ View, string, string ][]
@@ -217,7 +217,7 @@ export function App() {
 								height: '17px',
 							} }
 						/>
-						{ __( 'Analytics', 'doczur' ) } <small>PRO</small>
+						{ __( 'Analytics', 'itsmanzur-docs' ) } <small>PRO</small>
 					</Button>
 				</nav>
 

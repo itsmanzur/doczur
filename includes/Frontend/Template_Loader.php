@@ -127,7 +127,7 @@ final class Template_Loader implements Service {
 	/**
 	 * Inject loading="lazy" on images inside article content.
 	 *
-	 * Runs only on Doczur article singles so no other post types are affected.
+	 * Runs only on Nirdeshio article singles so no other post types are affected.
 	 * Images that already carry a loading attribute are left untouched.
 	 *
 	 * @param string $content Post content.

@@ -79,8 +79,8 @@ export function initNavigation( root: HTMLElement ) {
 		themeToggle?.setAttribute(
 			'aria-label',
 			dark
-				? __( 'Use light mode', 'doczur' )
-				: __( 'Use dark mode', 'doczur' )
+				? __( 'Use light mode', 'itsmanzur-docs' )
+				: __( 'Use dark mode', 'itsmanzur-docs' )
 		);
 	};
 
@@ -94,12 +94,12 @@ export function initNavigation( root: HTMLElement ) {
 	copyButton?.addEventListener( 'click', async () => {
 		try {
 			await copyToClipboard( window.location.href );
-			copyButton.textContent = __( 'Copied', 'doczur' );
+			copyButton.textContent = __( 'Copied', 'itsmanzur-docs' );
 			window.setTimeout( () => {
-				copyButton.textContent = __( 'Copy link', 'doczur' );
+				copyButton.textContent = __( 'Copy link', 'itsmanzur-docs' );
 			}, 1800 );
 		} catch {
-			copyButton.textContent = __( 'Copy failed', 'doczur' );
+			copyButton.textContent = __( 'Copy failed', 'itsmanzur-docs' );
 		}
 	} );
 
@@ -117,7 +117,7 @@ export function initNavigation( root: HTMLElement ) {
 		}
 
 		const label =
-			markdownButton.textContent ?? __( 'Copy as Markdown', 'doczur' );
+			markdownButton.textContent ?? __( 'Copy as Markdown', 'itsmanzur-docs' );
 
 		try {
 			// Loaded on demand so the converter stays out of the initial bundle.
@@ -133,9 +133,9 @@ export function initNavigation( root: HTMLElement ) {
 				)
 			);
 
-			markdownButton.textContent = __( 'Copied', 'doczur' );
+			markdownButton.textContent = __( 'Copied', 'itsmanzur-docs' );
 		} catch {
-			markdownButton.textContent = __( 'Copy failed', 'doczur' );
+			markdownButton.textContent = __( 'Copy failed', 'itsmanzur-docs' );
 		}
 
 		window.setTimeout( () => {

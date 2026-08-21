@@ -42,7 +42,7 @@ $table_prefix = itsdz_tests_env( 'WP_TESTS_TABLE_PREFIX', 'wptests_' ); // phpcs
 
 define( 'WP_TESTS_DOMAIN', 'doczur.test' );
 define( 'WP_TESTS_EMAIL', 'admin@doczur.test' );
-define( 'WP_TESTS_TITLE', 'Doczur Integration Tests' );
+define( 'WP_TESTS_TITLE', 'Nirdeshio Integration Tests' );
 define( 'WP_PHP_BINARY', 'php' );
 
 define( 'WP_DEBUG', true );

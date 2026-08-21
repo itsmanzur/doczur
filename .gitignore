@@ -1,7 +1,7 @@
 /build/
 /node_modules/
 /vendor/
-/doczur.zip
+/itsmanzur-docs.zip
 /.phpunit.result.cache
 /.phpcs-cache
 /tools/composer.phar

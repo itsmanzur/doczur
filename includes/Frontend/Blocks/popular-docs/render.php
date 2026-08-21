@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur Popular Articles block — server-side render callback.
+ * Nirdeshio Popular Articles block — server-side render callback.
  *
  * Available variables injected by register_block_type():
  *

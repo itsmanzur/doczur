@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CapabilitiesTest extends TestCase {
 	/**
-	 * Every content mutation maps to the Doczur capability.
+	 * Every content mutation maps to the Nirdeshio capability.
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ final class CapabilitiesTest extends TestCase {
 	}
 
 	/**
-	 * Every taxonomy mutation maps to the Doczur capability.
+	 * Every taxonomy mutation maps to the Nirdeshio capability.
 	 *
 	 * @return void
 	 */

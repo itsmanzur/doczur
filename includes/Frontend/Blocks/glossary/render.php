@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur Glossary block — server-side render callback.
+ * Nirdeshio Glossary block — server-side render callback.
  *
  * Available variables injected by register_block_type():
  *

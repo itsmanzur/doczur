@@ -1,9 +1,9 @@
 <?php
 /**
- * Doczur Search block — server-side render callback.
+ * Nirdeshio Search block — server-side render callback.
  *
  * Renders a search form that submits to the target KB page and auto-opens
- * the Doczur search modal pre-filled with the entered query (via the
+ * the Nirdeshio search modal pre-filled with the entered query (via the
  * `itsdz_q` URL parameter picked up by the frontend JS).
  *
  * Available variables injected by register_block_type():
@@ -24,11 +24,11 @@ $itsdz_placeholder = sanitize_text_field( $attributes['placeholder'] ?? '' );
 $itsdz_button_text = sanitize_text_field( $attributes['button_text'] ?? '' );
 
 if ( ! $itsdz_placeholder ) {
-	$itsdz_placeholder = __( 'Search documentation…', 'doczur' );
+	$itsdz_placeholder = __( 'Search documentation…', 'itsmanzur-docs' );
 }
 
 if ( ! $itsdz_button_text ) {
-	$itsdz_button_text = __( 'Search', 'doczur' );
+	$itsdz_button_text = __( 'Search', 'itsmanzur-docs' );
 }
 
 // Resolve KB permalink for the form action.
@@ -100,7 +100,7 @@ $itsdz_wrapper_attrs = get_block_wrapper_attributes( array( 'class' => 'itsdz-se
 		</form>
 	<?php else : ?>
 		<p class="itsdz-block-notice">
-			<?php esc_html_e( 'Select a knowledge base in the Doczur Search block settings.', 'doczur' ); ?>
+			<?php esc_html_e( 'Select a knowledge base in the Nirdeshio Search block settings.', 'itsmanzur-docs' ); ?>
 		</p>
 	<?php endif; ?>
 </div>

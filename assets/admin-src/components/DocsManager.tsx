@@ -38,7 +38,7 @@ interface ManagerProps {
 }
 
 /**
- * Relative to wp-admin/, same as the current admin.php?page=doczur screen —
+ * Relative to wp-admin/, same as the current admin.php?page=itsmanzur-docs screen —
  * this is the only editing surface for an article's content and metadata
  * from this point on, so every row navigates straight into it.
  * @param articleId
@@ -94,12 +94,12 @@ function SortableArticle( {
 				className="itsdz-tree-check"
 				checked={ checked }
 				onChange={ ( event ) => onCheck( event.target.checked ) }
-				aria-label={ __( 'Select article for bulk action', 'doczur' ) }
+				aria-label={ __( 'Select article for bulk action', 'itsmanzur-docs' ) }
 			/>
 			<button
 				type="button"
 				className="itsdz-drag-handle"
-				aria-label={ __( 'Reorder article', 'doczur' ) }
+				aria-label={ __( 'Reorder article', 'itsmanzur-docs' ) }
 				{ ...attributes }
 				{ ...listeners }
 			>
@@ -107,13 +107,13 @@ function SortableArticle( {
 			</button>
 			<a className="itsdz-tree-select" href={ editUrl( article.id ) }>
 				<strong>
-					{ article.title || __( 'Untitled article', 'doczur' ) }
+					{ article.title || __( 'Untitled article', 'itsmanzur-docs' ) }
 					{ !! viewCount && (
 						<span
 							className="itsdz-view-badge"
 							title={ sprintf(
 								/* translators: %d: number of page views. */
-								__( '%d views', 'doczur' ),
+								__( '%d views', 'itsmanzur-docs' ),
 								viewCount
 							) }
 						>
@@ -127,7 +127,7 @@ function SortableArticle( {
 				</strong>
 				<span className="itsdz-tree-meta">
 					<span className="itsdz-tree-section-tag">
-						{ sectionName || __( 'Unsectioned', 'doczur' ) }
+						{ sectionName || __( 'Unsectioned', 'itsmanzur-docs' ) }
 					</span>
 					<span
 						className={ `itsdz-status-pill ${
@@ -135,15 +135,15 @@ function SortableArticle( {
 						}` }
 					>
 						{ isPublished
-							? __( 'Published', 'doczur' )
-							: __( 'Draft', 'doczur' ) }
+							? __( 'Published', 'itsmanzur-docs' )
+							: __( 'Draft', 'itsmanzur-docs' ) }
 					</span>
 					{ staleness?.isStale && (
 						<span
 							className="itsdz-stale-pill"
 							title={ staleness.label }
 						>
-							{ __( 'Needs review', 'doczur' ) }
+							{ __( 'Needs review', 'itsmanzur-docs' ) }
 						</span>
 					) }
 				</span>
@@ -154,13 +154,13 @@ function SortableArticle( {
 					onClick={ onToggleStatus }
 					title={
 						isPublished
-							? __( 'Switch to Draft', 'doczur' )
-							: __( 'Publish Article', 'doczur' )
+							? __( 'Switch to Draft', 'itsmanzur-docs' )
+							: __( 'Publish Article', 'itsmanzur-docs' )
 					}
 					aria-label={
 						isPublished
-							? __( 'Move article to drafts', 'doczur' )
-							: __( 'Publish article', 'doczur' )
+							? __( 'Move article to drafts', 'itsmanzur-docs' )
+							: __( 'Publish article', 'itsmanzur-docs' )
 					}
 				>
 					<span
@@ -175,8 +175,8 @@ function SortableArticle( {
 				<button
 					type="button"
 					onClick={ onDuplicate }
-					title={ __( 'Duplicate Article', 'doczur' ) }
-					aria-label={ __( 'Duplicate article', 'doczur' ) }
+					title={ __( 'Duplicate Article', 'itsmanzur-docs' ) }
+					aria-label={ __( 'Duplicate article', 'itsmanzur-docs' ) }
 				>
 					<span
 						className="dashicons dashicons-admin-page"
@@ -186,8 +186,8 @@ function SortableArticle( {
 				<button
 					type="button"
 					onClick={ onDelete }
-					title={ __( 'Delete Article', 'doczur' ) }
-					aria-label={ __( 'Delete article', 'doczur' ) }
+					title={ __( 'Delete Article', 'itsmanzur-docs' ) }
+					aria-label={ __( 'Delete article', 'itsmanzur-docs' ) }
 					className="itsdz-delete-btn"
 				>
 					<span
@@ -244,7 +244,7 @@ export function DocsManager( { project }: ManagerProps ) {
 		try {
 			const article = await api.createArticle( {
 				kb_id: project.id,
-				title: __( 'Untitled article', 'doczur' ),
+				title: __( 'Untitled article', 'itsmanzur-docs' ),
 				status: 'draft',
 				menu_order: articles.length,
 			} );
@@ -256,7 +256,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Article creation failed.', 'doczur' ),
+						: __( 'Article creation failed.', 'itsmanzur-docs' ),
 			} );
 			setCreating( false );
 		}
@@ -278,7 +278,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Status update failed.', 'doczur' ),
+						: __( 'Status update failed.', 'itsmanzur-docs' ),
 			} );
 		}
 	};
@@ -287,7 +287,7 @@ export function DocsManager( { project }: ManagerProps ) {
 		try {
 			const duplicate = await api.createArticle( {
 				kb_id: project.id,
-				title: `${ article.title } ${ __( '(Copy)', 'doczur' ) }`,
+				title: `${ article.title } ${ __( '(Copy)', 'itsmanzur-docs' ) }`,
 				content: article.content,
 				status: 'draft',
 				menu_order: articles.length,
@@ -302,7 +302,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Article duplication failed.', 'doczur' ),
+						: __( 'Article duplication failed.', 'itsmanzur-docs' ),
 			} );
 		}
 	};
@@ -360,7 +360,7 @@ export function DocsManager( { project }: ManagerProps ) {
 			setSelectedForBulk( [] );
 			setNotice( {
 				status: 'success',
-				message: __( 'Selected articles moved.', 'doczur' ),
+				message: __( 'Selected articles moved.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -368,7 +368,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Bulk move failed.', 'doczur' ),
+						: __( 'Bulk move failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBulkBusy( false );
@@ -404,8 +404,8 @@ export function DocsManager( { project }: ManagerProps ) {
 				status: 'success',
 				message:
 					status === 'publish'
-						? __( 'Selected articles published.', 'doczur' )
-						: __( 'Selected articles set to draft.', 'doczur' ),
+						? __( 'Selected articles published.', 'itsmanzur-docs' )
+						: __( 'Selected articles set to draft.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -413,7 +413,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Bulk status update failed.', 'doczur' ),
+						: __( 'Bulk status update failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBulkBusy( false );
@@ -462,7 +462,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Reordering failed.', 'doczur' ),
+						: __( 'Reordering failed.', 'itsmanzur-docs' ),
 			} );
 		}
 	};
@@ -471,7 +471,7 @@ export function DocsManager( { project }: ManagerProps ) {
 		if (
 			// eslint-disable-next-line no-alert
 			! window.confirm(
-				__( 'Are you sure you want to delete this article?', 'doczur' )
+				__( 'Are you sure you want to delete this article?', 'itsmanzur-docs' )
 			)
 		) {
 			return;
@@ -483,7 +483,7 @@ export function DocsManager( { project }: ManagerProps ) {
 			);
 			setNotice( {
 				status: 'success',
-				message: __( 'Article deleted.', 'doczur' ),
+				message: __( 'Article deleted.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -491,7 +491,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Delete failed.', 'doczur' ),
+						: __( 'Delete failed.', 'itsmanzur-docs' ),
 			} );
 		}
 	};
@@ -505,7 +505,7 @@ export function DocsManager( { project }: ManagerProps ) {
 			! window.confirm(
 				__(
 					'Are you sure you want to delete selected articles?',
-					'doczur'
+					'itsmanzur-docs'
 				)
 			)
 		) {
@@ -525,7 +525,7 @@ export function DocsManager( { project }: ManagerProps ) {
 			setSelectedForBulk( [] );
 			setNotice( {
 				status: 'success',
-				message: __( 'Selected articles deleted.', 'doczur' ),
+				message: __( 'Selected articles deleted.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -533,7 +533,7 @@ export function DocsManager( { project }: ManagerProps ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Bulk delete failed.', 'doczur' ),
+						: __( 'Bulk delete failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBulkBusy( false );
@@ -549,7 +549,7 @@ export function DocsManager( { project }: ManagerProps ) {
 							<h1>{ project.title }</h1>
 							<p>
 								{ articles.length }{ ' ' }
-								{ __( 'articles', 'doczur' ) }
+								{ __( 'articles', 'itsmanzur-docs' ) }
 							</p>
 						</div>
 						<Button
@@ -558,12 +558,12 @@ export function DocsManager( { project }: ManagerProps ) {
 							disabled={ creating }
 						>
 							{ creating ? <Spinner /> : '+' }{ ' ' }
-							{ __( 'New', 'doczur' ) }
+							{ __( 'New', 'itsmanzur-docs' ) }
 						</Button>
 					</div>
 					<div className="itsdz-tree-search-bar">
 						<TextControl
-							placeholder={ __( 'Search tree…', 'doczur' ) }
+							placeholder={ __( 'Search tree…', 'itsmanzur-docs' ) }
 							value={ treeSearch }
 							onChange={ setTreeSearch }
 						/>
@@ -571,7 +571,7 @@ export function DocsManager( { project }: ManagerProps ) {
 					<div
 						className="itsdz-section-summary"
 						role="group"
-						aria-label={ __( 'Filter by section', 'doczur' ) }
+						aria-label={ __( 'Filter by section', 'itsmanzur-docs' ) }
 					>
 						<button
 							type="button"
@@ -580,7 +580,7 @@ export function DocsManager( { project }: ManagerProps ) {
 							}` }
 							onClick={ () => setSectionFilter( null ) }
 						>
-							{ __( 'All', 'doczur' ) }
+							{ __( 'All', 'itsmanzur-docs' ) }
 						</button>
 						{ sections.map( ( section ) => (
 							<button
@@ -606,14 +606,14 @@ export function DocsManager( { project }: ManagerProps ) {
 					{ selectedForBulk.length > 0 && (
 						<div className="itsdz-bulk-actions" role="group">
 							<SelectControl
-								label={ __( 'Move selected to', 'doczur' ) }
+								label={ __( 'Move selected to', 'itsmanzur-docs' ) }
 								value={ String( bulkSectionId ) }
 								onChange={ ( value ) =>
 									setBulkSectionId( Number( value ) )
 								}
 								options={ [
 									{
-										label: __( 'Unsectioned', 'doczur' ),
+										label: __( 'Unsectioned', 'itsmanzur-docs' ),
 										value: '0',
 									},
 									...sections.map( ( section ) => ( {
@@ -637,7 +637,7 @@ export function DocsManager( { project }: ManagerProps ) {
 									disabled={ bulkBusy }
 								>
 									{ bulkBusy && <Spinner /> }
-									{ __( 'Move', 'doczur' ) }
+									{ __( 'Move', 'itsmanzur-docs' ) }
 								</Button>
 								<Button
 									variant="secondary"
@@ -646,7 +646,7 @@ export function DocsManager( { project }: ManagerProps ) {
 									}
 									disabled={ bulkBusy }
 								>
-									{ __( 'Publish', 'doczur' ) }
+									{ __( 'Publish', 'itsmanzur-docs' ) }
 								</Button>
 								<Button
 									variant="secondary"
@@ -655,7 +655,7 @@ export function DocsManager( { project }: ManagerProps ) {
 									}
 									disabled={ bulkBusy }
 								>
-									{ __( 'Draft', 'doczur' ) }
+									{ __( 'Draft', 'itsmanzur-docs' ) }
 								</Button>
 								<Button
 									variant="secondary"
@@ -663,13 +663,13 @@ export function DocsManager( { project }: ManagerProps ) {
 									onClick={ () => void bulkDelete() }
 									disabled={ bulkBusy }
 								>
-									{ __( 'Delete', 'doczur' ) }
+									{ __( 'Delete', 'itsmanzur-docs' ) }
 								</Button>
 								<Button
 									variant="tertiary"
 									onClick={ () => setSelectedForBulk( [] ) }
 								>
-									{ __( 'Clear', 'doczur' ) }
+									{ __( 'Clear', 'itsmanzur-docs' ) }
 								</Button>
 							</div>
 						</div>
@@ -695,7 +695,7 @@ export function DocsManager( { project }: ManagerProps ) {
 										<p>
 											{ __(
 												'No articles yet.',
-												'doczur'
+												'itsmanzur-docs'
 											) }
 										</p>
 										<Button
@@ -707,7 +707,7 @@ export function DocsManager( { project }: ManagerProps ) {
 										>
 											{ __(
 												'Write your first article',
-												'doczur'
+												'itsmanzur-docs'
 											) }
 										</Button>
 									</div>
@@ -719,11 +719,11 @@ export function DocsManager( { project }: ManagerProps ) {
 												{ null !== sectionFilter
 													? __(
 															'No articles in this section.',
-															'doczur'
+															'itsmanzur-docs'
 													  )
 													: __(
 															'No articles match your search.',
-															'doczur'
+															'itsmanzur-docs'
 													  ) }
 											</p>
 											<Button
@@ -735,7 +735,7 @@ export function DocsManager( { project }: ManagerProps ) {
 											>
 												{ __(
 													'Clear filters',
-													'doczur'
+													'itsmanzur-docs'
 												) }
 											</Button>
 										</div>

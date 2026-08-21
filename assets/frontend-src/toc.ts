@@ -29,7 +29,7 @@ export function initToc( root: HTMLElement ) {
 		const link = document.createElement( 'a' );
 		link.href = `#${ encodeURIComponent( id ) }`;
 		link.textContent =
-			heading.textContent || __( 'Untitled section', 'doczur' );
+			heading.textContent || __( 'Untitled section', 'itsmanzur-docs' );
 		link.dataset.level = heading.tagName.toLowerCase();
 		toc.appendChild( link );
 	} );

@@ -3,11 +3,11 @@
   "apiVersion": 3,
   "name": "itsdz/faq",
   "version": "0.1.0",
-  "title": "Doczur FAQ",
+  "title": "Nirdeshio FAQ",
   "category": "widgets",
   "icon": "editor-help",
   "description": "Add a list of frequently asked questions with collapsible answers. Outputs FAQPage structured data so the questions can appear in search results.",
-  "keywords": [ "faq", "questions", "accordion", "documentation", "doczur" ],
+  "keywords": [ "faq", "questions", "accordion", "documentation", "itsmanzur-docs" ],
   "supports": {
     "html": false,
     "color": false,
@@ -31,5 +31,5 @@
   "editorScript": "itsdz-blocks",
   "style": "itsdz-frontend",
   "render": "file:./render.php",
-  "textdomain": "doczur"
+  "textdomain": "itsmanzur-docs"
 }

@@ -1,16 +1,16 @@
 {
-  "name": "doczur",
+  "name": "itsmanzur-docs",
   "version": "1.0.0",
   "private": true,
   "files": [
-    "doczur.php",
+    "itsmanzur-docs.php",
     "readme.txt",
     "uninstall.php",
     "build/",
     "includes/",
     "templates/"
   ],
-  "description": "Admin and frontend assets for Doczur.",
+  "description": "Admin and frontend assets for Nirdeshio.",
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",

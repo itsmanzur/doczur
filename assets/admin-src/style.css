@@ -19,7 +19,7 @@
 /* ──────────────────────────────────────────────────
    Global input / select / textarea border polish
    Overrides WP core @wordpress/components defaults
-   throughout the entire Doczur admin panel.
+   throughout the entire Nirdeshio admin panel.
 ────────────────────────────────────────────────── */
 .itsdz-admin-wrap input[type="text"],
 .itsdz-admin-wrap input[type="search"],

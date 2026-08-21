@@ -42,8 +42,8 @@ final class Version_Taxonomy implements Service {
 			array( Article_Post_Type::POST_TYPE ),
 			array(
 				'labels'             => array(
-					'name'          => _x( 'Versions', 'taxonomy general name', 'doczur' ),
-					'singular_name' => _x( 'Version', 'taxonomy singular name', 'doczur' ),
+					'name'          => _x( 'Versions', 'taxonomy general name', 'itsmanzur-docs' ),
+					'singular_name' => _x( 'Version', 'taxonomy singular name', 'itsmanzur-docs' ),
 				),
 				'public'             => false,
 				'publicly_queryable' => false,

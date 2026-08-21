@@ -1,5 +1,5 @@
 /**
- * Editor UI for the Doczur blocks.
+ * Editor UI for the Nirdeshio blocks.
  *
  * The blocks themselves render server-side (`render.php`), so each edit
  * component only has to expose the attributes — the frontend markup is never
@@ -70,10 +70,10 @@ const faqItemStyle: React.CSSProperties = {
  * nothing here for those to drift out of sync with.
  */
 const CALLOUT_VARIANTS = [
-	{ value: 'info', label: __( 'Info', 'doczur' ), icon: 'ℹ️' },
-	{ value: 'tip', label: __( 'Tip', 'doczur' ), icon: '💡' },
-	{ value: 'warning', label: __( 'Warning', 'doczur' ), icon: '⚠️' },
-	{ value: 'danger', label: __( 'Danger', 'doczur' ), icon: '🚫' },
+	{ value: 'info', label: __( 'Info', 'itsmanzur-docs' ), icon: 'ℹ️' },
+	{ value: 'tip', label: __( 'Tip', 'itsmanzur-docs' ), icon: '💡' },
+	{ value: 'warning', label: __( 'Warning', 'itsmanzur-docs' ), icon: '⚠️' },
+	{ value: 'danger', label: __( 'Danger', 'itsmanzur-docs' ), icon: '🚫' },
 ] as const;
 
 /**
@@ -81,7 +81,7 @@ const CALLOUT_VARIANTS = [
  */
 function useKnowledgeBases() {
 	const [ options, setOptions ] = useState< { label: string; value: string }[] >( [
-		{ label: __( 'Select a knowledge base…', 'doczur' ), value: '0' },
+		{ label: __( 'Select a knowledge base…', 'itsmanzur-docs' ), value: '0' },
 	] );
 
 	useEffect( () => {
@@ -93,9 +93,9 @@ function useKnowledgeBases() {
 					return;
 				}
 				setOptions( [
-					{ label: __( 'Select a knowledge base…', 'doczur' ), value: '0' },
+					{ label: __( 'Select a knowledge base…', 'itsmanzur-docs' ), value: '0' },
 					...items.map( ( kb ) => ( {
-						label: kb.title || __( '(untitled)', 'doczur' ),
+						label: kb.title || __( '(untitled)', 'itsmanzur-docs' ),
 						value: String( kb.id ),
 					} ) ),
 				] );
@@ -120,20 +120,20 @@ registerBlockType( searchMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Search settings', 'doczur' ) }>
+					<PanelBody title={ __( 'Search settings', 'itsmanzur-docs' ) }>
 						<SelectControl
-							label={ __( 'Knowledge base', 'doczur' ) }
+							label={ __( 'Knowledge base', 'itsmanzur-docs' ) }
 							value={ String( attributes.kb_id ) }
 							options={ kbOptions }
 							onChange={ ( value: string ) => setAttributes( { kb_id: Number( value ) } ) }
 						/>
 						<TextControl
-							label={ __( 'Placeholder', 'doczur' ) }
+							label={ __( 'Placeholder', 'itsmanzur-docs' ) }
 							value={ attributes.placeholder }
 							onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 						/>
 						<TextControl
-							label={ __( 'Button text', 'doczur' ) }
+							label={ __( 'Button text', 'itsmanzur-docs' ) }
 							value={ attributes.button_text }
 							onChange={ ( value: string ) => setAttributes( { button_text: value } ) }
 						/>
@@ -141,11 +141,11 @@ registerBlockType( searchMetadata as unknown as BlockMetadata, {
 				</InspectorControls>
 				<div { ...useBlockProps() }>
 					<div className="itsdz-editor-preview" style={ previewStyle }>
-						<strong>{ __( 'Doczur Search', 'doczur' ) }</strong>
+						<strong>{ __( 'Nirdeshio Search', 'itsmanzur-docs' ) }</strong>
 						<p>
 							{ attributes.kb_id
-								? __( 'A documentation search box renders here.', 'doczur' )
-								: __( 'Choose a knowledge base in the block sidebar.', 'doczur' ) }
+								? __( 'A documentation search box renders here.', 'itsmanzur-docs' )
+								: __( 'Choose a knowledge base in the block sidebar.', 'itsmanzur-docs' ) }
 						</p>
 					</div>
 				</div>
@@ -161,23 +161,23 @@ registerBlockType( docsListMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Article list settings', 'doczur' ) }>
+					<PanelBody title={ __( 'Article list settings', 'itsmanzur-docs' ) }>
 						<SelectControl
-							label={ __( 'Knowledge base', 'doczur' ) }
+							label={ __( 'Knowledge base', 'itsmanzur-docs' ) }
 							value={ String( attributes.kb_id ) }
 							options={ kbOptions }
 							onChange={ ( value: string ) => setAttributes( { kb_id: Number( value ) } ) }
 						/>
 						<TextControl
 							type="number"
-							label={ __( 'Number of articles', 'doczur' ) }
+							label={ __( 'Number of articles', 'itsmanzur-docs' ) }
 							value={ String( attributes.limit ) }
 							onChange={ ( value: string ) =>
 								setAttributes( { limit: Math.max( 1, Math.min( 50, Number( value ) || 5 ) ) } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show section name', 'doczur' ) }
+							label={ __( 'Show section name', 'itsmanzur-docs' ) }
 							checked={ !! attributes.show_section }
 							onChange={ ( value: boolean ) => setAttributes( { show_section: value } ) }
 						/>
@@ -185,11 +185,11 @@ registerBlockType( docsListMetadata as unknown as BlockMetadata, {
 				</InspectorControls>
 				<div { ...useBlockProps() }>
 					<div className="itsdz-editor-preview" style={ previewStyle }>
-						<strong>{ __( 'Doczur Article List', 'doczur' ) }</strong>
+						<strong>{ __( 'Nirdeshio Article List', 'itsmanzur-docs' ) }</strong>
 						<p>
 							{ attributes.kb_id
-								? __( 'The newest articles render here.', 'doczur' )
-								: __( 'Choose a knowledge base in the block sidebar.', 'doczur' ) }
+								? __( 'The newest articles render here.', 'itsmanzur-docs' )
+								: __( 'Choose a knowledge base in the block sidebar.', 'itsmanzur-docs' ) }
 						</p>
 					</div>
 				</div>
@@ -205,25 +205,25 @@ registerBlockType( popularMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Ranking settings', 'doczur' ) }>
+					<PanelBody title={ __( 'Ranking settings', 'itsmanzur-docs' ) }>
 						<SelectControl
-							label={ __( 'Knowledge base', 'doczur' ) }
+							label={ __( 'Knowledge base', 'itsmanzur-docs' ) }
 							value={ String( attributes.kb_id ) }
 							options={ kbOptions }
 							onChange={ ( value: string ) => setAttributes( { kb_id: Number( value ) } ) }
 						/>
 						<SelectControl
-							label={ __( 'Order by', 'doczur' ) }
+							label={ __( 'Order by', 'itsmanzur-docs' ) }
 							value={ attributes.order }
 							options={ [
-								{ label: __( 'Most viewed', 'doczur' ), value: 'popular' },
-								{ label: __( 'Most recent', 'doczur' ), value: 'recent' },
+								{ label: __( 'Most viewed', 'itsmanzur-docs' ), value: 'popular' },
+								{ label: __( 'Most recent', 'itsmanzur-docs' ), value: 'recent' },
 							] }
 							onChange={ ( value: string ) => setAttributes( { order: value } ) }
 						/>
 						<TextControl
 							type="number"
-							label={ __( 'Number of articles', 'doczur' ) }
+							label={ __( 'Number of articles', 'itsmanzur-docs' ) }
 							value={ String( attributes.limit ) }
 							onChange={ ( value: string ) =>
 								setAttributes( { limit: Math.max( 1, Math.min( 50, Number( value ) || 5 ) ) } )
@@ -231,7 +231,7 @@ registerBlockType( popularMetadata as unknown as BlockMetadata, {
 						/>
 						{ attributes.order === 'popular' && (
 							<ToggleControl
-								label={ __( 'Show view counts', 'doczur' ) }
+								label={ __( 'Show view counts', 'itsmanzur-docs' ) }
 								checked={ !! attributes.show_views }
 								onChange={ ( value: boolean ) => setAttributes( { show_views: value } ) }
 							/>
@@ -242,13 +242,13 @@ registerBlockType( popularMetadata as unknown as BlockMetadata, {
 					<div className="itsdz-editor-preview" style={ previewStyle }>
 						<strong>
 							{ attributes.order === 'recent'
-								? __( 'Doczur Recent Articles', 'doczur' )
-								: __( 'Doczur Popular Articles', 'doczur' ) }
+								? __( 'Nirdeshio Recent Articles', 'itsmanzur-docs' )
+								: __( 'Nirdeshio Popular Articles', 'itsmanzur-docs' ) }
 						</strong>
 						<p>
 							{ attributes.kb_id
-								? __( 'The ranked article list renders here.', 'doczur' )
-								: __( 'Choose a knowledge base in the block sidebar.', 'doczur' ) }
+								? __( 'The ranked article list renders here.', 'itsmanzur-docs' )
+								: __( 'Choose a knowledge base in the block sidebar.', 'itsmanzur-docs' ) }
 						</p>
 					</div>
 				</div>
@@ -269,17 +269,17 @@ registerBlockType( faqMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'FAQ settings', 'doczur' ) }>
+					<PanelBody title={ __( 'FAQ settings', 'itsmanzur-docs' ) }>
 						<TextControl
-							label={ __( 'Heading', 'doczur' ) }
+							label={ __( 'Heading', 'itsmanzur-docs' ) }
 							value={ attributes.heading }
 							onChange={ ( value: string ) => setAttributes( { heading: value } ) }
 						/>
 						<ToggleControl
-							label={ __( 'Add FAQ structured data', 'doczur' ) }
+							label={ __( 'Add FAQ structured data', 'itsmanzur-docs' ) }
 							help={ __(
 								'Outputs FAQPage schema so questions can appear directly in search results.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 							checked={ !! attributes.schema }
 							onChange={ ( value: boolean ) => setAttributes( { schema: value } ) }
@@ -290,19 +290,19 @@ registerBlockType( faqMetadata as unknown as BlockMetadata, {
 					<div className="itsdz-faq-editor">
 						{ items.length === 0 && (
 							<p className="itsdz-faq-editor-empty">
-								{ __( 'No questions yet. Add your first one below.', 'doczur' ) }
+								{ __( 'No questions yet. Add your first one below.', 'itsmanzur-docs' ) }
 							</p>
 						) }
 						{ items.map( ( item, index ) => (
 							// eslint-disable-next-line react/no-array-index-key
 							<div className="itsdz-faq-editor-item" style={ faqItemStyle } key={ index }>
 								<TextControl
-									label={ __( 'Question', 'doczur' ) }
+									label={ __( 'Question', 'itsmanzur-docs' ) }
 									value={ item.question }
 									onChange={ ( value: string ) => updateItem( index, { question: value } ) }
 								/>
 								<TextareaControl
-									label={ __( 'Answer', 'doczur' ) }
+									label={ __( 'Answer', 'itsmanzur-docs' ) }
 									value={ item.answer }
 									rows={ 3 }
 									onChange={ ( value: string ) => updateItem( index, { answer: value } ) }
@@ -314,7 +314,7 @@ registerBlockType( faqMetadata as unknown as BlockMetadata, {
 										setAttributes( { items: items.filter( ( _, i ) => i !== index ) } )
 									}
 								>
-									{ __( 'Remove question', 'doczur' ) }
+									{ __( 'Remove question', 'itsmanzur-docs' ) }
 								</Button>
 							</div>
 						) ) }
@@ -324,7 +324,7 @@ registerBlockType( faqMetadata as unknown as BlockMetadata, {
 								setAttributes( { items: [ ...items, { question: '', answer: '' } ] } )
 							}
 						>
-							{ __( 'Add question', 'doczur' ) }
+							{ __( 'Add question', 'itsmanzur-docs' ) }
 						</Button>
 					</div>
 				</div>
@@ -338,14 +338,14 @@ registerBlockType( glossaryMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Glossary settings', 'doczur' ) }>
+					<PanelBody title={ __( 'Glossary settings', 'itsmanzur-docs' ) }>
 						<TextControl
-							label={ __( 'Heading', 'doczur' ) }
+							label={ __( 'Heading', 'itsmanzur-docs' ) }
 							value={ attributes.heading }
 							onChange={ ( value: string ) => setAttributes( { heading: value } ) }
 						/>
 						<ToggleControl
-							label={ __( 'Show alternative spellings', 'doczur' ) }
+							label={ __( 'Show alternative spellings', 'itsmanzur-docs' ) }
 							checked={ !! attributes.show_aliases }
 							onChange={ ( value: boolean ) => setAttributes( { show_aliases: value } ) }
 						/>
@@ -353,11 +353,11 @@ registerBlockType( glossaryMetadata as unknown as BlockMetadata, {
 				</InspectorControls>
 				<div { ...useBlockProps() }>
 					<div className="itsdz-editor-preview" style={ previewStyle }>
-						<strong>{ __( 'Doczur Glossary', 'doczur' ) }</strong>
+						<strong>{ __( 'Nirdeshio Glossary', 'itsmanzur-docs' ) }</strong>
 						<p>
 							{ __(
 								'Every glossary term and its definition renders here, sorted alphabetically.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 					</div>
@@ -375,9 +375,9 @@ registerBlockType( calloutMetadata as unknown as BlockMetadata, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Callout settings', 'doczur' ) }>
+					<PanelBody title={ __( 'Callout settings', 'itsmanzur-docs' ) }>
 						<SelectControl
-							label={ __( 'Type', 'doczur' ) }
+							label={ __( 'Type', 'itsmanzur-docs' ) }
 							value={ variant.value }
 							options={ CALLOUT_VARIANTS.map( ( item ) => ( {
 								label: `${ item.icon } ${ item.label }`,
@@ -399,7 +399,7 @@ registerBlockType( calloutMetadata as unknown as BlockMetadata, {
 						tagName="p"
 						value={ attributes.content }
 						onChange={ ( value: string ) => setAttributes( { content: value } ) }
-						placeholder={ __( 'Write your note here…', 'doczur' ) }
+						placeholder={ __( 'Write your note here…', 'itsmanzur-docs' ) }
 						allowedFormats={ [ 'core/bold', 'core/italic', 'core/link', 'core/code' ] }
 					/>
 				</div>

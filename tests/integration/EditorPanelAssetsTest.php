@@ -12,7 +12,7 @@ use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 use WP_UnitTestCase;
 
 /**
- * Proves the Doczur sidebar panel bundle loads only where it belongs.
+ * Proves the Nirdeshio sidebar panel bundle loads only where it belongs.
  *
  * The bundle registers a PluginDocumentSettingPanel that assumes it is
  * editing an itsdz_doc article (see DoczurPanel.tsx's postType guard); if it

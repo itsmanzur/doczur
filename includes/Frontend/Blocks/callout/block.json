@@ -3,12 +3,12 @@
   "apiVersion": 3,
   "name": "doczur/callout",
   "version": "0.1.0",
-  "title": "Doczur Callout",
+  "title": "Nirdeshio Callout",
   "category": "text",
   "icon": "info-outline",
   "description": "A coloured note, tip, warning or caution box for calling out important information inside an article.",
-  "keywords": [ "callout", "note", "tip", "warning", "admonition", "doczur" ],
-  "textdomain": "doczur",
+  "keywords": [ "callout", "note", "tip", "warning", "admonition", "itsmanzur-docs" ],
+  "textdomain": "itsmanzur-docs",
   "attributes": {
     "variant": {
       "type": "string",

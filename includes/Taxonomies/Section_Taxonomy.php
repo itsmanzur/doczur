@@ -69,9 +69,9 @@ final class Section_Taxonomy implements Service {
 	public function add_icon_field() {
 		?>
 		<div class="form-field term-icon-wrap">
-			<label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon (Dashicon class)', 'doczur' ); ?></label>
+			<label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon (Dashicon class)', 'itsmanzur-docs' ); ?></label>
 			<input type="text" name="itsdz_section_icon" id="itsdz-section-icon" value="" placeholder="dashicons-category" />
-			<p class="description"><?php esc_html_e( 'Enter a Dashicons class (e.g. dashicons-book, dashicons-category, dashicons-vault).', 'doczur' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Enter a Dashicons class (e.g. dashicons-book, dashicons-category, dashicons-vault).', 'itsmanzur-docs' ); ?></p>
 		</div>
 		<?php
 	}
@@ -86,10 +86,10 @@ final class Section_Taxonomy implements Service {
 		$icon = get_term_meta( $term->term_id, '_itsdz_section_icon', true );
 		?>
 		<tr class="form-field term-icon-wrap">
-			<th scope="row"><label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon', 'doczur' ); ?></label></th>
+			<th scope="row"><label for="itsdz-section-icon"><?php esc_html_e( 'Section Icon', 'itsmanzur-docs' ); ?></label></th>
 			<td>
 				<input type="text" name="itsdz_section_icon" id="itsdz-section-icon" value="<?php echo esc_attr( (string) $icon ); ?>" placeholder="dashicons-category" />
-				<p class="description"><?php esc_html_e( 'Enter a Dashicons class name (e.g. dashicons-book, dashicons-category, dashicons-hammer).', 'doczur' ); ?></p>
+				<p class="description"><?php esc_html_e( 'Enter a Dashicons class name (e.g. dashicons-book, dashicons-category, dashicons-hammer).', 'itsmanzur-docs' ); ?></p>
 			</td>
 		</tr>
 		<?php
@@ -121,17 +121,17 @@ final class Section_Taxonomy implements Service {
 			array( Article_Post_Type::POST_TYPE ),
 			array(
 				'labels'            => array(
-					'name'              => _x( 'Sections', 'taxonomy general name', 'doczur' ),
-					'singular_name'     => _x( 'Section', 'taxonomy singular name', 'doczur' ),
-					'search_items'      => __( 'Search Sections', 'doczur' ),
-					'all_items'         => __( 'All Sections', 'doczur' ),
-					'parent_item'       => __( 'Parent Section', 'doczur' ),
-					'parent_item_colon' => __( 'Parent Section:', 'doczur' ),
-					'edit_item'         => __( 'Edit Section', 'doczur' ),
-					'update_item'       => __( 'Update Section', 'doczur' ),
-					'add_new_item'      => __( 'Add New Section', 'doczur' ),
-					'new_item_name'     => __( 'New Section Name', 'doczur' ),
-					'menu_name'         => __( 'Sections', 'doczur' ),
+					'name'              => _x( 'Sections', 'taxonomy general name', 'itsmanzur-docs' ),
+					'singular_name'     => _x( 'Section', 'taxonomy singular name', 'itsmanzur-docs' ),
+					'search_items'      => __( 'Search Sections', 'itsmanzur-docs' ),
+					'all_items'         => __( 'All Sections', 'itsmanzur-docs' ),
+					'parent_item'       => __( 'Parent Section', 'itsmanzur-docs' ),
+					'parent_item_colon' => __( 'Parent Section:', 'itsmanzur-docs' ),
+					'edit_item'         => __( 'Edit Section', 'itsmanzur-docs' ),
+					'update_item'       => __( 'Update Section', 'itsmanzur-docs' ),
+					'add_new_item'      => __( 'Add New Section', 'itsmanzur-docs' ),
+					'new_item_name'     => __( 'New Section Name', 'itsmanzur-docs' ),
+					'menu_name'         => __( 'Sections', 'itsmanzur-docs' ),
 				),
 				'public'            => true,
 				'hierarchical'      => true,

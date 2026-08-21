@@ -16,7 +16,7 @@ export function ImportExport( { project }: { project: Project } ) {
 			await api.downloadExport( project.id );
 			setNotice( {
 				status: 'success',
-				message: __( 'Export downloaded successfully.', 'doczur' ),
+				message: __( 'Export downloaded successfully.', 'itsmanzur-docs' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
@@ -24,7 +24,7 @@ export function ImportExport( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Export failed.', 'doczur' ),
+						: __( 'Export failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBusy( false );
@@ -39,7 +39,7 @@ export function ImportExport( { project }: { project: Project } ) {
 			};
 			if ( ! Array.isArray( payload.articles ) ) {
 				throw new Error(
-					__( 'This is not a valid Doczur export file.', 'doczur' )
+					__( 'This is not a valid Nirdeshio export file.', 'itsmanzur-docs' )
 				);
 			}
 			const result = await api.importArticles(
@@ -50,7 +50,7 @@ export function ImportExport( { project }: { project: Project } ) {
 				status: 'success',
 				message: `${ result.created } ${ __(
 					'articles imported as drafts.',
-					'doczur'
+					'itsmanzur-docs'
 				) }`,
 			} );
 		} catch ( error ) {
@@ -59,7 +59,7 @@ export function ImportExport( { project }: { project: Project } ) {
 				message:
 					error instanceof Error
 						? error.message
-						: __( 'Import failed.', 'doczur' ),
+						: __( 'Import failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setBusy( false );
@@ -70,8 +70,8 @@ export function ImportExport( { project }: { project: Project } ) {
 		<div className="itsdz-transfer-container">
 			<div className="itsdz-settings-header">
 				<div>
-					<h1>{ __( 'Import & Export Documentation', 'doczur' ) }</h1>
-					<p>{ __( 'Backup your documentation project or restore content from a JSON export.', 'doczur' ) }</p>
+					<h1>{ __( 'Import & Export Documentation', 'itsmanzur-docs' ) }</h1>
+					<p>{ __( 'Backup your documentation project or restore content from a JSON export.', 'itsmanzur-docs' ) }</p>
 				</div>
 			</div>
 
@@ -80,12 +80,12 @@ export function ImportExport( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-download" aria-hidden="true" />
-							<h2>{ __( 'Export Documentation', 'doczur' ) }</h2>
+							<h2>{ __( 'Export Documentation', 'itsmanzur-docs' ) }</h2>
 						</div>
 						<p className="itsdz-transfer-desc">
 							{ __(
 								'Download a portable JSON backup containing all articles, sections, tags, and structure.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 						<div className="itsdz-transfer-action">
@@ -96,7 +96,7 @@ export function ImportExport( { project }: { project: Project } ) {
 							>
 								{ busy && <Spinner /> }{ ' ' }
 								<span className="dashicons dashicons-download" aria-hidden="true" style={ { marginInlineEnd: '6px' } } />
-								{ __( 'Download JSON Backup', 'doczur' ) }
+								{ __( 'Download JSON Backup', 'itsmanzur-docs' ) }
 							</Button>
 						</div>
 					</CardBody>
@@ -106,12 +106,12 @@ export function ImportExport( { project }: { project: Project } ) {
 					<CardBody>
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-upload" aria-hidden="true" />
-							<h2>{ __( 'Import Documentation', 'doczur' ) }</h2>
+							<h2>{ __( 'Import Documentation', 'itsmanzur-docs' ) }</h2>
 						</div>
 						<p className="itsdz-transfer-desc">
 							{ __(
 								'Restore or merge articles into this project. Imported articles are created as drafts for safety.',
-								'doczur'
+								'itsmanzur-docs'
 							) }
 						</p>
 						<div className="itsdz-transfer-action">
@@ -122,8 +122,8 @@ export function ImportExport( { project }: { project: Project } ) {
 								<span className="dashicons dashicons-upload" aria-hidden="true" style={ { marginInlineEnd: '6px' } } />
 								<span>
 									{ busy
-										? __( 'Importing…', 'doczur' )
-										: __( 'Choose JSON File', 'doczur' ) }
+										? __( 'Importing…', 'itsmanzur-docs' )
+										: __( 'Choose JSON File', 'itsmanzur-docs' ) }
 								</span>
 								<input
 									id="itsdz-import-file"

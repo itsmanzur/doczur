@@ -12,13 +12,13 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <aside class="itsdz-sidebar" id="itsdz-sidebar" data-itsdz-sidebar>
 	<div class="itsdz-sidebar-heading">
-		<strong><?php esc_html_e( 'Documentation', 'doczur' ); ?></strong>
-		<button type="button" data-itsdz-nav-close aria-label="<?php esc_attr_e( 'Close documentation navigation', 'doczur' ); ?>">×</button>
+		<strong><?php esc_html_e( 'Documentation', 'itsmanzur-docs' ); ?></strong>
+		<button type="button" data-itsdz-nav-close aria-label="<?php esc_attr_e( 'Close documentation navigation', 'itsmanzur-docs' ); ?>">×</button>
 	</div>
-	<nav aria-label="<?php esc_attr_e( 'Article navigation', 'doczur' ); ?>">
+	<nav aria-label="<?php esc_attr_e( 'Article navigation', 'itsmanzur-docs' ); ?>">
 		<?php foreach ( $itsdz_groups as $itsdz_group ) : ?>
 			<?php
-			$itsdz_section_name     = $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'doczur' );
+			$itsdz_section_name     = $itsdz_group['term'] ? $itsdz_group['term']->name : __( 'More articles', 'itsmanzur-docs' );
 			$itsdz_contains_current = in_array( $itsdz_current_id, wp_list_pluck( $itsdz_group['articles'], 'ID' ), true );
 			?>
 			<details <?php echo $itsdz_contains_current ? 'open' : ''; ?>>

@@ -3,11 +3,11 @@
   "apiVersion": 3,
   "name": "itsdz/docs-list",
   "version": "0.1.0",
-  "title": "Doczur Article List",
+  "title": "Nirdeshio Article List",
   "category": "widgets",
   "icon": "list-view",
   "description": "Display a list of documentation articles from a knowledge base — useful for sidebars, landing pages, and related-content sections.",
-  "keywords": [ "documentation", "articles", "list", "knowledge base", "docs", "doczur" ],
+  "keywords": [ "documentation", "articles", "list", "knowledge base", "docs", "itsmanzur-docs" ],
   "supports": {
     "html": false,
     "color": false,
@@ -30,5 +30,5 @@
   "editorScript": "itsdz-blocks",
   "style": "itsdz-frontend",
   "render": "file:./render.php",
-  "textdomain": "doczur"
+  "textdomain": "itsmanzur-docs"
 }

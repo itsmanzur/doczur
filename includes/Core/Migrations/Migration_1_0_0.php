@@ -1,6 +1,6 @@
 <?php
 /**
- * Initial Doczur database schema.
+ * Initial Nirdeshio database schema.
  *
  * @package ItsDZ\Doczur\Core\Migrations
  */
@@ -10,7 +10,7 @@ namespace ItsDZ\Doczur\Core\Migrations;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Creates the high-volume Doczur data tables.
+ * Creates the high-volume Nirdeshio data tables.
  */
 final class Migration_1_0_0 {
 	/**

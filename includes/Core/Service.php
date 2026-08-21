@@ -10,7 +10,7 @@ namespace ItsDZ\Doczur\Core;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * A bootable Doczur service.
+ * A bootable Nirdeshio service.
  */
 interface Service {
 	/**

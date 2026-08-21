@@ -2,7 +2,7 @@
  * Minimal HTML to Markdown conversion for article content.
  *
  * A general-purpose converter would be far larger than the whole frontend
- * budget allows. This one only has to handle the elements the Doczur editor
+ * budget allows. This one only has to handle the elements the Nirdeshio editor
  * can actually produce, so it walks the rendered DOM directly instead.
  */
 

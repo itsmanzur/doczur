@@ -55,7 +55,7 @@ final class Renderers {
 		$items = array_slice( self::normalize_faq_items( $items ), 0, self::MAX_FAQ_ITEMS );
 
 		if ( empty( $items ) ) {
-			return self::notice( __( 'Doczur: add at least one question to the FAQ.', 'doczur' ) );
+			return self::notice( __( 'Nirdeshio: add at least one question to the FAQ.', 'itsmanzur-docs' ) );
 		}
 
 		ob_start();
@@ -182,7 +182,7 @@ final class Renderers {
 		);
 
 		if ( empty( $entries ) ) {
-			return self::notice( __( 'No glossary terms have been added yet.', 'doczur' ) );
+			return self::notice( __( 'No glossary terms have been added yet.', 'itsmanzur-docs' ) );
 		}
 
 		ob_start();
@@ -202,7 +202,7 @@ final class Renderers {
 									<?php
 									printf(
 										/* translators: %s: comma-separated list of alternative spellings. */
-										esc_html__( 'Also: %s', 'doczur' ),
+										esc_html__( 'Also: %s', 'itsmanzur-docs' ),
 										esc_html( implode( ', ', $entry['aliases'] ) )
 									);
 									?>
@@ -237,7 +237,7 @@ final class Renderers {
 		$order = 'recent' === $order ? 'recent' : 'popular';
 
 		if ( ! $kb_id ) {
-			return self::notice( __( 'Doczur: select a knowledge base first.', 'doczur' ) );
+			return self::notice( __( 'Nirdeshio: select a knowledge base first.', 'itsmanzur-docs' ) );
 		}
 
 		$kb = get_post( $kb_id );
@@ -247,13 +247,13 @@ final class Renderers {
 			KB_Post_Type::POST_TYPE !== $kb->post_type ||
 			'publish' !== $kb->post_status
 		) {
-			return self::notice( __( 'Doczur: knowledge base not found or not published.', 'doczur' ) );
+			return self::notice( __( 'Nirdeshio: knowledge base not found or not published.', 'itsmanzur-docs' ) );
 		}
 
 		$articles = Documentation::get_articles( $kb_id );
 
 		if ( empty( $articles ) ) {
-			return self::notice( __( 'No published articles found.', 'doczur' ) );
+			return self::notice( __( 'No published articles found.', 'itsmanzur-docs' ) );
 		}
 
 		$totals = View_Tracker::get_kb_totals( $kb_id );
@@ -299,7 +299,7 @@ final class Renderers {
 								<?php
 								printf(
 									/* translators: %s: formatted number of article views. */
-									esc_html( _n( '%s view', '%s views', $views, 'doczur' ) ),
+									esc_html( _n( '%s view', '%s views', $views, 'itsmanzur-docs' ) ),
 									esc_html( number_format_i18n( $views ) )
 								);
 								?>

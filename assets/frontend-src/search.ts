@@ -51,7 +51,7 @@ export function initSearch( root: HTMLElement ) {
 			empty.className = 'itsdz-search-empty';
 			empty.textContent = sprintf(
 				/* translators: %s: the search query that returned no results. */
-				__( 'No results for "%s". Try different keywords.', 'doczur' ),
+				__( 'No results for "%s". Try different keywords.', 'itsmanzur-docs' ),
 				query
 			);
 			results.appendChild( empty );
@@ -75,7 +75,7 @@ export function initSearch( root: HTMLElement ) {
 		if ( query.length < 2 ) {
 			status.textContent = __(
 				'Type at least two characters to search.',
-				'doczur'
+				'itsmanzur-docs'
 			);
 			results.replaceChildren();
 			return;
@@ -83,7 +83,7 @@ export function initSearch( root: HTMLElement ) {
 
 		controller?.abort();
 		controller = new AbortController();
-		status.textContent = __( 'Searching…', 'doczur' );
+		status.textContent = __( 'Searching…', 'itsmanzur-docs' );
 
 		try {
 			const url = new URL( `${ root.dataset.restUrl }search` );
@@ -98,7 +98,7 @@ export function initSearch( root: HTMLElement ) {
 			renderResults( payload.results, query );
 			status.textContent = sprintf(
 				/* translators: %d: number of search results. */
-				__( '%d results found.', 'doczur' ),
+				__( '%d results found.', 'itsmanzur-docs' ),
 				payload.count
 			);
 		} catch ( error ) {
@@ -110,7 +110,7 @@ export function initSearch( root: HTMLElement ) {
 			}
 			status.textContent = __(
 				'Search is temporarily unavailable.',
-				'doczur'
+				'itsmanzur-docs'
 			);
 		}
 	};

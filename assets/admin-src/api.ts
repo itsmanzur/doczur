@@ -4,6 +4,11 @@ import type { Article, Project, Section } from './types';
 apiFetch.use( apiFetch.createNonceMiddleware( window.itsdzAdmin.restNonce ) );
 apiFetch.use( apiFetch.createRootURLMiddleware( window.itsdzAdmin.restRoot ) );
 
+type DoczurSettings = {
+	delete_data_on_uninstall: boolean;
+	show_powered_by: boolean;
+};
+
 export const api = {
 	listProjects: () => apiFetch< Project[] >( { path: '/itsdz/v1/kb' } ),
 	createProject: ( payload: Record< string, unknown > ) =>
@@ -84,11 +89,11 @@ export const api = {
 			data: { kb_id: kbId, articles },
 		} ),
 	getSettings: () =>
-		apiFetch< { delete_data_on_uninstall: boolean } >( {
+		apiFetch< DoczurSettings >( {
 			path: '/itsdz/v1/settings',
 		} ),
-	updateSettings: ( payload: { delete_data_on_uninstall: boolean } ) =>
-		apiFetch< { delete_data_on_uninstall: boolean } >( {
+	updateSettings: ( payload: Partial< DoczurSettings > ) =>
+		apiFetch< DoczurSettings >( {
 			path: '/itsdz/v1/settings',
 			method: 'PUT',
 			data: payload,
@@ -110,7 +115,7 @@ export const api = {
 		const url = URL.createObjectURL( blob );
 		const anchor = document.createElement( 'a' );
 		anchor.href = url;
-		anchor.download = `doczur-export-${ kbId }.json`;
+		anchor.download = `itsmanzur-docs-export-${ kbId }.json`;
 		anchor.click();
 		URL.revokeObjectURL( url );
 	},

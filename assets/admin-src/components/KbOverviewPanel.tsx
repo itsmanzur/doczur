@@ -18,9 +18,9 @@ interface Props {
 }
 
 const REASON_LABELS: Record< AttentionReason, string > = {
-	draft: __( 'Draft', 'doczur' ),
-	never_reviewed: __( 'Never reviewed', 'doczur' ),
-	stale_review: __( 'Review overdue', 'doczur' ),
+	draft: __( 'Draft', 'itsmanzur-docs' ),
+	never_reviewed: __( 'Never reviewed', 'itsmanzur-docs' ),
+	stale_review: __( 'Review overdue', 'itsmanzur-docs' ),
 };
 
 // Keeps the sidebar card from turning into a long, undifferentiated list on
@@ -37,12 +37,12 @@ function timeAgo( isoDate: string ): string {
 	const minutes = Math.max( 0, Math.round( ms / 60000 ) );
 
 	if ( minutes < 1 ) {
-		return __( 'just now', 'doczur' );
+		return __( 'just now', 'itsmanzur-docs' );
 	}
 	if ( minutes < 60 ) {
 		return sprintf(
 			/* translators: %d: number of minutes. */
-			__( '%dm ago', 'doczur' ),
+			__( '%dm ago', 'itsmanzur-docs' ),
 			minutes
 		);
 	}
@@ -50,24 +50,24 @@ function timeAgo( isoDate: string ): string {
 	if ( hours < 24 ) {
 		return sprintf(
 			/* translators: %d: number of hours. */
-			__( '%dh ago', 'doczur' ),
+			__( '%dh ago', 'itsmanzur-docs' ),
 			hours
 		);
 	}
 	const days = Math.round( hours / 24 );
 	return sprintf(
 		/* translators: %d: number of days. */
-		__( '%dd ago', 'doczur' ),
+		__( '%dd ago', 'itsmanzur-docs' ),
 		days
 	);
 }
 
 function StatsCards( { counts }: { counts: OverviewCounts } ) {
 	const cards: [ string, number ][] = [
-		[ __( 'Total', 'doczur' ), counts.total ],
-		[ __( 'Published', 'doczur' ), counts.published ],
-		[ __( 'Draft', 'doczur' ), counts.draft ],
-		[ __( 'Needs review', 'doczur' ), counts.needs_review ],
+		[ __( 'Total', 'itsmanzur-docs' ), counts.total ],
+		[ __( 'Published', 'itsmanzur-docs' ), counts.published ],
+		[ __( 'Draft', 'itsmanzur-docs' ), counts.draft ],
+		[ __( 'Needs review', 'itsmanzur-docs' ), counts.needs_review ],
 	];
 
 	return (
@@ -105,7 +105,7 @@ function AttentionList( {
 	return (
 		<div className="itsdz-overview-card">
 			<div className="itsdz-overview-card-heading">
-				<h3>{ __( 'Needs attention', 'doczur' ) }</h3>
+				<h3>{ __( 'Needs attention', 'itsmanzur-docs' ) }</h3>
 				{ reviewableCount > 0 && (
 					<Button
 						variant="link"
@@ -113,8 +113,8 @@ function AttentionList( {
 						disabled={ isMarking }
 					>
 						{ isMarking
-							? __( 'Marking…', 'doczur' )
-							: __( 'Mark all reviewed', 'doczur' ) }
+							? __( 'Marking…', 'itsmanzur-docs' )
+							: __( 'Mark all reviewed', 'itsmanzur-docs' ) }
 					</Button>
 				) }
 			</div>
@@ -122,7 +122,7 @@ function AttentionList( {
 				{ visible.map( ( item ) => (
 					<li key={ item.id }>
 						<a href={ item.edit_url }>
-							{ item.title || __( 'Untitled article', 'doczur' ) }
+							{ item.title || __( 'Untitled article', 'itsmanzur-docs' ) }
 						</a>
 						<span
 							className={ `itsdz-overview-reason itsdz-reason-${ item.reason }` }
@@ -136,7 +136,7 @@ function AttentionList( {
 				<p className="itsdz-overview-more">
 					{ sprintf(
 						/* translators: %d: number of additional articles not shown. */
-						__( '+ %d more', 'doczur' ),
+						__( '+ %d more', 'itsmanzur-docs' ),
 						hiddenCount
 					) }
 				</p>
@@ -152,12 +152,12 @@ function RecentList( { items }: { items: OverviewRecentItem[] } ) {
 
 	return (
 		<div className="itsdz-overview-card">
-			<h3>{ __( 'Recently edited', 'doczur' ) }</h3>
+			<h3>{ __( 'Recently edited', 'itsmanzur-docs' ) }</h3>
 			<ul className="itsdz-overview-list">
 				{ items.map( ( item ) => (
 					<li key={ item.id }>
 						<a href={ item.edit_url }>
-							{ item.title || __( 'Untitled article', 'doczur' ) }
+							{ item.title || __( 'Untitled article', 'itsmanzur-docs' ) }
 						</a>
 						<span className="itsdz-overview-time">
 							{ timeAgo( item.modified_gmt ) }
@@ -202,7 +202,7 @@ function OverviewEmptyState() {
 			<p>
 				{ __(
 					'Write your first article to see stats here.',
-					'doczur'
+					'itsmanzur-docs'
 				) }
 			</p>
 		</div>
@@ -212,7 +212,7 @@ function OverviewEmptyState() {
 function OverviewErrorState() {
 	return (
 		<div className="itsdz-overview-empty">
-			<p>{ __( 'The overview could not be loaded.', 'doczur' ) }</p>
+			<p>{ __( 'The overview could not be loaded.', 'itsmanzur-docs' ) }</p>
 		</div>
 	);
 }
@@ -243,7 +243,7 @@ export function KbOverviewPanel( { kbId }: Props ) {
 			refetch();
 			setNotice( {
 				status: 'success',
-				message: __( 'Selected articles marked reviewed.', 'doczur' ),
+				message: __( 'Selected articles marked reviewed.', 'itsmanzur-docs' ),
 			} );
 		} catch ( err ) {
 			setNotice( {
@@ -251,7 +251,7 @@ export function KbOverviewPanel( { kbId }: Props ) {
 				message:
 					err instanceof Error
 						? err.message
-						: __( 'Marking articles reviewed failed.', 'doczur' ),
+						: __( 'Marking articles reviewed failed.', 'itsmanzur-docs' ),
 			} );
 		} finally {
 			setIsMarking( false );

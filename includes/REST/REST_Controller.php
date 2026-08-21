@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared Doczur REST controller behavior.
+ * Shared Nirdeshio REST controller behavior.
  *
  * @package ItsDZ\Doczur\REST
  */
@@ -33,7 +33,7 @@ abstract class REST_Controller extends \WP_REST_Controller implements Service {
 	}
 
 	/**
-	 * Require Doczur management capability.
+	 * Require Nirdeshio management capability.
 	 *
 	 * @return true|\WP_Error
 	 */
@@ -44,7 +44,7 @@ abstract class REST_Controller extends \WP_REST_Controller implements Service {
 
 		return new \WP_Error(
 			'itsdz_rest_forbidden',
-			__( 'You are not allowed to manage documentation.', 'doczur' ),
+			__( 'You are not allowed to manage documentation.', 'itsmanzur-docs' ),
 			array( 'status' => rest_authorization_required_code() )
 		);
 	}
@@ -61,7 +61,7 @@ abstract class REST_Controller extends \WP_REST_Controller implements Service {
 	}
 
 	/**
-	 * Resolve a Doczur post or return a REST error.
+	 * Resolve a Nirdeshio post or return a REST error.
 	 *
 	 * @param int    $post_id   Post ID.
 	 * @param string $post_type Expected post type.
@@ -73,7 +73,7 @@ abstract class REST_Controller extends \WP_REST_Controller implements Service {
 		if ( ! $post || $post_type !== $post->post_type || 'trash' === $post->post_status ) {
 			return new \WP_Error(
 				'itsdz_rest_not_found',
-				__( 'The requested documentation item was not found.', 'doczur' ),
+				__( 'The requested documentation item was not found.', 'itsmanzur-docs' ),
 				array( 'status' => 404 )
 			);
 		}

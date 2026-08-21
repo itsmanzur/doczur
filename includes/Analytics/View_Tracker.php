@@ -93,7 +93,7 @@ final class View_Tracker implements Service {
 		if ( ! isset( $schedules[ self::CRON_INTERVAL ] ) ) {
 			$schedules[ self::CRON_INTERVAL ] = array(
 				'interval' => 5 * MINUTE_IN_SECONDS,
-				'display'  => __( 'Every 5 minutes', 'doczur' ),
+				'display'  => __( 'Every 5 minutes', 'itsmanzur-docs' ),
 			);
 		}
 

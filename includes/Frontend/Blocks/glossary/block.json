@@ -3,11 +3,11 @@
   "apiVersion": 3,
   "name": "itsdz/glossary",
   "version": "0.1.0",
-  "title": "Doczur Glossary",
+  "title": "Nirdeshio Glossary",
   "category": "widgets",
   "icon": "book-alt",
   "description": "Display every glossary term with its definition, sorted alphabetically.",
-  "keywords": [ "glossary", "terms", "definitions", "dictionary", "doczur" ],
+  "keywords": [ "glossary", "terms", "definitions", "dictionary", "itsmanzur-docs" ],
   "supports": {
     "html": false,
     "color": false,
@@ -26,5 +26,5 @@
   "editorScript": "itsdz-blocks",
   "style": "itsdz-frontend",
   "render": "file:./render.php",
-  "textdomain": "doczur"
+  "textdomain": "itsmanzur-docs"
 }

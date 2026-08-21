@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur Article List block — server-side render callback.
+ * Nirdeshio Article List block — server-side render callback.
  *
  * Renders a linked list of published articles from the selected KB.
  * Optionally shows the section label next to each article title.
@@ -25,7 +25,7 @@ $itsdz_show_section = (bool) ( $attributes['show_section'] ?? true );
 
 // Editor / misconfiguration notice.
 if ( ! $itsdz_kb_id ) {
-	echo '<p class="itsdz-block-notice">' . esc_html__( 'Select a knowledge base in the Doczur Article List block settings.', 'doczur' ) . '</p>';
+	echo '<p class="itsdz-block-notice">' . esc_html__( 'Select a knowledge base in the Nirdeshio Article List block settings.', 'itsmanzur-docs' ) . '</p>';
 	return;
 }
 
@@ -36,7 +36,7 @@ if (
 	KB_Post_Type::POST_TYPE !== $itsdz_kb->post_type ||
 	'publish' !== $itsdz_kb->post_status
 ) {
-	echo '<p class="itsdz-block-notice">' . esc_html__( 'Knowledge base not found or not published.', 'doczur' ) . '</p>';
+	echo '<p class="itsdz-block-notice">' . esc_html__( 'Knowledge base not found or not published.', 'itsmanzur-docs' ) . '</p>';
 	return;
 }
 
@@ -45,7 +45,7 @@ $itsdz_articles     = array_slice( $itsdz_all_articles, 0, $itsdz_limit );
 $itsdz_has_more     = count( $itsdz_all_articles ) > $itsdz_limit;
 
 if ( empty( $itsdz_articles ) ) {
-	echo '<p class="itsdz-block-notice">' . esc_html__( 'No published articles found in this knowledge base.', 'doczur' ) . '</p>';
+	echo '<p class="itsdz-block-notice">' . esc_html__( 'No published articles found in this knowledge base.', 'itsmanzur-docs' ) . '</p>';
 	return;
 }
 
@@ -79,7 +79,7 @@ $itsdz_wrapper_attrs = get_block_wrapper_attributes( array( 'class' => 'itsdz-do
 	</ul>
 	<?php if ( $itsdz_has_more ) : ?>
 		<a class="itsdz-docs-list-block-more" href="<?php echo esc_url( (string) get_permalink( $itsdz_kb ) ); ?>">
-			<?php esc_html_e( 'View all articles →', 'doczur' ); ?>
+			<?php esc_html_e( 'View all articles →', 'itsmanzur-docs' ); ?>
 		</a>
 	<?php endif; ?>
 </div>

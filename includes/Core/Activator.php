@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Activator {
 	/**
-	 * Activate Doczur.
+	 * Activate Nirdeshio.
 	 *
 	 * @return void
 	 */
@@ -31,8 +31,8 @@ final class Activator {
 			deactivate_plugins( plugin_basename( ITSDZ_PLUGIN_FILE ) );
 
 			wp_die(
-				esc_html__( 'Doczur requires PHP 8.0 or newer.', 'doczur' ),
-				esc_html__( 'Plugin activation failed', 'doczur' ),
+				esc_html__( 'Nirdeshio requires PHP 8.0 or newer.', 'itsmanzur-docs' ),
+				esc_html__( 'Plugin activation failed', 'itsmanzur-docs' ),
 				array( 'back_link' => true )
 			);
 		}

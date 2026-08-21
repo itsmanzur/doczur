@@ -2,11 +2,11 @@
 /**
  * Metadata round-trip tests for the native-editor architecture.
  *
- * The sidebar panel never talks to Doczur's own REST API — it reads and
+ * The sidebar panel never talks to Nirdeshio's own REST API — it reads and
  * writes through @wordpress/core-data, which means saves go through
  * WordPress core's own `/wp/v2/itsdz_doc/{id}` endpoint (exactly what
  * Gutenberg itself uses to save any post). These tests drive that same core
- * endpoint directly and then read the result back through Doczur's own
+ * endpoint directly and then read the result back through Nirdeshio's own
  * `/itsdz/v1/articles/{id}`, proving the two REST surfaces agree about what
  * was saved.
  *
@@ -40,7 +40,7 @@ final class EditorPanelMetaRoundtripTest extends WP_UnitTestCase {
 	 * Two pieces of global state this suite depends on do not survive from
 	 * one test to the next and must be rebuilt every time:
 	 *
-	 * - The Doczur capability is normally installed on `admin_init`, which
+	 * - The Nirdeshio capability is normally installed on `admin_init`, which
 	 *   WP_UnitTestCase never fires.
 	 * - wp-phpunit's own base test case calls `unregister_all_meta_keys()`
 	 *   after every single test (since `init` — where register_post_meta()
@@ -87,7 +87,7 @@ final class EditorPanelMetaRoundtripTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Read the article back through Doczur's own REST endpoint.
+	 * Read the article back through Nirdeshio's own REST endpoint.
 	 *
 	 * @return array<string, mixed>
 	 */

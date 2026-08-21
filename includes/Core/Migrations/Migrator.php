@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur database migration coordinator.
+ * Nirdeshio database migration coordinator.
  *
  * @package ItsDZ\Doczur\Core\Migrations
  */

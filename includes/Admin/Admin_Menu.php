@@ -1,6 +1,6 @@
 <?php
 /**
- * Doczur admin menu and application mount point.
+ * Nirdeshio admin menu and application mount point.
  *
  * @package ItsDZ\Doczur\Admin
  */
@@ -13,13 +13,13 @@ use ItsDZ\Doczur\Security\Capabilities;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the dedicated Doczur admin screen.
+ * Registers the dedicated Nirdeshio admin screen.
  */
 final class Admin_Menu implements Service {
 	/**
 	 * Admin page slug.
 	 */
-	const PAGE_SLUG = 'doczur';
+	const PAGE_SLUG = 'itsmanzur-docs';
 
 	/**
 	 * Register WordPress hooks.
@@ -31,14 +31,14 @@ final class Admin_Menu implements Service {
 	}
 
 	/**
-	 * Add the top-level Doczur menu.
+	 * Add the top-level Nirdeshio menu.
 	 *
 	 * @return void
 	 */
 	public function add_menu() {
 		add_menu_page(
-			__( 'Doczur Documentation', 'doczur' ),
-			__( 'Doczur', 'doczur' ),
+			__( 'Nirdeshio', 'itsmanzur-docs' ),
+			__( 'Nirdeshio', 'itsmanzur-docs' ),
 			Capabilities::MANAGE_DOCS,
 			self::PAGE_SLUG,
 			array( $this, 'render' ),
@@ -54,13 +54,13 @@ final class Admin_Menu implements Service {
 	 */
 	public function render() {
 		if ( ! current_user_can( Capabilities::MANAGE_DOCS ) ) {
-			wp_die( esc_html__( 'You are not allowed to access Doczur.', 'doczur' ) );
+			wp_die( esc_html__( 'You are not allowed to access Nirdeshio.', 'itsmanzur-docs' ) );
 		}
 		?>
 		<div class="wrap itsdz-admin-wrap">
 			<div id="itsdz-admin-app" aria-live="polite"></div>
 			<noscript>
-				<p><?php esc_html_e( 'Doczur requires JavaScript to run the documentation manager.', 'doczur' ); ?></p>
+				<p><?php esc_html_e( 'Nirdeshio requires JavaScript to run the documentation manager.', 'itsmanzur-docs' ); ?></p>
 			</noscript>
 		</div>
 		<?php
