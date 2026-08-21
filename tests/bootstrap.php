@@ -149,15 +149,99 @@ if ( ! function_exists( 'get_term' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_option' ) ) {
+	/**
+	 * Resolve an isolated test option.
+	 *
+	 * @param string $option        Option name.
+	 * @param mixed  $default_value Default value.
+	 * @return mixed
+	 */
+	function get_option( $option, $default_value = false ) {
+		if ( ! isset( $GLOBALS['itsdz_test_options'] ) || ! is_array( $GLOBALS['itsdz_test_options'] ) ) {
+			return $default_value;
+		}
+
+		return $GLOBALS['itsdz_test_options'][ $option ] ?? $default_value;
+	}
+}
+
+if ( ! function_exists( 'update_option' ) ) {
+	/**
+	 * Store an isolated test option.
+	 *
+	 * @param string $option   Option name.
+	 * @param mixed  $value    Option value.
+	 * @param mixed  $autoload Autoload flag (unused).
+	 * @return bool
+	 */
+	function update_option( $option, $value, $autoload = true ) {
+		unset( $autoload );
+
+		if ( ! isset( $GLOBALS['itsdz_test_options'] ) || ! is_array( $GLOBALS['itsdz_test_options'] ) ) {
+			$GLOBALS['itsdz_test_options'] = array();
+		}
+
+		$GLOBALS['itsdz_test_options'][ $option ] = $value;
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'delete_option' ) ) {
+	/**
+	 * Delete an isolated test option.
+	 *
+	 * @param string $option Option name.
+	 * @return bool
+	 */
+	function delete_option( $option ) {
+		unset( $GLOBALS['itsdz_test_options'][ $option ] );
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'apply_filters' ) ) {
+	/**
+	 * Pass-through filter stub.
+	 *
+	 * @param string $hook  Filter hook.
+	 * @param mixed  $value Filtered value.
+	 * @return mixed
+	 */
+	function apply_filters( $hook, $value ) {
+		unset( $hook );
+
+		return $value;
+	}
+}
+
+if ( ! function_exists( 'flush_rewrite_rules' ) ) {
+	/**
+	 * Record rewrite flushes in isolated tests.
+	 *
+	 * @param bool $hard Whether to update .htaccess (unused).
+	 * @return void
+	 */
+	function flush_rewrite_rules( $hard = true ) {
+		unset( $hard );
+		$GLOBALS['itsdz_test_rewrite_flushed'] = true;
+	}
+}
+
 if ( ! function_exists( 'get_post_meta' ) ) {
 	/**
 	 * Resolve isolated test post meta.
 	 *
 	 * @param int    $post_id Post ID.
 	 * @param string $key     Meta key.
+	 * @param bool   $single  Whether to return a single value (unused).
 	 * @return mixed
 	 */
-	function get_post_meta( $post_id, $key ) {
+	function get_post_meta( $post_id, $key, $single = true ) {
+		unset( $single );
+
 		return $GLOBALS['itsdz_test_post_meta_values'][ $post_id ][ $key ] ?? '';
 	}
 }
@@ -222,6 +306,18 @@ if ( ! function_exists( 'sanitize_title' ) ) {
 	}
 }
 
+if ( ! function_exists( 'sanitize_key' ) ) {
+	/**
+	 * Keep lowercase alphanumeric keys in isolated tests.
+	 *
+	 * @param mixed $key Source key.
+	 * @return string
+	 */
+	function sanitize_key( $key ) {
+		return strtolower( preg_replace( '/[^a-z0-9_\-]/', '', (string) $key ) );
+	}
+}
+
 if ( ! function_exists( 'sanitize_text_field' ) ) {
 	/**
 	 * Sanitize isolated test text.
@@ -231,6 +327,20 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 	 */
 	function sanitize_text_field( $text ) {
 		return trim( strip_tags( (string) $text ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags
+	}
+}
+
+if ( ! function_exists( 'esc_url_raw' ) ) {
+	/**
+	 * Keep http(s) URLs in isolated tests.
+	 *
+	 * @param mixed $url Source URL.
+	 * @return string
+	 */
+	function esc_url_raw( $url ) {
+		$url = trim( (string) $url );
+
+		return preg_match( '#^https?://#i', $url ) ? $url : '';
 	}
 }
 

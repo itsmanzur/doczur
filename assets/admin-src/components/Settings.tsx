@@ -4,14 +4,44 @@ import {
 	CardBody,
 	CheckboxControl,
 	Spinner,
+	TextareaControl,
 	TextControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
 import { api } from '../api';
 import { store } from '../store';
-import type { Project } from '../types';
+import type { HeaderLink, Project } from '../types';
+
+function parseLinks( raw: string | undefined ): HeaderLink[] {
+	try {
+		const parsed = JSON.parse( raw || '[]' ) as HeaderLink[];
+
+		if ( ! Array.isArray( parsed ) ) {
+			return [];
+		}
+
+		return parsed
+			.filter( ( item ) => item?.label && item?.url )
+			.slice( 0, 4 );
+	} catch ( error ) {
+		return [];
+	}
+}
+
+function asFlag( value: string | undefined, fallback = true ): boolean {
+	if ( value === '0' ) {
+		return false;
+	}
+
+	if ( value === '1' ) {
+		return true;
+	}
+
+	return fallback;
+}
 
 export function Settings( { project }: { project: Project } ) {
 	const projects = useSelect(
@@ -34,6 +64,32 @@ export function Settings( { project }: { project: Project } ) {
 	);
 	const [ layoutMode, setLayoutMode ] = useState(
 		project.meta._itsdz_kb_layout_mode || 'canvas'
+	);
+	const [ navStyle, setNavStyle ] = useState(
+		project.meta._itsdz_kb_nav_style || 'accordion'
+	);
+	const [ intro, setIntro ] = useState( project.content || '' );
+	const [ logoId, setLogoId ] = useState(
+		project.meta._itsdz_kb_logo || 0
+	);
+	const [ logoUrl, setLogoUrl ] = useState( '' );
+	const [ showToc, setShowToc ] = useState(
+		asFlag( project.meta._itsdz_kb_show_toc )
+	);
+	const [ showFeedback, setShowFeedback ] = useState(
+		asFlag( project.meta._itsdz_kb_show_feedback )
+	);
+	const [ showRelated, setShowRelated ] = useState(
+		asFlag( project.meta._itsdz_kb_show_related )
+	);
+	const [ showPrint, setShowPrint ] = useState(
+		asFlag( project.meta._itsdz_kb_show_print )
+	);
+	const [ customCss, setCustomCss ] = useState(
+		project.meta._itsdz_kb_custom_css || ''
+	);
+	const [ headerLinks, setHeaderLinks ] = useState< HeaderLink[] >(
+		parseLinks( project.meta._itsdz_kb_header_links )
 	);
 	const [ saving, setSaving ] = useState( false );
 	const [ sampleExists, setSampleExists ] = useState( false );
@@ -80,6 +136,58 @@ export function Settings( { project }: { project: Project } ) {
 			cancelled = true;
 		};
 	}, [] );
+
+	useEffect( () => {
+		if ( ! logoId ) {
+			setLogoUrl( '' );
+			return;
+		}
+
+		let cancelled = false;
+
+		apiFetch< {
+			source_url?: string;
+			media_details?: { sizes?: { thumbnail?: { source_url?: string } } };
+		} >( { path: `/wp/v2/media/${ logoId }` } )
+			.then( ( media ) => {
+				if ( ! cancelled ) {
+					setLogoUrl(
+						media.media_details?.sizes?.thumbnail?.source_url ||
+							media.source_url ||
+							''
+					);
+				}
+			} )
+			.catch( () => {
+				if ( ! cancelled ) {
+					setLogoUrl( '' );
+				}
+			} );
+
+		return () => {
+			cancelled = true;
+		};
+	}, [ logoId ] );
+
+	const chooseLogo = () => {
+		const frame = window.wp?.media?.( {
+			title: __( 'Choose logo', 'itsmanzur-docs' ),
+			button: { text: __( 'Use logo', 'itsmanzur-docs' ) },
+			library: { type: 'image' },
+			multiple: false,
+		} );
+
+		if ( ! frame ) {
+			return;
+		}
+
+		frame.on( 'select', () => {
+			const attachment = frame.state().get( 'selection' ).first().toJSON();
+			setLogoId( attachment.id );
+			setLogoUrl( attachment.sizes?.thumbnail?.url || attachment.url );
+		} );
+		frame.open();
+	};
 
 	const toggleDeleteDataOnUninstall = async ( checked: boolean ) => {
 		setDeleteDataOnUninstall( checked );
@@ -189,12 +297,25 @@ export function Settings( { project }: { project: Project } ) {
 		try {
 			const saved = await api.updateProject( project.id, {
 				title: name,
+				content: intro,
 				meta: {
 					_itsdz_kb_slug_base: slug,
 					_itsdz_kb_brand_color: color,
 					_itsdz_kb_theme_mode: themeMode,
 					_itsdz_kb_template: template,
 					_itsdz_kb_layout_mode: layoutMode,
+					_itsdz_kb_nav_style: navStyle,
+					_itsdz_kb_logo: logoId,
+					_itsdz_kb_show_toc: showToc ? '1' : '0',
+					_itsdz_kb_show_feedback: showFeedback ? '1' : '0',
+					_itsdz_kb_show_related: showRelated ? '1' : '0',
+					_itsdz_kb_show_print: showPrint ? '1' : '0',
+					_itsdz_kb_custom_css: customCss,
+					_itsdz_kb_header_links: JSON.stringify(
+						headerLinks.filter(
+							( link ) => link.label.trim() && link.url.trim()
+						)
+					),
 				},
 			} );
 			setProjects(
@@ -265,6 +386,16 @@ export function Settings( { project }: { project: Project } ) {
 								</div>
 							</div>
 						</div>
+						<TextareaControl
+							label={ __( 'LANDING INTRO', 'itsmanzur-docs' ) }
+							help={ __(
+								'Shown under the title on the documentation homepage. Leave empty to use the default sentence.',
+								'itsmanzur-docs'
+							) }
+							value={ intro }
+							onChange={ setIntro }
+							rows={ 3 }
+						/>
 					</CardBody>
 				</Card>
 
@@ -274,6 +405,43 @@ export function Settings( { project }: { project: Project } ) {
 						<div className="itsdz-settings-card-header">
 							<span className="dashicons dashicons-art" aria-hidden="true" />
 							<h2>{ __( 'Branding & Color Accent', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<div className="itsdz-logo-picker">
+							<label className="itsdz-field-label">
+								{ __( 'DOCUMENTATION LOGO', 'itsmanzur-docs' ) }
+							</label>
+							<div className="itsdz-logo-picker-row">
+								{ logoUrl ? (
+									<img
+										src={ logoUrl }
+										alt=""
+										className="itsdz-logo-preview"
+									/>
+								) : (
+									<span className="itsdz-logo-placeholder">
+										D
+									</span>
+								) }
+								<Button
+									variant="secondary"
+									onClick={ chooseLogo }
+								>
+									{ logoId
+										? __( 'Change logo', 'itsmanzur-docs' )
+										: __( 'Upload logo', 'itsmanzur-docs' ) }
+								</Button>
+								{ !! logoId && (
+									<Button
+										variant="tertiary"
+										onClick={ () => {
+											setLogoId( 0 );
+											setLogoUrl( '' );
+										} }
+									>
+										{ __( 'Remove', 'itsmanzur-docs' ) }
+									</Button>
+								) }
+							</div>
 						</div>
 						<div className="itsdz-color-picker-box">
 							<label className="itsdz-field-label" htmlFor="itsdz-settings-color-input">
@@ -417,6 +585,159 @@ export function Settings( { project }: { project: Project } ) {
 								</button>
 							</div>
 						</div>
+
+						<div className="itsdz-visual-choice-group" style={ { marginTop: '22px' } }>
+							<label className="itsdz-field-label">{ __( 'LEFT NAVIGATION', 'itsmanzur-docs' ) }</label>
+							<div className="itsdz-visual-grid-3">
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ navStyle === 'accordion' ? 'is-selected' : '' }` }
+									onClick={ () => setNavStyle( 'accordion' ) }
+								>
+									<span className="dashicons dashicons-list-view" aria-hidden="true" />
+									<strong>{ __( 'Accordion', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Collapsible sections with filled current page', 'itsmanzur-docs' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ navStyle === 'rail' ? 'is-selected' : '' }` }
+									onClick={ () => setNavStyle( 'rail' ) }
+								>
+									<span className="dashicons dashicons-align-left" aria-hidden="true" />
+									<strong>{ __( 'Rail', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Narrower, denser sidebar for large docs', 'itsmanzur-docs' ) }</span>
+								</button>
+								<button
+									type="button"
+									className={ `itsdz-choice-card ${ navStyle === 'tree' ? 'is-selected' : '' }` }
+									onClick={ () => setNavStyle( 'tree' ) }
+								>
+									<span className="dashicons dashicons-networking" aria-hidden="true" />
+									<strong>{ __( 'Tree', 'itsmanzur-docs' ) }</strong>
+									<span>{ __( 'Nested sections in the public sidebar', 'itsmanzur-docs' ) }</span>
+								</button>
+							</div>
+						</div>
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-visibility" aria-hidden="true" />
+							<h2>{ __( 'Article chrome', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<CheckboxControl
+							label={ __( 'Table of contents', 'itsmanzur-docs' ) }
+							checked={ showToc }
+							onChange={ setShowToc }
+						/>
+						<CheckboxControl
+							label={ __( 'Was this helpful? feedback', 'itsmanzur-docs' ) }
+							checked={ showFeedback }
+							onChange={ setShowFeedback }
+						/>
+						<CheckboxControl
+							label={ __( 'Related articles', 'itsmanzur-docs' ) }
+							checked={ showRelated }
+							onChange={ setShowRelated }
+						/>
+						<CheckboxControl
+							label={ __( 'Print button', 'itsmanzur-docs' ) }
+							checked={ showPrint }
+							onChange={ setShowPrint }
+						/>
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-admin-links" aria-hidden="true" />
+							<h2>{ __( 'Header links', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<p className="itsdz-settings-card-intro">
+							{ __(
+								'Optional shortcuts in the documentation header — Changelog, GitHub, Support, and similar.',
+								'itsmanzur-docs'
+							) }
+						</p>
+						{ headerLinks.map( ( link, index ) => (
+							<div className="itsdz-header-link-row" key={ index }>
+								<TextControl
+									label={ __( 'Label', 'itsmanzur-docs' ) }
+									value={ link.label }
+									onChange={ ( value ) =>
+										setHeaderLinks( ( current ) =>
+											current.map( ( item, itemIndex ) =>
+												itemIndex === index
+													? { ...item, label: value }
+													: item
+											)
+										)
+									}
+								/>
+								<TextControl
+									label={ __( 'URL', 'itsmanzur-docs' ) }
+									value={ link.url }
+									onChange={ ( value ) =>
+										setHeaderLinks( ( current ) =>
+											current.map( ( item, itemIndex ) =>
+												itemIndex === index
+													? { ...item, url: value }
+													: item
+											)
+										)
+									}
+								/>
+								<Button
+									variant="tertiary"
+									isDestructive
+									onClick={ () =>
+										setHeaderLinks( ( current ) =>
+											current.filter(
+												( _, itemIndex ) =>
+													itemIndex !== index
+											)
+										)
+									}
+								>
+									{ __( 'Remove', 'itsmanzur-docs' ) }
+								</Button>
+							</div>
+						) ) }
+						{ headerLinks.length < 4 && (
+							<Button
+								variant="secondary"
+								onClick={ () =>
+									setHeaderLinks( ( current ) => [
+										...current,
+										{ label: '', url: '' },
+									] )
+								}
+							>
+								{ __( 'Add link', 'itsmanzur-docs' ) }
+							</Button>
+						) }
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-editor-code" aria-hidden="true" />
+							<h2>{ __( 'Custom CSS', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<TextareaControl
+							label={ __( 'Extra CSS', 'itsmanzur-docs' ) }
+							help={ __(
+								'Scoped yourself under .itsdz-docs. Executable CSS is stripped on save.',
+								'itsmanzur-docs'
+							) }
+							value={ customCss }
+							onChange={ setCustomCss }
+							rows={ 8 }
+						/>
 					</CardBody>
 				</Card>
 

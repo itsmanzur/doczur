@@ -19,6 +19,9 @@ if ( ! $itsdz_delete_data ) {
 delete_option( 'itsdz_delete_data_on_uninstall' );
 delete_option( 'itsdz_db_version' );
 delete_option( 'itsdz_capabilities_version' );
+delete_option( 'itsdz_kb_slug_base' );
+delete_option( 'itsdz_rewrite_version' );
+delete_option( 'itsdz_rewrite_flush' );
 delete_transient( 'itsdz_migration_check' );
 
 global $wpdb;

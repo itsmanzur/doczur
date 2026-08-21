@@ -10,6 +10,7 @@ namespace ItsDZ\Doczur\Frontend;
 use ItsDZ\Doczur\Core\Service;
 use ItsDZ\Doczur\PostTypes\Article_Post_Type;
 use ItsDZ\Doczur\PostTypes\KB_Post_Type;
+use ItsDZ\Doczur\Taxonomies\Section_Taxonomy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,7 +38,10 @@ final class Assets implements Service {
 	 * @return void
 	 */
 	public function enqueue() {
-		if ( ! is_singular( array( KB_Post_Type::POST_TYPE, Article_Post_Type::POST_TYPE ) ) ) {
+		$is_docs_singular = is_singular( array( KB_Post_Type::POST_TYPE, Article_Post_Type::POST_TYPE ) );
+		$is_section       = is_tax( Section_Taxonomy::TAXONOMY );
+
+		if ( ! $is_docs_singular && ! $is_section ) {
 			return;
 		}
 
@@ -65,7 +69,15 @@ final class Assets implements Service {
 			(string) filemtime( $style_file )
 		);
 
-		$kb_id = is_singular( KB_Post_Type::POST_TYPE ) ? get_queried_object_id() : absint( get_post_meta( get_queried_object_id(), '_itsdz_kb_id', true ) );
+		if ( is_singular( KB_Post_Type::POST_TYPE ) ) {
+			$kb_id = get_queried_object_id();
+		} elseif ( $is_section ) {
+			$kb    = Documentation::get_published_kb();
+			$kb_id = $kb ? $kb->ID : 0;
+		} else {
+			$kb_id = absint( get_post_meta( get_queried_object_id(), '_itsdz_kb_id', true ) );
+		}
+
 		$color = sanitize_hex_color( get_post_meta( $kb_id, '_itsdz_kb_brand_color', true ) );
 
 		if ( $color ) {
@@ -73,6 +85,12 @@ final class Assets implements Service {
 				self::HANDLE,
 				'.itsdz-docs{--itsdz-brand:' . $color . ';--itsdz-brand-strong:color-mix(in srgb,' . $color . ' 78%,#000);}'
 			);
+		}
+
+		$custom_css = (string) get_post_meta( $kb_id, '_itsdz_kb_custom_css', true );
+
+		if ( $custom_css ) {
+			wp_add_inline_style( self::HANDLE, $custom_css );
 		}
 
 		wp_set_script_translations( self::HANDLE, 'itsmanzur-docs', ITSDZ_PLUGIN_DIR . 'languages' );

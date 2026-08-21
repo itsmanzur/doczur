@@ -149,6 +149,28 @@ function SortableArticle( {
 				</span>
 			</a>
 			<div className="itsdz-tree-actions">
+				<a
+					href={ editUrl( article.id ) }
+					title={ __( 'Edit Article', 'itsmanzur-docs' ) }
+					aria-label={ __( 'Edit article', 'itsmanzur-docs' ) }
+				>
+					<span
+						className="dashicons dashicons-edit"
+						aria-hidden="true"
+					/>
+				</a>
+				<a
+					href={ article.url }
+					target="_blank"
+					rel="noopener noreferrer"
+					title={ __( 'Preview Article', 'itsmanzur-docs' ) }
+					aria-label={ __( 'Preview article', 'itsmanzur-docs' ) }
+				>
+					<span
+						className="dashicons dashicons-external"
+						aria-hidden="true"
+					/>
+				</a>
 				<button
 					type="button"
 					onClick={ onToggleStatus }

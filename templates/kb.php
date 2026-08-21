@@ -59,6 +59,10 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 					$itsdz_icon       = $itsdz_group['term'] ? get_term_meta( $itsdz_group['term']->term_id, '_itsdz_section_icon', true ) : '';
 					?>
 					<article class="itsdz-section-card">
+						<?php
+						$itsdz_section_url = $itsdz_group['term'] ? get_term_link( $itsdz_group['term'] ) : '';
+						$itsdz_section_url = is_wp_error( $itsdz_section_url ) ? '' : $itsdz_section_url;
+						?>
 						<div class="itsdz-section-card-icon" aria-hidden="true">
 							<?php if ( $itsdz_icon ) : ?>
 								<span class="dashicons <?php echo esc_attr( (string) $itsdz_icon ); ?>"></span>
@@ -66,7 +70,11 @@ require ITSDZ_PLUGIN_DIR . 'templates/partials/shell-start.php';
 								<?php echo esc_html( mb_strtoupper( mb_substr( $itsdz_group_name, 0, 1 ) ) ); ?>
 							<?php endif; ?>
 						</div>
-						<h3><?php echo esc_html( $itsdz_group_name ); ?></h3>
+						<?php if ( $itsdz_section_url ) : ?>
+							<h3><a href="<?php echo esc_url( $itsdz_section_url ); ?>"><?php echo esc_html( $itsdz_group_name ); ?></a></h3>
+						<?php else : ?>
+							<h3><?php echo esc_html( $itsdz_group_name ); ?></h3>
+						<?php endif; ?>
 						<?php if ( $itsdz_group['term'] && $itsdz_group['term']->description ) : ?>
 							<p><?php echo esc_html( $itsdz_group['term']->description ); ?></p>
 						<?php endif; ?>
