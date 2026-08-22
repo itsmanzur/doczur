@@ -594,6 +594,59 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 			</section>
 
 			<section
+				className="itsdz-guide-shortcodes"
+				aria-labelledby="itsdz-shortcodes-title"
+			>
+				<div className="itsdz-guide-section-heading">
+					<span>{ __( 'Anywhere on your site', 'itsmanzur-docs' ) }</span>
+					<h2 id="itsdz-shortcodes-title">
+						{ __( 'Shortcodes', 'itsmanzur-docs' ) }
+					</h2>
+					<p>
+						{ __(
+							'Paste these into any page, post, widget, or page builder. Replace the ID with your documentation project ID if it is different.',
+							'itsmanzur-docs'
+						) }
+					</p>
+				</div>
+				<ul className="itsdz-shortcode-list">
+					<li>
+						<code>{ `[nirdeshio_search kb_id="${ project.id }"]` }</code>
+						<span>
+							{ __( 'Search form for this documentation project.', 'itsmanzur-docs' ) }
+						</span>
+					</li>
+					<li>
+						<code>{ `[nirdeshio_docs_list kb_id="${ project.id }" limit="5" show_section="true"]` }</code>
+						<span>
+							{ __( 'Linked list of articles.', 'itsmanzur-docs' ) }
+						</span>
+					</li>
+					<li>
+						<code>{ `[nirdeshio_popular_docs kb_id="${ project.id }" limit="5" order="popular"]` }</code>
+						<span>
+							{ __( 'Most viewed articles. Use order="recent" for newest first.', 'itsmanzur-docs' ) }
+						</span>
+					</li>
+					<li>
+						<code>{ `[nirdeshio_faq heading="Billing"]` }</code>
+						<span>
+							{ __(
+								'FAQ list. Put one Question | Answer pair per line between the opening and closing tags.',
+								'itsmanzur-docs'
+							) }
+						</span>
+					</li>
+					<li>
+						<code>{ `[nirdeshio_glossary heading="Glossary" show_aliases="true"]` }</code>
+						<span>
+							{ __( 'Alphabetical glossary of every defined term.', 'itsmanzur-docs' ) }
+						</span>
+					</li>
+				</ul>
+			</section>
+
+			<section
 				className="itsdz-guide-faq"
 				aria-labelledby="itsdz-faq-title"
 			>

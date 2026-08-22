@@ -3,7 +3,7 @@ Contributors: itsmanzur
 Tags: documentation, knowledge base, docs, help center, product docs
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,7 @@ Most documentation plugins load heavy JavaScript, conflict with popular themes, 
 
 * Documentation projects (knowledge bases) — no cap, create as many as you need
 * Unlimited sections (3 levels deep), unlimited articles
+* **Sections manager** — a dedicated screen to create, rename, re-nest, icon, and delete sections without touching individual articles
 * Drag-and-drop article ordering
 * Gutenberg block editor support + shortcodes
 * **Instant full-text search** (MySQL FULLTEXT — no `LIKE %keyword%`)
@@ -39,11 +40,17 @@ Most documentation plugins load heavy JavaScript, conflict with popular themes, 
 * "Was this helpful?" feedback system
 * Reading time estimate, author byline, and last-updated date
 * Content freshness tracking — log a review date per article and spot stale docs at a glance
+* **WordPress dashboard widget** — see draft, stale, and unsectioned article counts without leaving your Dashboard
 * Basic view counter (buffered, performance-safe)
 * Two layout modes: **canvas** (full-page, no theme header/footer) and **theme** (integrates with your active theme)
 * Three template styles: **Clean**, **Modern**, **Compact**
 * Custom brand color per knowledge base
+* **Project logo and landing intro** — upload a logo and write a custom intro line for each knowledge base's homepage
+* **Custom navigation styles** — choose Accordion, Rail, or Tree for how the sidebar organizes sections and articles
+* **Header links** — add up to 4 custom links (e.g. "Contact support", "Changelog") to the documentation header
+* **Custom CSS per project** — fine-tune the look of a specific knowledge base without a child theme
 * Import / export (JSON)
+* **Markdown import** — drop in a `.md` file and it lands as a draft article, ready to review and publish
 * One-click sample content — publishes a complete demo knowledge base so you can see the result before writing anything, and removes it just as easily
 * **Glossary** — define your product's terminology once; the first mention of each term in an article is highlighted with a tooltip definition, and the full list can be embedded anywhere
 * Translation-ready, RTL support
@@ -72,11 +79,11 @@ Only published articles in published projects are ever included. Both routes are
 
 = Shortcodes =
 
-* `[doczur_search kb_id="123"]` — search form for a specific KB
-* `[doczur_docs_list kb_id="123" limit="5" show_section="true"]` — article list
-* `[doczur_popular_docs kb_id="123" limit="5" order="popular"]` — most viewed (or `order="recent"`) articles
-* `[doczur_faq heading="Billing"]` — FAQ list; write one `Question | Answer` pair per line between the opening and closing tags
-* `[doczur_glossary heading="Glossary" show_aliases="true"]` — alphabetical list of every glossary term
+* `[nirdeshio_search kb_id="123"]` — search form for a specific KB
+* `[nirdeshio_docs_list kb_id="123" limit="5" show_section="true"]` — article list
+* `[nirdeshio_popular_docs kb_id="123" limit="5" order="popular"]` — most viewed (or `order="recent"`) articles
+* `[nirdeshio_faq heading="Billing"]` — FAQ list; write one `Question | Answer` pair per line between the opening and closing tags
+* `[nirdeshio_glossary heading="Glossary" show_aliases="true"]` — alphabetical list of every glossary term
 
 Glossary auto-highlighting never touches links, headings or code samples, and can be switched off entirely:
 
@@ -149,7 +156,7 @@ Nirdeshio uses a dedicated search index table with MySQL **FULLTEXT** indexing. 
 
 = Can I use Nirdeshio with the Classic Editor? =
 
-Yes. Both `[doczur_search]` and `[doczur_docs_list]` shortcodes work in any editor, widget, or page builder that supports shortcodes.
+Yes. Both `[nirdeshio_search]` and `[nirdeshio_docs_list]` shortcodes work in any editor, widget, or page builder that supports shortcodes.
 
 = Is Nirdeshio compatible with page caching plugins? =
 
@@ -182,6 +189,36 @@ All data is stored in your WordPress database. Nirdeshio creates four custom tab
 
 == Changelog ==
 
+= 1.1.0 =
+**New: Sections manager**
+
+* Added a dedicated Sections screen — create, rename, re-nest, set a Dashicon, and delete sections without opening an article.
+
+**New: Markdown import**
+
+* Import a `.md` file directly as a draft article from the Import / Export screen.
+
+**New: Project appearance & navigation**
+
+* Added Accordion, Rail, and Tree navigation styles — pick how the sidebar organizes sections and articles per project.
+* Added per-project logo upload and a customizable landing-page intro line.
+* Added optional header links (up to 4) for linking out to support, changelog, or any custom page.
+* Added per-project custom CSS.
+* Table of contents, feedback, related articles, and print button can each now be toggled on or off per project.
+
+**New: WordPress dashboard widget**
+
+* Added a dashboard widget showing draft, stale (90+ days unreviewed), and unsectioned article counts.
+
+**Shortcode names changed (breaking)**
+
+* All shortcodes were renamed to match the plugin's public name: `[doczur_search]` → `[nirdeshio_search]`, and similarly for `doczur_docs_list`, `doczur_popular_docs`, `doczur_faq`, and `doczur_glossary`. There is no backward-compatible alias — if you used the old shortcode names anywhere, update them after upgrading.
+
+**Fixes**
+
+* The article list REST endpoint now paginates correctly instead of silently truncating at 100 articles.
+* Saving a custom URL slug base now reliably flushes rewrite rules so the new slug takes effect immediately.
+
 = 1.0.0 =
 **Editor**
 
@@ -202,12 +239,12 @@ All data is stored in your WordPress database. Nirdeshio creates four custom tab
 * Added a glossary: define a term once and the first mention in each article gains a tooltip definition.
 * Alternative spellings are supported, so plurals and abbreviations match too.
 * Auto-highlighting never alters links, headings, code samples or HTML attributes, and can be disabled with the `itsdz_glossary_autolink` filter.
-* Added the `itsdz/glossary` block and `[doczur_glossary]` shortcode.
+* Added the `itsdz/glossary` block and `[nirdeshio_glossary]` shortcode.
 
 **New blocks and shortcodes**
 
-* `itsdz/faq` and `[doczur_faq]` — collapsible question lists that also emit FAQPage structured data.
-* `itsdz/popular-docs` and `[doczur_popular_docs]` — rank articles by views or publish date.
+* `itsdz/faq` and `[nirdeshio_faq]` — collapsible question lists that also emit FAQPage structured data.
+* `itsdz/popular-docs` and `[nirdeshio_popular_docs]` — rank articles by views or publish date.
 * All blocks now ship an editor interface, so their settings can be configured from the block sidebar.
 
 **Content maintenance**
@@ -238,13 +275,16 @@ All data is stored in your WordPress database. Nirdeshio creates four custom tab
 * Buffered view counter (5-minute WP-Cron flush, Action Scheduler compatible).
 * Dark mode, print layout, mobile slide-out navigation.
 * `itsdz/search` and `itsdz/docs-list` Gutenberg blocks.
-* `[doczur_search]` and `[doczur_docs_list]` shortcodes.
+* `[nirdeshio_search]` and `[nirdeshio_docs_list]` shortcodes.
 * Canvas and theme layout modes.
 * Clean, Modern, and Compact template styles.
 * Translation-ready with RTL support.
 * REST API (`itsdz/v1`) for admin and public endpoints.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Shortcodes were renamed ([doczur_search] etc. → [nirdeshio_search] etc.) with no backward-compatible alias. If you used any Nirdeshio shortcode in a post or page, update it after upgrading.
 
 = 0.1.0 =
 First release — no upgrade steps required.
