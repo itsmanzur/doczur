@@ -7,8 +7,8 @@
  * widget areas.
  *
  * Shortcodes:
- *   [doczur_search kb_id="123" placeholder="..." button_text="..."]
- *   [doczur_docs_list kb_id="123" limit="5" show_section="true"]
+ *   [nirdeshio_search kb_id="123" placeholder="..." button_text="..."]
+ *   [nirdeshio_docs_list kb_id="123" limit="5" show_section="true"]
  *
  * @package ItsDZ\Doczur\Frontend
  */
@@ -40,15 +40,15 @@ final class Shortcode implements Service {
 	 * @return void
 	 */
 	public function add_shortcodes() {
-		add_shortcode( 'doczur_search', array( $this, 'render_search' ) );
-		add_shortcode( 'doczur_docs_list', array( $this, 'render_docs_list' ) );
-		add_shortcode( 'doczur_faq', array( $this, 'render_faq' ) );
-		add_shortcode( 'doczur_popular_docs', array( $this, 'render_popular_docs' ) );
-		add_shortcode( 'doczur_glossary', array( $this, 'render_glossary' ) );
+		add_shortcode( 'nirdeshio_search', array( $this, 'render_search' ) );
+		add_shortcode( 'nirdeshio_docs_list', array( $this, 'render_docs_list' ) );
+		add_shortcode( 'nirdeshio_faq', array( $this, 'render_faq' ) );
+		add_shortcode( 'nirdeshio_popular_docs', array( $this, 'render_popular_docs' ) );
+		add_shortcode( 'nirdeshio_glossary', array( $this, 'render_glossary' ) );
 	}
 
 	// -------------------------------------------------------------------------
-	// [doczur_glossary]
+	// [nirdeshio_glossary]
 	// -------------------------------------------------------------------------
 
 	/**
@@ -64,7 +64,7 @@ final class Shortcode implements Service {
 				'show_aliases' => 'true',
 			),
 			is_array( $atts ) ? $atts : array(),
-			'doczur_glossary'
+			'nirdeshio_glossary'
 		);
 
 		return Renderers::glossary(
@@ -74,7 +74,7 @@ final class Shortcode implements Service {
 	}
 
 	// -------------------------------------------------------------------------
-	// [doczur_faq]
+	// [nirdeshio_faq]
 	// -------------------------------------------------------------------------
 
 	/**
@@ -83,10 +83,10 @@ final class Shortcode implements Service {
 	 * Each line of the enclosed content is one entry, written as
 	 * `Question | Answer`:
 	 *
-	 *     [doczur_faq heading="Billing"]
+	 *     [nirdeshio_faq heading="Billing"]
 	 *     Can I cancel? | Yes, any time from your account page.
 	 *     Do you offer refunds? | Within 30 days of purchase.
-	 *     [/doczur_faq]
+	 *     [/nirdeshio_faq]
 	 *
 	 * @param array<string, string>|string $atts    Raw shortcode attributes.
 	 * @param string|null                  $content Enclosed content.
@@ -99,7 +99,7 @@ final class Shortcode implements Service {
 				'schema'  => 'true',
 			),
 			is_array( $atts ) ? $atts : array(),
-			'doczur_faq'
+			'nirdeshio_faq'
 		);
 
 		$items = array();
@@ -128,7 +128,7 @@ final class Shortcode implements Service {
 	}
 
 	// -------------------------------------------------------------------------
-	// [doczur_popular_docs]
+	// [nirdeshio_popular_docs]
 	// -------------------------------------------------------------------------
 
 	/**
@@ -146,7 +146,7 @@ final class Shortcode implements Service {
 				'show_views' => 'true',
 			),
 			is_array( $atts ) ? $atts : array(),
-			'doczur_popular_docs'
+			'nirdeshio_popular_docs'
 		);
 
 		return Renderers::article_ranking(
@@ -158,7 +158,7 @@ final class Shortcode implements Service {
 	}
 
 	// -------------------------------------------------------------------------
-	// [doczur_search]
+	// [nirdeshio_search]
 	// -------------------------------------------------------------------------
 
 	/**
@@ -175,7 +175,7 @@ final class Shortcode implements Service {
 				'button_text' => '',
 			),
 			is_array( $atts ) ? $atts : array(),
-			'doczur_search'
+			'nirdeshio_search'
 		);
 
 		$kb_id       = absint( $atts['kb_id'] );
@@ -193,7 +193,7 @@ final class Shortcode implements Service {
 		$kb_url = $this->get_kb_url( $kb_id );
 
 		if ( ! $kb_url ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the doczur_search shortcode.', 'itsmanzur-docs' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the nirdeshio_search shortcode.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		$this->maybe_enqueue_frontend_assets();
@@ -225,7 +225,7 @@ final class Shortcode implements Service {
 	}
 
 	// -------------------------------------------------------------------------
-	// [doczur_docs_list]
+	// [nirdeshio_docs_list]
 	// -------------------------------------------------------------------------
 
 	/**
@@ -242,7 +242,7 @@ final class Shortcode implements Service {
 				'show_section' => 'true',
 			),
 			is_array( $atts ) ? $atts : array(),
-			'doczur_docs_list'
+			'nirdeshio_docs_list'
 		);
 
 		$kb_id        = absint( $atts['kb_id'] );
@@ -250,7 +250,7 @@ final class Shortcode implements Service {
 		$show_section = in_array( strtolower( (string) $atts['show_section'] ), array( 'true', '1', 'yes' ), true );
 
 		if ( ! $kb_id ) {
-			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the doczur_docs_list shortcode.', 'itsmanzur-docs' ) . '</p>';
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: please set a valid kb_id for the nirdeshio_docs_list shortcode.', 'itsmanzur-docs' ) . '</p>';
 		}
 
 		$kb    = get_post( $kb_id );

@@ -6,6 +6,13 @@ export interface ProjectMeta {
 	_itsdz_kb_doc_type: string;
 	_itsdz_kb_slug_base: string;
 	_itsdz_kb_layout_mode: 'canvas' | 'theme';
+	_itsdz_kb_nav_style: 'accordion' | 'rail' | 'line' | 'tree';
+	_itsdz_kb_show_toc: '0' | '1';
+	_itsdz_kb_show_feedback: '0' | '1';
+	_itsdz_kb_show_related: '0' | '1';
+	_itsdz_kb_show_print: '0' | '1';
+	_itsdz_kb_custom_css: string;
+	_itsdz_kb_header_links: string;
 	_itsdz_kb_active_version: number;
 }
 
@@ -43,6 +50,15 @@ export interface Section {
 	name: string;
 	parent: number;
 	count: number;
+	description?: string;
+	meta?: {
+		_itsdz_section_icon?: string;
+	};
+}
+
+export interface HeaderLink {
+	label: string;
+	url: string;
 }
 
 export interface AdminConfiguration {
@@ -56,8 +72,29 @@ export interface AdminConfiguration {
 	};
 }
 
+interface WpMediaAttachment {
+	id: number;
+	url: string;
+	sizes?: {
+		thumbnail?: { url: string };
+	};
+}
+
+interface WpMediaFrame {
+	on( event: 'select', callback: () => void ): void;
+	open(): void;
+	state(): {
+		get: ( key: 'selection' ) => {
+			first: () => { toJSON: () => WpMediaAttachment };
+		};
+	};
+}
+
 declare global {
 	interface Window {
 		itsdzAdmin: AdminConfiguration;
+		wp?: {
+			media: ( args: Record< string, unknown > ) => WpMediaFrame;
+		};
 	}
 }

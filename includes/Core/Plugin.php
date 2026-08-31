@@ -10,6 +10,7 @@ namespace ItsDZ\Doczur\Core;
 use ItsDZ\Doczur\Admin\Admin_Menu;
 use ItsDZ\Doczur\Admin\Editor_Panel_Assets;
 use ItsDZ\Doczur\Admin\Assets as Admin_Assets;
+use ItsDZ\Doczur\Admin\Dashboard_Widget;
 use ItsDZ\Doczur\Analytics\View_Tracker;
 use ItsDZ\Doczur\Core\Migrations\Migrator;
 use ItsDZ\Doczur\Frontend\Assets as Frontend_Assets;
@@ -132,6 +133,7 @@ final class Plugin {
 			new Admin_Menu(),
 			new Admin_Assets(),
 			new Editor_Panel_Assets(),
+			new Dashboard_Widget(),
 			new Template_Loader(),
 			new Shortcode(),
 			new Frontend_Assets(),

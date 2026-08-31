@@ -17,6 +17,12 @@ if ( root ) {
 	initReadingProgress( root );
 	initSearchHighlight( root );
 
+	root.querySelectorAll< HTMLButtonElement >( '[data-itsdz-print]' ).forEach(
+		( button ) => {
+			button.addEventListener( 'click', () => window.print() );
+		}
+	);
+
 	let searchController: Promise< { open: () => void } > | null = null;
 	const openSearch = () => {
 		searchController ??= import( './search' ).then( ( module ) =>
@@ -155,23 +161,62 @@ function initSearchHighlight( container: HTMLElement ) {
 
 	const walk = ( node: Node ) => {
 		if ( node.nodeType === Node.TEXT_NODE ) {
-			const text = node.textContent || '';
-			if ( pattern.test( text ) ) {
-				const span = document.createElement( 'span' );
-				span.innerHTML = text.replace(
-					pattern,
-					'<mark class="itsdz-highlight">$1</mark>'
-				);
-				node.parentNode?.replaceChild( span, node );
-			}
-			pattern.lastIndex = 0;
-		} else if (
-			node.nodeType === Node.ELEMENT_NODE &&
-			! ( node as Element ).matches( 'script, style, pre, code' )
-		) {
-			Array.from( node.childNodes ).forEach( walk );
+			highlightTextNode( node as Text, pattern );
+			return;
 		}
+
+		if ( node.nodeType !== Node.ELEMENT_NODE ) {
+			return;
+		}
+
+		const element = node as Element;
+
+		if ( element.matches( 'script, style, pre, code, textarea, mark' ) ) {
+			return;
+		}
+
+		Array.from( node.childNodes ).forEach( walk );
 	};
 
 	walk( content );
+}
+
+/**
+ * Wrap regex matches in <mark> elements without reparsing text as HTML.
+ */
+function highlightTextNode( node: Text, pattern: RegExp ) {
+	const text = node.nodeValue ?? '';
+	pattern.lastIndex = 0;
+
+	const matches = [ ...text.matchAll( pattern ) ];
+
+	if ( ! matches.length ) {
+		return;
+	}
+
+	const fragment = document.createDocumentFragment();
+	let lastIndex = 0;
+
+	for ( const match of matches ) {
+		const start = match.index ?? 0;
+		const matched = match[ 0 ];
+
+		if ( start > lastIndex ) {
+			fragment.appendChild(
+				document.createTextNode( text.slice( lastIndex, start ) )
+			);
+		}
+
+		const mark = document.createElement( 'mark' );
+		mark.className = 'itsdz-highlight';
+		mark.textContent = matched;
+		fragment.appendChild( mark );
+		lastIndex = start + matched.length;
+	}
+
+	if ( lastIndex < text.length ) {
+		fragment.appendChild( document.createTextNode( text.slice( lastIndex ) ) );
+	}
+
+	node.parentNode?.replaceChild( fragment, node );
 }
