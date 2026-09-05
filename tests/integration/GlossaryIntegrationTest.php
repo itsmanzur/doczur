@@ -137,7 +137,7 @@ final class GlossaryIntegrationTest extends WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_shortcode_is_registered() {
-		$this->assertTrue( shortcode_exists( 'doczur_glossary' ) );
+		$this->assertTrue( shortcode_exists( 'nirdeshio_glossary' ) );
 	}
 
 	/**

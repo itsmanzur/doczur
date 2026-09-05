@@ -1413,6 +1413,7 @@
 
 .itsdz-guide-model,
 .itsdz-guide-lessons,
+.itsdz-guide-shortcodes,
 .itsdz-guide-faq {
 	padding-top: 54px;
 }
@@ -1637,6 +1638,40 @@
 
 .itsdz-feature-card p {
 	margin: 0;
+	color: var(--itsdz-muted);
+	font-size: 12.5px;
+	line-height: 1.55;
+}
+
+.itsdz-shortcode-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: 10px;
+}
+
+.itsdz-shortcode-list li {
+	display: grid;
+	gap: 6px;
+	padding: 16px 18px;
+	background: #fff;
+	border: 1px solid var(--itsdz-border);
+	border-radius: 12px;
+}
+
+.itsdz-shortcode-list code {
+	display: block;
+	padding: 8px 10px;
+	overflow-x: auto;
+	color: #0f172a;
+	font-size: 12.5px;
+	line-height: 1.5;
+	background: #f8fafc;
+	border-radius: 8px;
+}
+
+.itsdz-shortcode-list span {
 	color: var(--itsdz-muted);
 	font-size: 12.5px;
 	line-height: 1.55;
