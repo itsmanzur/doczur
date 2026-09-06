@@ -8,4 +8,8 @@ module.exports = {
 		'editor-panel': './assets/editor-panel-src/index.tsx',
 		frontend: './assets/frontend-src/index.ts',
 	},
+	output: {
+		...defaultConfig.output,
+		chunkFilename: '[name].js',
+	},
 };

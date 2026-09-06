@@ -62,6 +62,7 @@ export interface HeaderLink {
 }
 
 export interface AdminConfiguration {
+	pluginUrl: string;
 	pluginVersion: string;
 	restNonce: string;
 	restRoot: string;

@@ -3,7 +3,7 @@ Contributors: itsmanzur
 Tags: documentation, knowledge base, docs, help center, product docs
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,7 @@ Only published articles in published projects are ever included. Both routes are
 
 = Shortcodes =
 
+* `[nirdeshio_docs]` — published documentation list (optional `kb_id`)
 * `[nirdeshio_search kb_id="123"]` — search form for a specific KB
 * `[nirdeshio_docs_list kb_id="123" limit="5" show_section="true"]` — article list
 * `[nirdeshio_popular_docs kb_id="123" limit="5" order="popular"]` — most viewed (or `order="recent"`) articles
@@ -110,6 +111,8 @@ Glossary auto-highlighting never touches links, headings or code samples, and ca
 
 Nirdeshio does not send any data to external servers. The "Was this helpful?" feedback and view counts are stored locally in your WordPress database. IP addresses are stored as irreversible hashes (SHA-256) for rate-limiting purposes only.
 
+Optional setup analytics are **off by default**. If you check “Help improve Nirdeshio by sharing anonymous setup analytics” during the onboarding wizard, Nirdeshio stores only a step number and a timestamp in your local database so you can see setup drop-off in Settings. No personal data, IP address, email, or documentation content is recorded, and nothing is sent to Nirdeshio or any other remote server.
+
 When uninstalling, data is deleted only if you opt in to data removal in the plugin settings. By default, your content and settings are preserved.
 
 = Source Code =
@@ -133,7 +136,7 @@ Source code and build instructions: https://github.com/itsmanzur/itsmanzur-docs/
 **After activation**
 
 1. Go to **Nirdeshio** in your admin sidebar.
-2. The Setup Wizard launches automatically — follow the 5 steps to publish your first documentation portal.
+2. The setup wizard offers a two-minute guided path. You can skip it at any time — it is never required.
 
 == Frequently Asked Questions ==
 
@@ -156,7 +159,7 @@ Nirdeshio uses a dedicated search index table with MySQL **FULLTEXT** indexing. 
 
 = Can I use Nirdeshio with the Classic Editor? =
 
-Yes. Both `[nirdeshio_search]` and `[nirdeshio_docs_list]` shortcodes work in any editor, widget, or page builder that supports shortcodes.
+Yes. `[nirdeshio_docs]`, `[nirdeshio_search]`, and `[nirdeshio_docs_list]` shortcodes work in any editor, widget, or page builder that supports shortcodes.
 
 = Is Nirdeshio compatible with page caching plugins? =
 
@@ -188,6 +191,14 @@ All data is stored in your WordPress database. Nirdeshio creates four custom tab
 6. Dark mode — automatically respects the visitor's system preference with a manual override toggle.
 
 == Changelog ==
+
+= 1.1.1 =
+**New: Onboarding wizard**
+
+* Added a skippable first-run setup (welcome, first section, navigation style, shortcode placement). Skip is always available; the wizard never blocks the dashboard.
+* Added `[nirdeshio_docs]` to embed a published documentation list, plus an optional “auto-create a page” action during setup.
+* Settings includes **Re-run setup wizard**, which resets only the wizard UI — existing sections and articles stay.
+* Optional, local-only setup analytics (step number + timestamp) when you explicitly opt in. Nothing is sent off-site.
 
 = 1.1.0 =
 **New: Sections manager**
@@ -282,6 +293,9 @@ All data is stored in your WordPress database. Nirdeshio creates four custom tab
 * REST API (`itsdz/v1`) for admin and public endpoints.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Adds a skippable first-run setup wizard, the [nirdeshio_docs] shortcode, and an optional local-only setup analytics toggle. Existing documentation is not changed.
 
 = 1.1.0 =
 Shortcodes were renamed ([doczur_search] etc. → [nirdeshio_search] etc.) with no backward-compatible alias. If you used any Nirdeshio shortcode in a post or page, update it after upgrading.

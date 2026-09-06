@@ -90,6 +90,7 @@ final class Assets implements Service {
 		$current_user = wp_get_current_user();
 
 		return array(
+			'pluginUrl'     => ITSDZ_PLUGIN_URL,
 			'pluginVersion' => ITSDZ_VERSION,
 			'restNonce'     => wp_create_nonce( 'wp_rest' ),
 			'restRoot'      => esc_url_raw( rest_url() ),

@@ -11,6 +11,7 @@ use ItsDZ\Doczur\Admin\Admin_Menu;
 use ItsDZ\Doczur\Admin\Editor_Panel_Assets;
 use ItsDZ\Doczur\Admin\Assets as Admin_Assets;
 use ItsDZ\Doczur\Admin\Dashboard_Widget;
+use ItsDZ\Doczur\Admin\Onboarding;
 use ItsDZ\Doczur\Analytics\View_Tracker;
 use ItsDZ\Doczur\Core\Migrations\Migrator;
 use ItsDZ\Doczur\Frontend\Assets as Frontend_Assets;
@@ -27,6 +28,7 @@ use ItsDZ\Doczur\REST\Analytics_Controller;
 use ItsDZ\Doczur\REST\Article_Controller;
 use ItsDZ\Doczur\REST\Feedback_Controller;
 use ItsDZ\Doczur\REST\KB_Controller;
+use ItsDZ\Doczur\REST\Onboarding_Controller;
 use ItsDZ\Doczur\REST\Sample_Data_Controller;
 use ItsDZ\Doczur\REST\Search_Controller;
 use ItsDZ\Doczur\REST\Settings_Controller;
@@ -130,7 +132,9 @@ final class Plugin {
 			new Analytics_Controller(),
 			new Sample_Data_Controller(),
 			new Settings_Controller(),
+			new Onboarding_Controller(),
 			new Admin_Menu(),
+			new Onboarding(),
 			new Admin_Assets(),
 			new Editor_Panel_Assets(),
 			new Dashboard_Widget(),

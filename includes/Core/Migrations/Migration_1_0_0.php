@@ -64,6 +64,8 @@ final class Migration_1_0_0 {
 				KEY kb_id (kb_id),
 				FULLTEXT KEY search_ft (title, content_plain, keywords)
 			) {$charset_collate};",
+			// Opt-in onboarding events reuse this table (query='onboarding', kb_id=0).
+			// Future search reports must exclude those rows.
 			"CREATE TABLE {$tables['search_log']} (
 				id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 				kb_id bigint(20) unsigned NOT NULL,
