@@ -1,6 +1,6 @@
 import { Button, Notice, Spinner } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useCallback, useEffect, useState } from '@wordpress/element';
+import { lazy, Suspense, useCallback, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { api } from '../api';
 import { store } from '../store';
@@ -11,6 +11,15 @@ import { ImportExport } from '../components/ImportExport';
 import { Sections } from '../components/Sections';
 import { Settings } from '../components/Settings';
 import { SetupWizard } from '../components/SetupWizard';
+import { getOnboardingStatus, completeOnboardingStep } from '../components/onboarding/onboardingApi';
+
+const OnboardingWizard = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "onboarding" */
+			'../components/onboarding/OnboardingWizard'
+		)
+);
 
 type View =
 	| 'docs'
@@ -19,7 +28,8 @@ type View =
 	| 'settings'
 	| 'transfer'
 	| 'guide'
-	| 'wizard';
+	| 'wizard'
+	| 'onboarding';
 
 const viewFromHash = (): View => {
 	const hash = window.location.hash.replace( '#/', '' );
@@ -31,6 +41,7 @@ const viewFromHash = (): View => {
 		'transfer',
 		'guide',
 		'wizard',
+		'onboarding',
 	].includes( hash )
 		? ( hash as View )
 		: 'docs';
@@ -38,6 +49,7 @@ const viewFromHash = (): View => {
 
 export function App() {
 	const [ view, setView ] = useState< View >( viewFromHash );
+	const [ onboardingOpen, setOnboardingOpen ] = useState( false );
 	const { projects, articles, loading, notice, selectedProjectId } =
 		useSelect(
 			( select ) => ( {
@@ -64,8 +76,15 @@ export function App() {
 	const loadWorkspace = useCallback( async () => {
 		setLoading( true );
 		try {
-			const loadedProjects = await api.listProjects();
+			const [ loadedProjects, onboarding ] = await Promise.all( [
+				api.listProjects(),
+				getOnboardingStatus().catch( () => null ),
+			] );
 			setProjects( loadedProjects );
+
+			if ( onboarding?.should_show || 'onboarding' === viewFromHash() ) {
+				setOnboardingOpen( true );
+			}
 
 			if ( loadedProjects.length ) {
 				const projectId = selectedProjectId ?? loadedProjects[ 0 ].id;
@@ -76,8 +95,6 @@ export function App() {
 				] );
 				setArticles( loadedArticles );
 				setSections( sections );
-			} else {
-				setView( 'wizard' );
 			}
 		} catch ( error ) {
 			setNotice( {
@@ -108,7 +125,13 @@ export function App() {
 	}, [ loadWorkspace ] );
 
 	useEffect( () => {
-		const handleHashChange = () => setView( viewFromHash() );
+		const handleHashChange = () => {
+			const next = viewFromHash();
+			setView( next );
+			if ( 'onboarding' === next ) {
+				setOnboardingOpen( true );
+			}
+		};
 		window.addEventListener( 'hashchange', handleHashChange );
 		return () =>
 			window.removeEventListener( 'hashchange', handleHashChange );
@@ -117,6 +140,12 @@ export function App() {
 	const navigate = ( nextView: View ) => {
 		window.location.hash = `/${ nextView }`;
 		setView( nextView );
+	};
+
+	const closeOnboarding = async () => {
+		setOnboardingOpen( false );
+		await loadWorkspace();
+		navigate( 'docs' );
 	};
 
 	if ( loading ) {
@@ -128,7 +157,25 @@ export function App() {
 		);
 	}
 
-	if ( ! projects.length || view === 'wizard' ) {
+	if ( onboardingOpen || view === 'onboarding' ) {
+		return (
+			<Suspense
+				fallback={
+					<div className="itsdz-loading" role="status">
+						<Spinner />
+						<span>{ __( 'Loading setup…', 'itsmanzur-docs' ) }</span>
+					</div>
+				}
+			>
+				<OnboardingWizard
+					onComplete={ closeOnboarding }
+					onSkip={ closeOnboarding }
+				/>
+			</Suspense>
+		);
+	}
+
+	if ( view === 'wizard' ) {
 		return (
 			<SetupWizard
 				onComplete={ async () => {
@@ -139,6 +186,40 @@ export function App() {
 					projects.length ? () => navigate( 'docs' ) : undefined
 				}
 			/>
+		);
+	}
+
+	if ( ! projects.length ) {
+		return (
+			<div className="itsdz-wizard">
+				<div className="itsdz-wizard-heading">
+					<h1>{ __( 'Nirdeshio', 'itsmanzur-docs' ) }</h1>
+					<p>
+						{ __(
+							'Create a documentation project when you are ready. Setup is optional and can be skipped.',
+							'itsmanzur-docs'
+						) }
+					</p>
+				</div>
+				<div className="itsdz-onboarding-actions">
+					<Button
+						variant="primary"
+						onClick={ () => {
+							void completeOnboardingStep( { restart: true } ).then(
+								() => {
+									setOnboardingOpen( true );
+									navigate( 'onboarding' );
+								}
+							);
+						} }
+					>
+						{ __( 'Open setup wizard', 'itsmanzur-docs' ) }
+					</Button>
+					<Button variant="secondary" onClick={ () => navigate( 'wizard' ) }>
+						{ __( 'Create a project', 'itsmanzur-docs' ) }
+					</Button>
+				</div>
+			</div>
 		);
 	}
 
@@ -250,7 +331,14 @@ export function App() {
 					{ view === 'sections' && <Sections /> }
 					{ view === 'glossary' && <Glossary /> }
 					{ view === 'settings' && (
-						<Settings project={ selectedProject } />
+						<Settings
+							project={ selectedProject }
+							onRerunWizard={ async () => {
+								await completeOnboardingStep( { restart: true } );
+								setOnboardingOpen( true );
+								navigate( 'onboarding' );
+							} }
+						/>
 					) }
 					{ view === 'transfer' && (
 						<ImportExport project={ selectedProject } />

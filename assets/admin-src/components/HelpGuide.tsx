@@ -611,6 +611,15 @@ export function HelpGuide( { project, articles, onNavigate }: Props ) {
 				</div>
 				<ul className="itsdz-shortcode-list">
 					<li>
+						<code>{ `[nirdeshio_docs]` }</code>
+						<span>
+							{ __(
+								'Published documentation list for the first public project. Add kb_id to target a specific project.',
+								'itsmanzur-docs'
+							) }
+						</span>
+					</li>
+					<li>
 						<code>{ `[nirdeshio_search kb_id="${ project.id }"]` }</code>
 						<span>
 							{ __( 'Search form for this documentation project.', 'itsmanzur-docs' ) }

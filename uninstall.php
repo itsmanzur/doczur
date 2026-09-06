@@ -22,6 +22,8 @@ delete_option( 'itsdz_capabilities_version' );
 delete_option( 'itsdz_kb_slug_base' );
 delete_option( 'itsdz_rewrite_version' );
 delete_option( 'itsdz_rewrite_flush' );
+delete_option( 'itsdz_onboarding' );
+delete_metadata( 'user', 0, 'itsdz_onboarding_notice_dismisses', '', true );
 delete_transient( 'itsdz_migration_check' );
 
 global $wpdb;

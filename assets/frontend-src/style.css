@@ -1615,7 +1615,23 @@ body:not(.itsdz-canvas-page) .itsdz-header-inner {
 }
 
 .itsdz-docs-list-block-more:hover {
+	color: var(--itsdz-brand, #2563eb);
 	text-decoration: underline;
+}
+
+.itsdz-docs-embed {
+	display: grid;
+	gap: 20px;
+}
+
+.itsdz-docs-embed-title {
+	margin: 0;
+	font-size: 1.35rem;
+}
+
+.itsdz-docs-embed-section-title {
+	margin: 0 0 8px;
+	font-size: 1rem;
 }
 
 .itsdz-block-notice {

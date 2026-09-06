@@ -276,4 +276,37 @@ final class DraftLeakTest extends WP_UnitTestCase {
 
 		$this->assertSame( 0, $rows, 'An article inside an unpublished project was indexed.' );
 	}
+
+	/**
+	 * The public docs shortcode never prints draft or private article titles.
+	 *
+	 * @return void
+	 */
+	public function test_nirdeshio_docs_shortcode_excludes_unpublished_articles() {
+		$output = do_shortcode( '[nirdeshio_docs kb_id="' . $this->kb_id . '"]' );
+
+		$this->assertStringContainsString( 'Zephyr publish article', $output );
+		$this->assertStringNotContainsString( 'Zephyr draft article', $output );
+		$this->assertStringNotContainsString( 'Zephyr private article', $output );
+		$this->assertStringNotContainsString( 'Zephyr pending article', $output );
+	}
+
+	/**
+	 * An unpublished project is treated as missing, so its title cannot leak.
+	 *
+	 * @return void
+	 */
+	public function test_nirdeshio_docs_shortcode_hides_unpublished_projects() {
+		$draft_kb_id = self::factory()->post->create(
+			array(
+				'post_status' => 'draft',
+				'post_title'  => 'Secret unpublished handbook',
+				'post_type'   => KB_Post_Type::POST_TYPE,
+			)
+		);
+
+		$output = do_shortcode( '[nirdeshio_docs kb_id="' . $draft_kb_id . '"]' );
+
+		$this->assertStringNotContainsString( 'Secret unpublished handbook', $output );
+	}
 }

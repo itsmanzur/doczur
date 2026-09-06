@@ -2,11 +2,12 @@
 /**
  * Classic shortcode registration.
  *
- * Registers two shortcodes that replicate the Gutenberg block output so
+ * Registers shortcodes that replicate the Gutenberg block output so
  * the same features are available in Classic Editor, page builders, and
  * widget areas.
  *
  * Shortcodes:
+ *   [nirdeshio_docs kb_id="123"]
  *   [nirdeshio_search kb_id="123" placeholder="..." button_text="..."]
  *   [nirdeshio_docs_list kb_id="123" limit="5" show_section="true"]
  *
@@ -40,6 +41,7 @@ final class Shortcode implements Service {
 	 * @return void
 	 */
 	public function add_shortcodes() {
+		add_shortcode( 'nirdeshio_docs', array( $this, 'render_docs' ) );
 		add_shortcode( 'nirdeshio_search', array( $this, 'render_search' ) );
 		add_shortcode( 'nirdeshio_docs_list', array( $this, 'render_docs_list' ) );
 		add_shortcode( 'nirdeshio_faq', array( $this, 'render_faq' ) );
@@ -225,6 +227,70 @@ final class Shortcode implements Service {
 	}
 
 	// -------------------------------------------------------------------------
+	// [nirdeshio_docs]
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render a published documentation landing list for any page.
+	 *
+	 * Draft, private, and pending articles are never included. An unpublished
+	 * project is treated as missing so its title cannot leak.
+	 *
+	 * @param array<string, string>|string $atts Raw shortcode attributes.
+	 * @return string HTML output.
+	 */
+	public function render_docs( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'kb_id' => '0',
+			),
+			is_array( $atts ) ? $atts : array(),
+			'nirdeshio_docs'
+		);
+
+		$kb = $this->resolve_published_kb( absint( $atts['kb_id'] ) );
+
+		if ( ! $kb ) {
+			return '<p class="itsdz-block-notice">' . esc_html__( 'Nirdeshio: no published documentation is available.', 'itsmanzur-docs' ) . '</p>';
+		}
+
+		$groups = Documentation::get_groups( $kb->ID );
+
+		if ( empty( $groups ) ) {
+			return '<p class="itsdz-block-notice">' . esc_html__( 'No published articles found.', 'itsmanzur-docs' ) . '</p>';
+		}
+
+		$this->maybe_enqueue_frontend_assets();
+
+		ob_start();
+		?>
+		<div class="itsdz-docs-embed">
+			<h2 class="itsdz-docs-embed-title"><?php echo esc_html( get_the_title( $kb ) ); ?></h2>
+			<?php foreach ( $groups as $group ) : ?>
+				<?php
+				$section_name = $group['term'] instanceof \WP_Term
+					? $group['term']->name
+					: __( 'Articles', 'itsmanzur-docs' );
+				?>
+				<section class="itsdz-docs-embed-section">
+					<h3 class="itsdz-docs-embed-section-title"><?php echo esc_html( $section_name ); ?></h3>
+					<ul class="itsdz-docs-list-block-list">
+						<?php foreach ( $group['articles'] as $article ) : ?>
+							<li class="itsdz-docs-list-block-item">
+								<a href="<?php echo esc_url( (string) get_permalink( $article ) ); ?>">
+									<?php echo esc_html( get_the_title( $article ) ); ?>
+								</a>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</section>
+			<?php endforeach; ?>
+		</div>
+		<?php
+		return (string) ob_get_clean();
+	}
+
+	// -------------------------------------------------------------------------
 	// [nirdeshio_docs_list]
 	// -------------------------------------------------------------------------
 
@@ -309,6 +375,30 @@ final class Shortcode implements Service {
 	// -------------------------------------------------------------------------
 	// Shared helpers
 	// -------------------------------------------------------------------------
+
+	/**
+	 * Resolve a published project, or the first published project when kb_id is 0.
+	 *
+	 * @param int $kb_id Requested project ID, or 0 for the default.
+	 * @return \WP_Post|null
+	 */
+	private function resolve_published_kb( $kb_id ) {
+		if ( $kb_id ) {
+			return Documentation::get_kb( $kb_id );
+		}
+
+		$found = get_posts(
+			array(
+				'numberposts' => 1,
+				'order'       => 'ASC',
+				'orderby'     => 'date',
+				'post_status' => 'publish',
+				'post_type'   => KB_Post_Type::POST_TYPE,
+			)
+		);
+
+		return isset( $found[0] ) && $found[0] instanceof \WP_Post ? $found[0] : null;
+	}
 
 	/**
 	 * Resolve the permalink for a published KB.

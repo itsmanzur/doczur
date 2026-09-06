@@ -14,6 +14,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { api } from '../api';
 import { store } from '../store';
 import type { HeaderLink, Project } from '../types';
+import { getOnboardingStatus } from './onboarding/onboardingApi';
 
 function parseLinks( raw: string | undefined ): HeaderLink[] {
 	try {
@@ -43,7 +44,13 @@ function asFlag( value: string | undefined, fallback = true ): boolean {
 	return fallback;
 }
 
-export function Settings( { project }: { project: Project } ) {
+export function Settings( {
+	project,
+	onRerunWizard,
+}: {
+	project: Project;
+	onRerunWizard: () => Promise< void >;
+} ) {
 	const projects = useSelect(
 		( select ) => select( store ).getProjects(),
 		[]
@@ -99,6 +106,9 @@ export function Settings( { project }: { project: Project } ) {
 	const [ deleteDataSaving, setDeleteDataSaving ] = useState( false );
 	const [ showPoweredBy, setShowPoweredBy ] = useState( false );
 	const [ showPoweredBySaving, setShowPoweredBySaving ] = useState( false );
+	const [ wizardBusy, setWizardBusy ] = useState( false );
+	const [ analyticsOptIn, setAnalyticsOptIn ] = useState( false );
+	const [ dropoff, setDropoff ] = useState< Record< string, number > >( {} );
 
 	useEffect( () => {
 		let cancelled = false;
@@ -117,6 +127,25 @@ export function Settings( { project }: { project: Project } ) {
 			cancelled = true;
 		};
 	}, [ project.id ] );
+
+	useEffect( () => {
+		let cancelled = false;
+
+		getOnboardingStatus()
+			.then( ( result ) => {
+				if ( ! cancelled ) {
+					setAnalyticsOptIn( result.analytics_opt_in );
+					setDropoff( result.dropoff || {} );
+				}
+			} )
+			.catch( () => {
+				// Non-critical: the re-run control still works without drop-off bars.
+			} );
+
+		return () => {
+			cancelled = true;
+		};
+	}, [] );
 
 	useEffect( () => {
 		let cancelled = false;
@@ -780,6 +809,84 @@ export function Settings( { project }: { project: Project } ) {
 								void toggleShowPoweredBy( checked )
 							}
 						/>
+					</CardBody>
+				</Card>
+
+				<Card className="itsdz-settings-card">
+					<CardBody>
+						<div className="itsdz-settings-card-header">
+							<span className="dashicons dashicons-sos" aria-hidden="true" />
+							<h2>{ __( 'Setup wizard', 'itsmanzur-docs' ) }</h2>
+						</div>
+						<p className="itsdz-settings-card-intro">
+							{ __(
+								'Run the first-run wizard again. Your existing sections and articles are not deleted.',
+								'itsmanzur-docs'
+							) }
+						</p>
+						<Button
+							variant="secondary"
+							disabled={ wizardBusy }
+							onClick={ () => {
+								setWizardBusy( true );
+								void onRerunWizard().finally( () =>
+									setWizardBusy( false )
+								);
+							} }
+						>
+							{ wizardBusy && <Spinner /> }{ ' ' }
+							{ __( 'Re-run setup wizard', 'itsmanzur-docs' ) }
+						</Button>
+						{ analyticsOptIn ? (
+							<div className="itsdz-onboarding-dropoff">
+								<p className="itsdz-settings-card-intro">
+									{ __(
+										'Anonymous setup drop-off on this site (step number and timestamp only).',
+										'itsmanzur-docs'
+									) }
+								</p>
+								{ [
+									[ '0', __( 'Skipped', 'itsmanzur-docs' ) ],
+									[ '1', __( 'Welcome', 'itsmanzur-docs' ) ],
+									[ '2', __( 'Section', 'itsmanzur-docs' ) ],
+									[ '3', __( 'Navigation', 'itsmanzur-docs' ) ],
+									[ '4', __( 'Shortcode', 'itsmanzur-docs' ) ],
+									[ '5', __( 'Complete', 'itsmanzur-docs' ) ],
+								].map( ( [ key, label ] ) => {
+									const count = Number( dropoff[ key ] || 0 );
+									const max = Math.max(
+										1,
+										...Object.values( dropoff ).map( ( value ) =>
+											Number( value || 0 )
+										)
+									);
+									return (
+										<div
+											className="itsdz-onboarding-dropoff-row"
+											key={ key }
+										>
+											<span>{ label }</span>
+											<span
+												className="itsdz-onboarding-dropoff-bar"
+												style={ {
+													width: `${ Math.round(
+														( count / max ) * 100
+													) }%`,
+												} }
+											/>
+											<strong>{ count }</strong>
+										</div>
+									);
+								} ) }
+							</div>
+						) : (
+							<p className="itsdz-settings-card-intro">
+								{ __(
+									'Setup analytics stay off unless you opt in during the wizard. Nothing is sent off-site.',
+									'itsmanzur-docs'
+								) }
+							</p>
+						) }
 					</CardBody>
 				</Card>
 

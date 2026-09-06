@@ -2,13 +2,3356 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Nirdeshio 1.0.0\n"
+"Project-Id-Version: Nirdeshio 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/itsmanzur-docs\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-08T00:00:00+00:00\n"
+"POT-Creation-Date: 2026-09-05T03:03:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: manual\n"
+"X-Generator: tools/make-pot.php\n"
 "X-Domain: itsmanzur-docs\n"
-"Language: en\n"
+
+#: templates/article.php:115
+msgid "%d minute read"
+msgid_plural "%d minutes read"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/kb.php:47
+msgid "%d published article"
+msgid_plural "%d published articles"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/frontend-src/search.ts:102
+msgid "%d results found."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:116
+msgid "%d views"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:60
+msgid "%dd ago"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:53
+msgid "%dh ago"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:45
+msgid "%dm ago"
+msgstr ""
+
+#: includes/Frontend/Renderers.php:302
+msgid "%s view"
+msgid_plural "%s views"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/admin-src/components/DocsManager.tsx:312
+msgid "(Copy)"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:229
+msgid "(no definition yet)"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:98
+#: assets/editor-panel-src/hooks.ts:48
+msgid "(untitled)"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:139
+msgid "+ %d more"
+msgstr ""
+
+#. %d: number of additional articles.
+#: templates/kb.php:91
+msgid "+ %d more articles"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:246
+msgid "/llms-full.txt adds the complete text of every published article."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:147
+msgid "A documentation search box renders here."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:702
+msgid "A draft is private while you work on it. A published article can be read and searched by visitors."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:399
+msgid "A folder that groups similar answers, such as Getting Started."
+msgstr ""
+
+#. %d: maximum number of documentation projects allowed.
+#: includes/REST/KB_Controller.php:234
+msgid "A maximum of %d documentation project is allowed."
+msgid_plural "A maximum of %d documentation projects are allowed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/admin-src/components/Glossary.tsx:175
+msgid "A secret string used to authenticate requests."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:560
+msgid "A thin gradient bar at the top of the page shows visitors how far through an article they have scrolled."
+msgstr ""
+
+#: includes/REST/Onboarding_Controller.php:140
+msgid "A wizard step number is required."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:178
+msgid "ALTERNATIVE SPELLINGS"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:166
+msgid "API key"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:181
+msgid "API keys, api-key"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:13
+#: assets/admin-src/components/Settings.tsx:627
+msgid "Accordion"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:579
+msgid "Active Theme Integration"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:279
+msgid "Add FAQ structured data"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:44
+#: includes/PostTypes/KB_Post_Type.php:136
+msgid "Add New"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:45
+msgid "Add New Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:137
+msgid "Add New Documentation Project"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:52
+msgid "Add New Documentation Tag"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:99
+msgid "Add New Glossary Term"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:133
+msgid "Add New Section"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:158
+msgid "Add a term"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:158
+msgid "Add alternative spellings so plurals and abbreviations match too."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:748
+msgid "Add link"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:55
+msgid "Add or remove documentation tags"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:327
+msgid "Add question"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:183
+#: assets/admin-src/components/Sections.tsx:211
+#: assets/admin-src/components/SetupWizard.tsx:338
+msgid "Add section"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:197
+msgid "Add term"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:130
+msgid "Add the \"Nirdeshio Callout\" block for coloured notes, tips, warnings and cautions."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:152
+msgid "Add the words your product uses to the glossary. The first time each term appears in an article it gets a dotted underline, and the definition shows on hover or keyboard focus. Links, headings and code samples are never touched."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:179
+msgid "Add your project name, URL, brand color, color mode, and template. You can use the clean standalone canvas or keep your WordPress theme around the content."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:268
+msgid "Added %1$d sample articles across %2$d sections."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:316
+msgid "Agency"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:605
+msgid "All"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:49
+msgid "All Documentation Articles"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:141
+msgid "All Documentation Projects"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:49
+msgid "All Documentation Tags"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:96
+msgid "All Glossary Terms"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:128
+msgid "All Sections"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:213
+msgid "All terms"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:652
+msgid "Alphabetical glossary of every defined term."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:232
+msgid "Also:"
+msgstr ""
+
+#. %s: comma-separated list of alternative spellings.
+#: includes/Frontend/Renderers.php:205
+msgid "Also: %s"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:537
+msgid "Always clean light theme"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:546
+msgid "Always sleek dark theme"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:335
+msgid "An article belongs to exactly one section. Reach for tags when you want it to appear in more than one place."
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:315
+msgid "Analytics"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:843
+msgid "Anonymous setup drop-off on this site (step number and timestamp only)."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:305
+msgid "Answer"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:601
+msgid "Anywhere on your site"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:516
+msgid "Appearance & Color Mode"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:528
+msgid "Are you sure you want to delete selected articles?"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:496
+msgid "Are you sure you want to delete this article?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:406
+msgid "Article"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:519
+msgid "Article Tags"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:657
+msgid "Article chrome"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:120
+msgid "Article content is written in the WordPress block editor"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:281
+msgid "Article creation failed."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:508
+msgid "Article deleted."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:327
+msgid "Article duplication failed."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:164
+msgid "Article list settings"
+msgstr ""
+
+#: templates/partials/navigation.php:24
+msgid "Article navigation"
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:157
+msgid "Article post ID (single-article response only)."
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:129
+msgid "Article post ID to fetch views for."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:316
+msgid "Article tags & versions"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:70
+msgid "Article: one clear answer to one customer question."
+msgstr ""
+
+#: includes/Frontend/Shortcode.php:273
+msgid "Articles"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:216
+msgid "Articles left unreviewed for 90 days show a \"Needs review\" badge."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:520
+msgid "Assign tags to articles from the editor. Tags group related articles and display as clickable pills on the frontend."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:42
+msgid "At least one article published"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:68
+msgid "Auto-create a page with this shortcode"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:120
+#: assets/admin-src/components/onboarding/SectionStep.tsx:99
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:90
+#: assets/admin-src/components/SetupWizard.tsx:410
+msgid "Back"
+msgstr ""
+
+#. %s: site name
+#: templates/partials/shell-start.php:85
+msgid "Back to %s"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:118
+msgid "Backup your documentation project or restore content from a JSON export."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:414
+msgid "Base URL:"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:231
+msgid "Be readable by AI"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:41
+msgid "Beautiful product docs, without the busywork."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:236
+msgid "Brand color"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:436
+msgid "Branding & Color Accent"
+msgstr ""
+
+#: templates/article.php:44
+#: templates/section.php:29
+msgid "Breadcrumb"
+msgstr ""
+
+#: templates/kb.php:39
+msgid "Browse documentation"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:558
+msgid "Bulk delete failed."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:393
+msgid "Bulk move failed."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:438
+msgid "Bulk status update failed."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:136
+msgid "Button text"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:519
+msgid "COLOR MODE PREFERENCE"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:551
+msgid "Callout Variants"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:378
+msgid "Callout settings"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:305
+msgid "Callouts"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:352
+msgid "Can I move my content in from another plugin?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:682
+msgid "Can visitors search my articles?"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:201
+#: assets/admin-src/components/SetupWizard.tsx:415
+#: assets/editor-panel-src/DoczurPanel.tsx:204
+msgid "Cancel"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:459
+msgid "Change logo"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:170
+msgid "Choose JSON File"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:210
+msgid "Choose Markdown file"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:188
+msgid "Choose a brand color with good text contrast."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:148
+#: assets/blocks-src/index.tsx:192
+#: assets/blocks-src/index.tsx:251
+msgid "Choose a knowledge base in the block sidebar."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:347
+msgid "Choose a starting look"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:56
+msgid "Choose from the most used documentation tags"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:203
+msgid "Choose logo"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:175
+msgid "Choose the look—Nirdeshio handles the layout"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:431
+msgid "Choose what you want to do"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:594
+msgid "Clean"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:694
+msgid "Clear"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:758
+msgid "Clear filters"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:19
+msgid "Clear sections"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:95
+msgid "Click \"+ New\" in the Documentation screen — it opens the editor immediately."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:121
+msgid "Click \"Edit content in Gutenberg\" on any article to open the same visual, block-based editor you already use for posts and pages. Every block you add — paragraphs, images, tables, lists — is fully WYSIWYG."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:294
+msgid "Click \"New article\" and give it a title."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:90
+msgid "Clicking \"+ New\" opens the article straight in the WordPress block editor. Write your steps there, then set the section, tags and version in the \"Nirdeshio\" panel on the right before publishing."
+msgstr ""
+
+#: templates/partials/navigation.php:22
+msgid "Close documentation navigation"
+msgstr ""
+
+#: templates/partials/shell-end.php:35
+msgid "Close search"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:319
+msgid "Code"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:543
+msgid "Code Copy Button"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:628
+msgid "Collapsible sections with filled current page"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:14
+msgid "Collapsible sections, current page filled in."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:182
+msgid "Comma separated. These are highlighted as well as the main term."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:314
+msgid "Community forum"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:612
+msgid "Compact"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:854
+msgid "Complete"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:127
+#: assets/admin-src/components/onboarding/SectionStep.tsx:110
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:97
+#: assets/admin-src/components/SetupWizard.tsx:425
+msgid "Continue"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:296
+msgid "Continue building"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:52
+#: assets/frontend-src/navigation.ts:97
+#: assets/frontend-src/navigation.ts:136
+msgid "Copied"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:53
+msgid "Copy"
+msgstr ""
+
+#: templates/article.php:130
+#: assets/frontend-src/navigation.ts:120
+msgid "Copy as Markdown"
+msgstr ""
+
+#: assets/frontend-src/navigation.ts:102
+#: assets/frontend-src/navigation.ts:138
+msgid "Copy failed"
+msgstr ""
+
+#: templates/article.php:120
+#: assets/frontend-src/navigation.ts:99
+msgid "Copy link"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:208
+msgid "Copy the live documentation URL and add it to your menu."
+msgstr ""
+
+#: templates/article.php:129
+msgid "Copy this article as Markdown, ready to paste into an AI assistant"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:198
+msgid "Create a documentation project when you are ready. Setup is optional and can be skipped."
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:219
+msgid "Create a project"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:82
+msgid "Create a useful article without technical work."
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:213
+msgid "Create version"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:131
+msgid "Create your documentation portal"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:168
+msgid "Create, nest, and icon the folders that appear in the public sidebar."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:331
+msgid "Cross-cutting topics that span several sections."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:758
+msgid "Custom CSS"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:237
+msgid "Customers increasingly ask ChatGPT, Claude or Perplexity instead of searching your site. Nirdeshio publishes a machine-readable map of your documentation automatically, so those answers come from your actual content rather than guesswork."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:379
+msgid "Customize identity, layout, colors, and global display preferences."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:191
+msgid "Customize the design"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:169
+msgid "DEFINITION"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:440
+msgid "DOCUMENTATION LOGO"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:76
+msgid "Danger"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:309
+msgid "Danger — an action that loses data or cannot be undone."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:267
+msgid "Dark"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:545
+msgid "Dark Mode"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:200
+msgid "Dashicon class"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:778
+msgid "Data & Privacy"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:247
+msgid "Default color mode"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:150
+msgid "Define a term once, everywhere."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:142
+msgid "Define the terms your product uses. The first mention of each term in an article is highlighted with its definition."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:688
+#: assets/admin-src/components/Glossary.tsx:251
+#: assets/admin-src/components/Sections.tsx:317
+msgid "Delete"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:211
+msgid "Delete Article"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:782
+msgid "Delete all Nirdeshio data when the plugin is uninstalled"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:212
+msgid "Delete article"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:516
+msgid "Delete failed."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:97
+msgid "Delete this glossary term?"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:124
+msgid "Delete this section? Articles stay published; they just become unsectioned."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:613
+msgid "Dense sidebar layout for large docs"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:299
+msgid "Dismiss"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:671
+msgid "Do I need to know code?"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:104
+msgid "Docs"
+msgstr ""
+
+#: includes/REST/Onboarding_Controller.php:214
+#: templates/partials/navigation.php:21
+#: assets/admin-src/app/App.tsx:253
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:196
+msgid "Documentation"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:378
+msgid "Documentation Settings"
+msgstr ""
+
+#: templates/kb.php:102
+msgid "Documentation is being prepared"
+msgstr ""
+
+#: templates/partials/header-links.php:16
+msgid "Documentation links"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:278
+msgid "Documentation made simple—for you and your customers."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:221
+msgid "Documentation name"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:359
+msgid "Documentation pages return a 404"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:34
+msgid "Documentation portal created"
+msgstr ""
+
+#. %s: Nirdeshio product name.
+#: templates/partials/shell-end.php:21
+msgid "Documentation powered by %s"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:404
+msgid "Documentation project title"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:357
+msgid "Documentation settings saved."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:351
+msgid "Does it work with my theme?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:768
+msgid "Does the frontend show a reading progress bar?"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:39
+msgid "Done"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:143
+msgid "Download JSON Backup"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:130
+msgid "Download a portable JSON backup containing all articles, sections, tags, and structure."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:220
+msgid "Download an export before major content changes."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:139
+#: assets/admin-src/components/DocsManager.tsx:680
+#: assets/admin-src/components/KbOverviewPanel.tsx:21
+#: assets/admin-src/components/KbOverviewPanel.tsx:69
+msgid "Draft"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:298
+msgid "Drag articles in the left-hand tree to change the order they appear in your documentation."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:200
+msgid "Duplicate Article"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:201
+msgid "Duplicate article"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:243
+msgid "Edit"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:154
+msgid "Edit Article"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:47
+msgid "Edit Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:139
+msgid "Edit Documentation Project"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:50
+msgid "Edit Documentation Tag"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:97
+msgid "Edit Glossary Term"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:131
+msgid "Edit Section"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:155
+msgid "Edit article"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:157
+msgid "Edit term"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:315
+msgid "Email"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:75
+msgid "Enter a Dashicons class (e.g. dashicons-book, dashicons-category, dashicons-vault)."
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:93
+msgid "Enter a Dashicons class name (e.g. dashicons-book, dashicons-category, dashicons-hammer)."
+msgstr ""
+
+#: includes/Search/Search_Service.php:44
+msgid "Enter at least two characters to search."
+msgstr ""
+
+#: includes/Analytics/View_Tracker.php:96
+msgid "Every 5 minutes"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:270
+msgid "Every article here is real, editable content. Nothing is locked."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:544
+msgid "Every code block on the frontend shows a Copy button on hover. Visitors can copy code to the clipboard in one click."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:358
+msgid "Every glossary term and its definition renders here, sorted alphabetically."
+msgstr ""
+
+#: includes/REST/Transfer_Controller.php:148
+msgid "Every imported article must have a title."
+msgstr ""
+
+#: includes/REST/Transfer_Controller.php:154
+msgid "Every section path must contain between one and three valid levels."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:508
+msgid "Everything below is available in the free version."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:230
+msgid "Example: product-name"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:149
+msgid "Explain your jargon"
+msgstr ""
+
+#: templates/kb.php:40
+msgid "Explore by section"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:127
+msgid "Export Documentation"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:28
+msgid "Export downloaded successfully."
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:36
+msgid "Export failed."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:761
+msgid "Extra CSS"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:643
+msgid "FAQ list. Put one Question | Answer pair per line between the opening and closing tags."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:272
+msgid "FAQ settings"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:314
+msgid "Fast visitor search"
+msgstr ""
+
+#: includes/REST/Feedback_Controller.php:100
+msgid "Feedback could not be saved."
+msgstr ""
+
+#: assets/frontend-src/feedback.ts:48
+msgid "Feedback could not be sent. Please try again."
+msgstr ""
+
+#: includes/REST/Feedback_Controller.php:79
+msgid "Feedback has already been submitted for this article."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:596
+msgid "Filter by section"
+msgstr ""
+
+#: templates/kb.php:26
+msgid "Find answers, setup guidance, and detailed product information."
+msgstr ""
+
+#: includes/Admin/Onboarding.php:296
+msgid "Finish setting up Nirdeshio in about two minutes — or skip and explore on your own."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:38
+msgid "First article added"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:134
+msgid "Five focused steps. Your first portal will be live in minutes."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:256
+msgid "Follow visitor system"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:118
+msgid "Format with confidence"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:301
+msgid "Formatting: callouts, tables and code"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:552
+msgid "Four callout styles—Info ℹ️, Warning ⚠️, Danger 🚫, and Tip 💡—available from the toolbar. Each has a distinct color and icon."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:314
+msgid "Free"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:346
+msgid "Frequently asked questions"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:922
+msgid "Generate sample content"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:245
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:83
+#: assets/admin-src/components/onboarding/SectionStep.tsx:26
+#: assets/admin-src/components/onboarding/SectionStep.tsx:47
+msgid "Getting Started"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:101
+#: assets/admin-src/app/App.tsx:263
+#: assets/admin-src/components/Glossary.tsx:140
+msgid "Glossary"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:341
+msgid "Glossary settings"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:78
+msgid "Glossary term added."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:107
+msgid "Glossary term deleted."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:77
+msgid "Glossary term updated."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/CompleteStep.tsx:37
+msgid "Go to dashboard"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:429
+msgid "Guided walkthrough"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:686
+msgid "Header links"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:274
+#: assets/blocks-src/index.tsx:343
+msgid "Heading"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:278
+msgid "Help & Guide"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:232
+msgid "Help assistants answer from your docs."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:46
+msgid "Help center ready to share"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:73
+msgid "Help improve Nirdeshio by sharing anonymous setup analytics"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:291
+msgid "Here is the shortest possible path from a blank install to a published article."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:377
+msgid "How Nirdeshio is organized"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:724
+msgid "How do I add tags to an article?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:710
+msgid "How do I back up my documentation?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:735
+msgid "How do I create a version label?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:757
+msgid "How do I insert a callout box?"
+msgstr ""
+
+#: includes/REST/Article_Controller.php:508
+msgid "ISO 8601 date (YYYY-MM-DD) the article was last reviewed for accuracy."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:287
+msgid "Icon"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:214
+msgid "Icon presets"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:397
+msgid "Identity & Permalinks"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:117
+msgid "Import & Export Documentation"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:273
+msgid "Import / Export"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:153
+msgid "Import Documentation"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:193
+msgid "Import Markdown"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:55
+msgid "Import a sample article"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:71
+msgid "Import failed."
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:96
+msgid "Imported “%s” as a draft."
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:169
+#: assets/admin-src/components/ImportExport.tsx:209
+msgid "Importing…"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:760
+msgid "In the article content editor, use the four emoji buttons in the toolbar: ℹ️ for Info, ⚠️ for Warning, 🚫 for Danger, and 💡 for Tip. Each inserts a styled callout block with the correct color and icon."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:738
+msgid "In the article editor, find the Version dropdown next to the section selector. Click + New version, type the label such as v2.0, and it will be created and selected instantly."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:73
+msgid "Info"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:306
+msgid "Info — background detail that helps but is not critical."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:576
+msgid "Insert images from the Media Library, embed YouTube or Vimeo videos, add tables with custom headers, and create animated accordion blocks—all from toolbar buttons."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:283
+msgid "Install with WP-CLI"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:279
+msgid "Installing the plugin"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:15
+msgid "Instant search"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:580
+msgid "Integrates inside your active WordPress theme header & footer"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:195
+msgid "Internal Docs"
+msgstr ""
+
+#: includes/REST/Onboarding_Controller.php:95
+msgid "Invalid REST nonce."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:198
+msgid "Keep documentation useful over time."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:338
+msgid "Keeping documentation up to date"
+msgstr ""
+
+#: templates/kb.php:21
+#: assets/blocks-src/index.tsx:125
+#: assets/blocks-src/index.tsx:166
+#: assets/blocks-src/index.tsx:210
+#: assets/editor-panel-src/DoczurPanel.tsx:144
+msgid "Knowledge base"
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:169
+msgid "Knowledge base ID (KB response only)."
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:136
+msgid "Knowledge base ID to fetch aggregated views for."
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/render.php:39
+msgid "Knowledge base not found or not published."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:419
+msgid "LANDING INTRO"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:619
+msgid "LEFT NAVIGATION"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:697
+msgid "Label"
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:232
+msgid "Last reviewed"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:323
+msgid "Launch progress"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:558
+msgid "Layout & Template Style"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:58
+msgid "Learn the three simple building blocks."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:263
+msgid "Light"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:536
+msgid "Light Mode"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:631
+msgid "Linked list of articles."
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:155
+msgid "Loading Nirdeshio…"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:166
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:345
+msgid "Loading setup…"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:173
+#: assets/admin-src/components/SetupWizard.tsx:219
+msgid "Make it yours"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:295
+msgid "Manage documentation"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:167
+msgid "Manage the glossary"
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:175
+msgid "Map of article_id to total view count."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:117
+msgid "Mark all reviewed"
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:249
+msgid "Mark reviewed today"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:106
+msgid "Markdown import failed."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:254
+msgid "Marking articles reviewed failed."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:332
+msgid "Marking which release an article applies to."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:116
+msgid "Marking…"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:174
+msgid "Match the help center to your brand."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:528
+msgid "Matches visitor’s OS setting"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:595
+msgid "Minimalist, content-focused layout"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:315
+msgid "Mobile friendly"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:603
+msgid "Modern"
+msgstr ""
+
+#: templates/kb.php:58
+#: templates/partials/nav-nodes.php:18
+#: templates/partials/navigation.php:33
+msgid "More articles"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:220
+msgid "Most recent"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:219
+msgid "Most viewed"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:637
+msgid "Most viewed articles. Use order=\"recent\" for newest first."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:662
+msgid "Move"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:184
+msgid "Move article to drafts"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:631
+msgid "Move selected to"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:187
+#: assets/admin-src/components/Sections.tsx:252
+#: assets/admin-src/components/SetupWizard.tsx:391
+msgid "Name"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:35
+msgid "Name your first section"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:637
+msgid "Narrower, denser sidebar for large docs"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:20
+msgid "Narrower, denser sidebar for large docs."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:37
+#: assets/admin-src/components/Settings.tsx:852
+msgid "Navigation"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:76
+msgid "Navigation style"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:108
+msgid "Needs attention"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:146
+#: assets/admin-src/components/KbOverviewPanel.tsx:70
+msgid "Needs review"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:646
+msgid "Nested sections in the public sidebar"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:26
+msgid "Nested sections in the public sidebar."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:22
+#: assets/editor-panel-src/DoczurPanel.tsx:236
+msgid "Never reviewed"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:583
+msgid "New"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:46
+msgid "New Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:138
+msgid "New Documentation Project"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:53
+msgid "New Documentation Tag Name"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:100
+msgid "New Glossary Term"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:334
+msgid "New Section"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:134
+msgid "New Section Name"
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:176
+#: assets/editor-panel-src/DoczurPanel.tsx:182
+msgid "New version"
+msgstr ""
+
+#: templates/article.php:151
+msgid "Next"
+msgstr ""
+
+#: includes/Admin/Admin_Menu.php:40
+#: includes/Admin/Admin_Menu.php:41
+#: includes/Admin/Dashboard_Widget.php:47
+#: assets/admin-src/app/App.tsx:196
+#: assets/editor-panel-src/DoczurPanel.tsx:140
+msgid "Nirdeshio"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:188
+msgid "Nirdeshio Article List"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:570
+msgid "Nirdeshio Canvas"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:356
+msgid "Nirdeshio Glossary"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:246
+msgid "Nirdeshio Popular Articles"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:245
+msgid "Nirdeshio Recent Articles"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:144
+msgid "Nirdeshio Search"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:311
+msgid "Nirdeshio benefits"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:105
+msgid "Nirdeshio could not load the workspace."
+msgstr ""
+
+#: itsmanzur-docs.php:39
+msgid "Nirdeshio could not start because its Composer dependencies are missing. Run composer install in the plugin directory."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:282
+msgid "Nirdeshio installs like any other WordPress plugin. Once activated, the setup wizard creates your first documentation project."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:444
+msgid "Nirdeshio lessons"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:247
+msgid "Nirdeshio navigation"
+msgstr ""
+
+#: includes/Admin/Admin_Menu.php:63
+msgid "Nirdeshio requires JavaScript to run the documentation manager."
+msgstr ""
+
+#: includes/Core/Activator.php:34
+msgid "Nirdeshio requires PHP 8.0 or newer."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:285
+msgid "Nirdeshio requires WordPress 6.5 or newer and PHP 8.0 or newer."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:358
+msgid "Nirdeshio setup"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:284
+msgid "Nirdeshio turns your WordPress site into a clean, searchable help center. You organize answers, publish them, and share one easy link. No coding is required."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:385
+msgid "Nirdeshio will create your project and starter sections now."
+msgstr ""
+
+#: includes/Frontend/Renderers.php:58
+msgid "Nirdeshio: add at least one question to the FAQ."
+msgstr ""
+
+#: includes/Frontend/Renderers.php:250
+#: includes/Frontend/Shortcode.php:326
+msgid "Nirdeshio: knowledge base not found or not published."
+msgstr ""
+
+#: includes/Frontend/Shortcode.php:254
+msgid "Nirdeshio: no published documentation is available."
+msgstr ""
+
+#: includes/Frontend/Shortcode.php:319
+msgid "Nirdeshio: please set a valid kb_id for the nirdeshio_docs_list shortcode."
+msgstr ""
+
+#: includes/Frontend/Shortcode.php:198
+msgid "Nirdeshio: please set a valid kb_id for the nirdeshio_search shortcode."
+msgstr ""
+
+#: includes/Frontend/Renderers.php:240
+msgid "Nirdeshio: select a knowledge base first."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:742
+msgid "No articles in this section."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:746
+msgid "No articles match your search."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:83
+msgid "No articles yet"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:718
+msgid "No articles yet."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:313
+msgid "No coding required"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:52
+msgid "No documentation articles found in Trash."
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:51
+msgid "No documentation articles found."
+msgstr ""
+
+#: includes/Admin/Dashboard_Widget.php:63
+msgid "No documentation project yet. Open Nirdeshio to create one."
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:144
+msgid "No documentation projects found in Trash."
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:143
+msgid "No documentation projects found."
+msgstr ""
+
+#: includes/Frontend/Renderers.php:185
+msgid "No glossary terms have been added yet."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:221
+msgid "No glossary terms yet. Add your first one above."
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/render.php:48
+msgid "No published articles found in this knowledge base."
+msgstr ""
+
+#: includes/Frontend/Renderers.php:256
+#: includes/Frontend/Shortcode.php:260
+#: includes/Frontend/Shortcode.php:334
+msgid "No published articles found."
+msgstr ""
+
+#: templates/section.php:58
+msgid "No published articles in this section yet."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:293
+msgid "No questions yet. Add your first one below."
+msgstr ""
+
+#: assets/frontend-src/search.ts:54
+msgid "No results for \"%s\". Try different keywords."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:327
+msgid "No sections yet. Add Getting Started or FAQ to start grouping articles."
+msgstr ""
+
+#: assets/editor-panel-src/hooks.ts:126
+msgid "No version"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:674
+msgid "No. Creating and organizing documentation happens inside the Nirdeshio screens in WordPress."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:350
+msgid "No. Scripts and styles load only on documentation pages, and view counts are written in batches rather than on every page load."
+msgstr ""
+
+#: assets/admin-src/staleness.ts:48
+msgid "Not reviewed — edited %d day ago"
+msgid_plural "Not reviewed — edited %d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/article.php:165
+msgid "Not yet"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:173
+#: assets/blocks-src/index.tsx:226
+msgid "Number of articles"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:802
+msgid "Off by default. Adds a small attribution line to the bottom of your public documentation pages."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:786
+msgid "Off by default. Removes your documentation projects, articles, and settings only when you actually delete the plugin — not on deactivation."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:126
+msgid "On the Documentation screen, click \"Edit content in Gutenberg\" for any article."
+msgstr ""
+
+#: templates/article.php:195
+#: templates/article.php:196
+msgid "On this page"
+msgstr ""
+
+#: includes/REST/Article_Controller.php:426
+msgid "One or more documentation tags are invalid."
+msgstr ""
+
+#: includes/REST/Article_Controller.php:290
+msgid "One or more reorder items are invalid."
+msgstr ""
+
+#: includes/REST/Article_Controller.php:418
+msgid "One or more sections are invalid or exceed three levels."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:407
+msgid "One useful answer, such as “How to install the app”."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:362
+msgid "Only published articles are indexed. Open a draft, publish it, and try again."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:254
+msgid "Only published articles in published projects are ever included."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:157
+msgid "Open Glossary and add a term with its definition."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:225
+msgid "Open Import / Export"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:716
+msgid "Open Import / Export and download a JSON backup. The file includes articles, tags, and the full section hierarchy."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:293
+msgid "Open Nirdeshio in the admin sidebar."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:184
+msgid "Open Settings and confirm the project name and URL."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:342
+msgid "Open any article in the editor and use \"Mark reviewed today\" once you have checked it is still accurate. Articles that go 90 days without a review get a \"Needs review\" badge in the article list, so nothing quietly rots."
+msgstr ""
+
+#: includes/Admin/Dashboard_Widget.php:119
+msgid "Open documentation"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:75
+msgid "Open documentation builder"
+msgstr ""
+
+#: templates/article.php:66
+#: templates/partials/shell-start.php:106
+msgid "Open documentation navigation"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:297
+msgid "Open setup"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:216
+msgid "Open setup wizard"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:103
+msgid "Open the \"Nirdeshio\" panel in the sidebar to set the section, tags and version."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:727
+msgid "Open the article editor and scroll below the Status and Section fields. You will see a tag selector showing all available tags. Click any pill to toggle it. Tags are saved with the article automatically."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:143
+msgid "Open the documentation tree"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/CompleteStep.tsx:31
+msgid "Open the public documentation page"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:274
+msgid "Open this article on a phone to see the slide-out navigation."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:689
+msgid "Optional shortcuts in the documentation header — Changelog, GitHub, Support, and similar."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:77
+msgid "Optional. Logs only a step number and timestamp on this site. Nothing is sent to an external server, and no personal data, IP address, email, or content is captured."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:216
+msgid "Order by"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:323
+msgid "Organising sections, tags and versions"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:280
+msgid "Outputs FAQPage schema so questions can appear directly in search results."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:562
+msgid "PAGE SHELL LAYOUT"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:477
+msgid "PRIMARY BRAND COLOR"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:401
+msgid "PROJECT NAME"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:343
+msgid "Pair the review date with the \"Was this helpful?\" results to decide what to rewrite first."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:192
+#: assets/admin-src/components/Sections.tsx:265
+msgid "Parent"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:129
+msgid "Parent Section"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:130
+msgid "Parent Section:"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:606
+msgid "Paste these into any page, post, widget, or page builder. Replace the ID with your documentation project ID if it is different."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:43
+msgid "Paste this shortcode into a page, post, or widget. Only published articles appear — drafts stay private."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:315
+msgid "Personal"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:191
+msgid "Physical Product"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:65
+msgid "Pick a navigation style"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:131
+msgid "Placeholder"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:312
+msgid "Plan"
+msgstr ""
+
+#: includes/Core/Activator.php:35
+msgid "Plugin activation failed"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:48
+msgid "Popular Documentation Tags"
+msgstr ""
+
+#: assets/frontend-src/search.ts:185
+msgid "Popular articles"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:166
+msgid "Preview Article"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:167
+msgid "Preview article"
+msgstr ""
+
+#: templates/article.php:145
+msgid "Previous"
+msgstr ""
+
+#: templates/article.php:142
+msgid "Previous and next articles"
+msgstr ""
+
+#: templates/article.php:122
+msgid "Print"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:675
+msgid "Print button"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:316
+msgid "Priority email"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:390
+msgid "Project"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:68
+msgid "Project: the complete documentation website."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:312
+msgid "Projects"
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:77
+msgid "Provide either article_id or kb_id."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:23
+msgid "Public docs portal"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:671
+msgid "Publish"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:180
+msgid "Publish Article"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:185
+msgid "Publish article"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:434
+msgid "Publish documentation"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:138
+#: assets/admin-src/components/KbOverviewPanel.tsx:68
+msgid "Published"
+msgstr ""
+
+#: templates/kb.php:103
+msgid "Published articles will appear here."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:616
+msgid "Published documentation list for the first public project. Add kb_id to target a specific project."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:74
+msgid "Publishes a Documentation page you can edit or unpublish later."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:907
+msgid "Publishes eight ready-made articles across three sections so you can see a finished documentation site immediately. Every formatting feature is demonstrated, and you can delete it all in one click."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:40
+msgid "Put docs on any page"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:300
+msgid "Question"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:665
+msgid "Questions new users often ask"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:663
+msgid "Quick answers"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:19
+#: assets/admin-src/components/Settings.tsx:636
+msgid "Rail"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:208
+msgid "Ranking settings"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:838
+msgid "Re-run setup wizard"
+msgstr ""
+
+#: templates/article.php:185
+#: templates/section.php:51
+msgid "Read article"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:250
+msgid "Readers can use \"Copy as Markdown\" on any article to paste it into a chat."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:151
+msgid "Readers hover, and the definition appears"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:559
+msgid "Reading Progress Bar"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:38
+msgid "Ready in two minutes"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:383
+msgid "Ready to publish"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:505
+msgid "Recently added features"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:155
+msgid "Recently edited"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:921
+msgid "Regenerate sample content"
+msgstr ""
+
+#: templates/article.php:180
+#: assets/admin-src/components/Settings.tsx:670
+msgid "Related articles"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:470
+#: assets/admin-src/components/Settings.tsx:734
+#: assets/admin-src/components/SetupWizard.tsx:325
+msgid "Remove"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:317
+msgid "Remove question"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:931
+msgid "Remove sample content"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:307
+msgid "Removed %d sample articles."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:363
+msgid "Removing sample content deletes those articles permanently. Any edits you made to them go too, so copy anything worth keeping first."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:284
+msgid "Rename, remove, or add sections before publishing."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:102
+msgid "Reorder article"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:487
+msgid "Reordering failed."
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:156
+msgid "Restore or merge articles into this project. Imported articles are created as drafts for safety."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:23
+msgid "Review overdue"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:259
+msgid "Review your articles"
+msgstr ""
+
+#: assets/admin-src/staleness.ts:56
+msgid "Reviewed %d day ago"
+msgid_plural "Reviewed %d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#. %s: date the article was last reviewed for accuracy.
+#: templates/article.php:104
+msgid "Reviewed %s"
+msgstr ""
+
+#: assets/admin-src/staleness.ts:52
+msgid "Reviewed today"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:575
+msgid "Rich Content Toolbar"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:822
+msgid "Run the first-run wizard again. Your existing sections and articles are not deleted."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:898
+msgid "Sample Content"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:279
+msgid "Sample content could not be created."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:317
+msgid "Sample content could not be removed."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:307
+msgid "Save"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:387
+#: assets/admin-src/components/Settings.tsx:945
+msgid "Save Settings"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:107
+msgid "Save as Draft while writing, then choose Publish when it is ready."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:138
+msgid "Save or publish, then return to Nirdeshio — the preview updates automatically."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:189
+msgid "Save, then preview the visitor-facing page."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:762
+msgid "Scoped yourself under .itsdz-docs. Executable CSS is stripped on save."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:275
+msgid "Scroll down and answer \"Was this article helpful?\" to see feedback collection."
+msgstr ""
+
+#: includes/Frontend/Blocks/search/render.php:31
+#: includes/Frontend/Shortcode.php:192
+msgid "Search"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:50
+msgid "Search Documentation Articles"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:142
+msgid "Search Documentation Projects"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:47
+msgid "Search Documentation Tags"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:95
+msgid "Search Glossary Terms"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:567
+msgid "Search Highlight"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:127
+msgid "Search Sections"
+msgstr ""
+
+#: templates/partials/shell-end.php:34
+msgid "Search articles…"
+msgstr ""
+
+#: templates/article.php:68
+#: templates/partials/shell-end.php:33
+#: templates/partials/shell-start.php:108
+#: templates/partials/shell-start.php:110
+msgid "Search documentation"
+msgstr ""
+
+#: includes/Frontend/Blocks/search/render.php:27
+#: includes/Frontend/Shortcode.php:188
+msgid "Search documentation…"
+msgstr ""
+
+#: templates/kb.php:30
+msgid "Search for an answer…"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:625
+msgid "Search form for this documentation project."
+msgstr ""
+
+#: assets/frontend-src/search.ts:112
+msgid "Search is temporarily unavailable."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:361
+msgid "Search returns nothing"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:123
+msgid "Search settings"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:588
+msgid "Search tree…"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:47
+msgid "Search, sections, and a public portal — skip any time. Nothing is forced, and existing content is never deleted."
+msgstr ""
+
+#: assets/frontend-src/search.ts:87
+msgid "Searching…"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:330
+#: assets/admin-src/components/HelpGuide.tsx:398
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:36
+#: assets/admin-src/components/Settings.tsx:851
+#: assets/editor-panel-src/DoczurPanel.tsx:153
+msgid "Section"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:298
+msgid "Section %d"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:90
+msgid "Section Icon"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:73
+msgid "Section Icon (Dashicon class)"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:81
+msgid "Section could not be created."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:147
+msgid "Section could not be deleted."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:113
+msgid "Section could not be saved."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:73
+msgid "Section created."
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:139
+msgid "Section deleted."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:44
+msgid "Section name"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:105
+msgid "Section saved."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:69
+msgid "Section: a group such as Installation or FAQ."
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:135
+#: assets/admin-src/app/App.tsx:258
+#: assets/admin-src/components/onboarding/SectionStep.tsx:75
+#: assets/admin-src/components/Sections.tsx:166
+#: assets/admin-src/components/SetupWizard.tsx:397
+msgid "Sections"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:38
+msgid "Sections keep articles grouped in the public sidebar. You can add more later."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:536
+msgid "See how many times each article has been read. View counts appear next to articles in the tree panel and inside the editor toolbar."
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/render.php:28
+msgid "Select a knowledge base in the Nirdeshio Article List block settings."
+msgstr ""
+
+#: includes/Frontend/Blocks/search/render.php:103
+msgid "Select a knowledge base in the Nirdeshio Search block settings."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:84
+#: assets/blocks-src/index.tsx:96
+#: assets/editor-panel-src/hooks.ts:32
+msgid "Select a knowledge base…"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:434
+msgid "Select a step to see clear instructions and the right next action."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:97
+msgid "Select article for bulk action"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:550
+msgid "Selected articles deleted."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:246
+msgid "Selected articles marked reviewed."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:385
+msgid "Selected articles moved."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:429
+msgid "Selected articles published."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:430
+msgid "Selected articles set to draft."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:203
+msgid "Send customers to your documentation home page. Mark articles as reviewed when you check them, so anything drifting out of date is easy to spot, and download a JSON backup before large edits."
+msgstr ""
+
+#: assets/frontend-src/feedback.ts:23
+msgid "Sending feedback…"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:54
+msgid "Separate documentation tags with commas"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:360
+msgid "Set up Nirdeshio"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:65
+msgid "Set up in 2 minutes"
+msgstr ""
+
+#: assets/admin-src/app/App.tsx:268
+msgid "Settings"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:365
+msgid "Settings could not be saved."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:884
+msgid "Setup analytics stay off unless you opt in during the wizard. Nothing is sent off-site."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/CompleteStep.tsx:20
+msgid "Setup complete"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:125
+msgid "Setup could not continue."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:144
+msgid "Setup progress"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:363
+msgid "Setup steps"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:819
+msgid "Setup wizard"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:278
+msgid "Shape the starter structure"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:197
+msgid "Share and maintain"
+msgstr ""
+
+#: templates/article.php:171
+msgid "Share article"
+msgstr ""
+
+#: templates/article.php:172
+msgid "Share article:"
+msgstr ""
+
+#: templates/article.php:174
+msgid "Share on LinkedIn"
+msgstr ""
+
+#: templates/article.php:173
+msgid "Share on Twitter or X"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:199
+msgid "Share one link and improve answers as you learn"
+msgstr ""
+
+#: templates/article.php:175
+msgid "Share via Email"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:38
+#: assets/admin-src/components/Settings.tsx:853
+msgid "Shortcode"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:603
+msgid "Shortcodes"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:798
+msgid "Show \"Powered by Nirdeshio\" credit"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:348
+msgid "Show alternative spellings"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:180
+msgid "Show section name"
+msgstr ""
+
+#: assets/blocks-src/index.tsx:234
+msgid "Show view counts"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:420
+msgid "Shown under the title on the documentation homepage. Leave empty to use the default sentence."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:124
+#: assets/admin-src/components/onboarding/SectionStep.tsx:103
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:94
+msgid "Skip remaining steps"
+msgstr ""
+
+#: templates/partials/shell-start.php:64
+msgid "Skip to documentation"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/WelcomeStep.tsx:68
+msgid "Skip, I'll explore myself"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:849
+msgid "Skipped"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:179
+msgid "Software / SaaS"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:341
+msgid "Stale documentation costs more support time than missing documentation. Nirdeshio tracks a review date for every article."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:571
+msgid "Standalone full-screen portal, zero theme conflicts"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:197
+msgid "Start Blank"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:86
+msgid "Start with the question customers ask most"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:303
+msgid "Status update failed."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:151
+msgid "Step %d"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:32
+msgid "Step 2 of 5"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:62
+msgid "Step 3 of 5"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:37
+msgid "Step 4 of 5"
+msgstr ""
+
+#: assets/frontend-src/search.ts:205
+msgid "Still stuck? Open an article and use “Was this helpful?” so we know what to improve."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:312
+msgid "Support"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:296
+msgid "Switch the status to Published, then hit Preview."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:179
+msgid "Switch to Draft"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:527
+msgid "System Auto"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:586
+msgid "TEMPLATE STYLE"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:163
+msgid "TERM"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:660
+msgid "Table of contents"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:310
+msgid "Tables"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:331
+msgid "Tag"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:528
+msgid "Tag articles with a version label such as v1.0. Create new versions instantly using the + New version button in the editor."
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:57
+#: assets/editor-panel-src/DoczurPanel.tsx:220
+msgid "Tags"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:395
+msgid "Template"
+msgstr ""
+
+#: assets/frontend-src/feedback.ts:41
+msgid "Thank you for your feedback."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:349
+msgid "The answers below use collapsible blocks — handy whenever a page has many short answers."
+msgstr ""
+
+#: includes/REST/Article_Controller.php:257
+msgid "The article could not be deleted."
+msgstr ""
+
+#: includes/REST/Feedback_Controller.php:73
+msgid "The article is not publicly available."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:115
+msgid "The documentation project could not be created."
+msgstr ""
+
+#: includes/REST/KB_Controller.php:304
+msgid "The documentation project could not be deleted."
+msgstr ""
+
+#: includes/Utils/Content_Validator.php:31
+msgid "The documentation project does not exist."
+msgstr ""
+
+#: includes/Utils/Content_Validator.php:39
+msgid "The documentation project is not publicly available."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:304
+msgid "The editor toolbar inserts every element below. You never need to write HTML by hand."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:120
+msgid "The glossary term could not be deleted."
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:88
+msgid "The glossary term could not be saved."
+msgstr ""
+
+#: includes/REST/Transfer_Controller.php:141
+msgid "The import must contain no more than 500 articles."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:191
+msgid "The newest articles render here."
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:215
+msgid "The overview could not be loaded."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:250
+msgid "The ranked article list renders here."
+msgstr ""
+
+#: includes/REST/Article_Controller.php:279
+msgid "The reorder payload is invalid."
+msgstr ""
+
+#: includes/REST/REST_Controller.php:76
+msgid "The requested documentation item was not found."
+msgstr ""
+
+#: includes/REST/Article_Controller.php:433
+msgid "The selected version is invalid."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:109
+msgid "The setup wizard could not load."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:375
+msgid "The simple idea"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:330
+msgid "The single place an article lives in the sidebar."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:59
+msgid "Think of Nirdeshio as an organized help center"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:68
+msgid "This is how readers move through your docs. You can change it later in Settings."
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:51
+msgid "This is not a valid Nirdeshio export file."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:269
+msgid "This is sample content created by Nirdeshio so you can see a finished documentation site straight away. Explore it, edit anything you like, and remove it in one click from the Nirdeshio settings screen when you are ready to publish your own articles."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:289
+msgid "This permanently deletes the sample articles, including any edits you made to them. Continue?"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:903
+msgid "This project contains generated sample articles. Remove them once you have finished exploring — your own articles are never touched."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:233
+#: assets/admin-src/components/Settings.tsx:252
+msgid "This setting could not be saved."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:380
+msgid "Three building blocks are all you need to remember."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:326
+msgid "Three different tools decide where an article shows up. Use the right one and your navigation stays clean as the documentation grows."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:74
+msgid "Tip"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:307
+msgid "Tip — a shortcut or best practice."
+msgstr ""
+
+#: templates/article.php:71
+#: templates/partials/shell-start.php:114
+msgid "Toggle color mode"
+msgstr ""
+
+#: includes/Security/Rate_Limiter.php:40
+msgid "Too many requests. Please try again shortly."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:328
+msgid "Tool"
+msgstr ""
+
+#: assets/admin-src/components/Sections.tsx:44
+msgid "Top level"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:67
+msgid "Total"
+msgstr ""
+
+#: includes/REST/Analytics_Controller.php:163
+msgid "Total recorded views for the article."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/NavStyleStep.tsx:25
+#: assets/admin-src/components/Settings.tsx:645
+msgid "Tree"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:247
+msgid "Troubleshooting"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:355
+msgid "Troubleshooting checklist"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:196
+msgid "Turn one .md file into a draft article. The first heading becomes the title. Nested docs importers stay in Pro."
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:393
+#: assets/blocks-src/index.tsx:380
+msgid "Type"
+msgstr ""
+
+#: templates/partials/shell-end.php:37
+#: assets/frontend-src/search.ts:77
+msgid "Type at least two characters to search."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:710
+msgid "URL"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:408
+msgid "URL SLUG BASE"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:227
+msgid "URL slug"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:57
+msgid "Understand the basics"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:315
+#: includes/Utils/Sample_Data.php:316
+msgid "Unlimited"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:130
+#: assets/admin-src/components/DocsManager.tsx:638
+#: assets/editor-panel-src/hooks.ts:112
+msgid "Unsectioned"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:110
+#: assets/admin-src/components/DocsManager.tsx:269
+#: assets/admin-src/components/KbOverviewPanel.tsx:125
+#: assets/admin-src/components/KbOverviewPanel.tsx:160
+msgid "Untitled article"
+msgstr ""
+
+#: assets/frontend-src/toc.ts:32
+msgid "Untitled section"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:51
+msgid "Update Documentation Tag"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:98
+msgid "Update Glossary Term"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:132
+msgid "Update Section"
+msgstr ""
+
+#: assets/admin-src/components/Glossary.tsx:196
+msgid "Update term"
+msgstr ""
+
+#. %s: article modified date.
+#: templates/article.php:93
+msgid "Updated %s"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:460
+msgid "Upload logo"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:212
+msgid "Use \"Mark reviewed today\" after checking an article is still accurate."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:99
+msgid "Use a title that matches the customer question."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:134
+msgid "Use core WordPress blocks for images, tables and collapsible lists."
+msgstr ""
+
+#: assets/frontend-src/navigation.ts:83
+msgid "Use dark mode"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:328
+msgid "Use it for"
+msgstr ""
+
+#: assets/frontend-src/navigation.ts:82
+msgid "Use light mode"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:204
+msgid "Use logo"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:162
+msgid "Use the Nirdeshio Glossary block to publish the full list on its own page."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:273
+msgid "Use the search box at the top — it is instant, and powered by a dedicated index."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/SectionStep.tsx:56
+msgid "Uses the same Markdown import as Import / Export, then publishes it so the dashboard is not empty."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:332
+#: assets/editor-panel-src/DoczurPanel.tsx:163
+msgid "Version"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:527
+msgid "Version Selector"
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:187
+msgid "Version name"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:604
+msgid "Vibrant hero header & rich cards"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:535
+msgid "View Analytics"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:48
+msgid "View Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:140
+msgid "View Documentation Project"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/render.php:82
+#: includes/Frontend/Shortcode.php:367
+msgid "View all articles →"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:317
+msgid "View analytics built-in"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:749
+msgid "View counts are shown in two places: as a small badge next to the article title in the tree panel, and as an eye icon counter inside the editor toolbar when you open an article."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:305
+msgid "View live documentation"
+msgstr ""
+
+#: templates/partials/nav-nodes.php:30
+#: templates/partials/navigation.php:41
+msgid "View section"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/ShortcodeStep.tsx:84
+msgid "View the documentation page"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:242
+msgid "Visit /llms.txt on your site to see the generated index."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:360
+msgid "Visit Settings → Permalinks and save once. That rebuilds the URL rules WordPress uses for documentation pages."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:75
+msgid "Warning"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:308
+msgid "Warning — something that often trips people up."
+msgstr ""
+
+#: templates/article.php:160
+msgid "Was this article helpful?"
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:665
+msgid "Was this helpful? feedback"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:170
+msgid "We will prepare a useful starter structure for your product."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:35
+#: assets/admin-src/components/Settings.tsx:850
+msgid "Welcome"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:275
+msgid "Welcome to Nirdeshio"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/OnboardingWizard.tsx:249
+#: assets/admin-src/components/onboarding/SectionStep.tsx:79
+msgid "Welcome to your docs"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:266
+msgid "Welcome to your documentation"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:167
+msgid "What are you documenting?"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:696
+msgid "What is the difference between Draft and Published?"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:271
+msgid "What to try first"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:503
+msgid "What's new"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:568
+msgid "When a visitor arrives from the search modal, matching keywords are highlighted inside the article content automatically."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:746
+msgid "Where can I see article view counts?"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:350
+msgid "Will Nirdeshio slow down my site?"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:183
+msgid "WordPress Plugin"
+msgstr ""
+
+#: assets/admin-src/components/SetupWizard.tsx:187
+msgid "WordPress Theme"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:358
+msgid "Work through these in order — they resolve the large majority of reports."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:112
+msgid "Write an article"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:81
+msgid "Write and publish"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:119
+msgid "Write visually — you never see a tag."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:295
+msgid "Write your content — the editor saves automatically as you type."
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:730
+msgid "Write your first article"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:203
+msgid "Write your first article to see stats here."
+msgstr ""
+
+#: assets/blocks-src/index.tsx:402
+msgid "Write your note here…"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:246
+msgid "Writing Docs"
+msgstr ""
+
+#: templates/article.php:164
+msgid "Yes"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:351
+msgid "Yes. Every style is scoped so it cannot leak into your theme, and you can choose between a full-page canvas layout or one that keeps your header and footer."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:688
+msgid "Yes. Published articles appear in the fast search on your visitor-facing documentation page."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:771
+msgid "Yes. When a visitor reads an article, a thin gradient bar at the very top of the browser window fills as they scroll through the content."
+msgstr ""
+
+#: includes/Admin/Admin_Menu.php:57
+msgid "You are not allowed to access Nirdeshio."
+msgstr ""
+
+#: includes/REST/Onboarding_Controller.php:103
+#: includes/REST/REST_Controller.php:47
+msgid "You are not allowed to manage documentation."
+msgstr ""
+
+#: assets/admin-src/components/onboarding/CompleteStep.tsx:17
+msgid "You are ready"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:352
+msgid "You can import and export your whole project as JSON from the Import / Export screen."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:391
+msgid "Your complete help center—for example, “Acme App Help”."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:233
+msgid "Your documentation already speaks to AI assistants"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:63
+msgid "Your documentation project is the whole help center. Sections work like folders, and articles are the helpful answers inside those folders."
+msgstr ""
+
+#: templates/article.php:161
+msgid "Your feedback helps improve this documentation."
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:288
+msgid "Your first article in five minutes"
+msgstr ""
+
+#: assets/admin-src/components/onboarding/CompleteStep.tsx:23
+msgid "Your first section is live in the dashboard. Keep writing — or open the public page if you created one."
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:348
+msgid "Your help center is ready to share!"
+msgstr ""
+
+#: assets/admin-src/components/HelpGuide.tsx:328
+msgid "Your launch progress"
+msgstr ""
+
+#: assets/admin-src/components/DocsManager.tsx:574
+msgid "articles"
+msgstr ""
+
+#: assets/admin-src/components/ImportExport.tsx:60
+msgid "articles imported as drafts."
+msgstr ""
+
+#: assets/admin-src/components/Settings.tsx:411
+msgid "docs"
+msgstr ""
+
+#: includes/Admin/Dashboard_Widget.php:107
+msgid "drafts"
+msgstr ""
+
+#: assets/editor-panel-src/DoczurPanel.tsx:188
+msgid "e.g. v1.0"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:348
+#: includes/Utils/Sample_Data.php:357
+msgid "faq"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:303
+#: includes/Utils/Sample_Data.php:325
+msgid "formatting"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:268
+#: includes/Utils/Sample_Data.php:290
+msgid "intro"
+msgstr ""
+
+#: assets/admin-src/components/KbOverviewPanel.tsx:40
+msgid "just now"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:340
+#: includes/Utils/Sample_Data.php:357
+msgid "maintenance"
+msgstr ""
+
+#: includes/Admin/Dashboard_Widget.php:111
+msgid "need review"
+msgstr ""
+
+#: includes/Utils/Sample_Data.php:281
+#: includes/Utils/Sample_Data.php:290
+msgid "setup"
+msgstr ""
+
+#: includes/Admin/Dashboard_Widget.php:115
+msgid "unsectioned"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:43
+msgctxt "add new from admin bar"
+msgid "Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:135
+msgctxt "add new from admin bar"
+msgid "Documentation Project"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:42
+msgctxt "admin menu"
+msgid "Articles"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:134
+msgctxt "admin menu"
+msgid "Nirdeshio"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block description"
+msgid "A coloured note, tip, warning or caution box for calling out important information inside an article."
+msgstr ""
+
+#: includes/Frontend/Blocks/faq/block.json:1
+msgctxt "block description"
+msgid "Add a list of frequently asked questions with collapsible answers. Outputs FAQPage structured data so the questions can appear in search results."
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+msgctxt "block description"
+msgid "Display a list of documentation articles from a knowledge base — useful for sidebars, landing pages, and related-content sections."
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block description"
+msgid "Display every glossary term with its definition, sorted alphabetically."
+msgstr ""
+
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block description"
+msgid "Embed a documentation search box anywhere on your site. Submits to the chosen knowledge base and auto-opens the search modal with the entered query."
+msgstr ""
+
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+msgctxt "block description"
+msgid "Show the most viewed or most recently published articles from a knowledge base."
+msgstr ""
+
+#: includes/Frontend/Blocks/faq/block.json:1
+msgctxt "block keyword"
+msgid "accordion"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block keyword"
+msgid "admonition"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+msgctxt "block keyword"
+msgid "articles"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block keyword"
+msgid "callout"
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block keyword"
+msgid "definitions"
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block keyword"
+msgid "dictionary"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block keyword"
+msgid "docs"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+#: includes/Frontend/Blocks/faq/block.json:1
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block keyword"
+msgid "documentation"
+msgstr ""
+
+#: includes/Frontend/Blocks/faq/block.json:1
+msgctxt "block keyword"
+msgid "faq"
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block keyword"
+msgid "glossary"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block keyword"
+msgid "knowledge base"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+msgctxt "block keyword"
+msgid "list"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block keyword"
+msgid "note"
+msgstr ""
+
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+msgctxt "block keyword"
+msgid "popular"
+msgstr ""
+
+#: includes/Frontend/Blocks/faq/block.json:1
+msgctxt "block keyword"
+msgid "questions"
+msgstr ""
+
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+msgctxt "block keyword"
+msgid "recent"
+msgstr ""
+
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block keyword"
+msgid "search"
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block keyword"
+msgid "terms"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block keyword"
+msgid "tip"
+msgstr ""
+
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+msgctxt "block keyword"
+msgid "trending"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block keyword"
+msgid "warning"
+msgstr ""
+
+#: includes/Frontend/Blocks/article-list/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio Article List"
+msgstr ""
+
+#: includes/Frontend/Blocks/callout/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio Callout"
+msgstr ""
+
+#: includes/Frontend/Blocks/faq/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio FAQ"
+msgstr ""
+
+#: includes/Frontend/Blocks/glossary/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio Glossary"
+msgstr ""
+
+#: includes/Frontend/Blocks/popular-docs/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio Popular Articles"
+msgstr ""
+
+#: includes/Frontend/Blocks/search/block.json:1
+msgctxt "block title"
+msgid "Nirdeshio Search"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:40
+msgctxt "post type general name"
+msgid "Documentation Articles"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:132
+msgctxt "post type general name"
+msgid "Documentation Projects"
+msgstr ""
+
+#: includes/PostTypes/Article_Post_Type.php:41
+msgctxt "post type singular name"
+msgid "Documentation Article"
+msgstr ""
+
+#: includes/PostTypes/KB_Post_Type.php:133
+msgctxt "post type singular name"
+msgid "Documentation Project"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:45
+msgctxt "taxonomy general name"
+msgid "Documentation Tags"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:93
+msgctxt "taxonomy general name"
+msgid "Glossary Terms"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:125
+msgctxt "taxonomy general name"
+msgid "Sections"
+msgstr ""
+
+#: includes/Taxonomies/Version_Taxonomy.php:45
+msgctxt "taxonomy general name"
+msgid "Versions"
+msgstr ""
+
+#: includes/Taxonomies/Tag_Taxonomy.php:46
+msgctxt "taxonomy singular name"
+msgid "Documentation Tag"
+msgstr ""
+
+#: includes/Taxonomies/Glossary_Taxonomy.php:94
+msgctxt "taxonomy singular name"
+msgid "Glossary Term"
+msgstr ""
+
+#: includes/Taxonomies/Section_Taxonomy.php:126
+msgctxt "taxonomy singular name"
+msgid "Section"
+msgstr ""
+
+#: includes/Taxonomies/Version_Taxonomy.php:46
+msgctxt "taxonomy singular name"
+msgid "Version"
+msgstr ""

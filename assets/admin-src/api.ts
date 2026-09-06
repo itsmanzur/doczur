@@ -89,7 +89,9 @@ export const api = {
 		apiFetch< Section >( {
 			path: '/wp/v2/itsdz_section',
 			method: 'POST',
-			data: { name, parent, ...extra },
+			data: parent
+				? { name, parent, ...extra }
+				: { name, ...extra },
 		} ),
 	updateSection: ( id: number, data: Record< string, unknown > ) =>
 		apiFetch< Section >( {
